@@ -1,12 +1,12 @@
 ﻿using Windows.ApplicationModel.Resources;
 using UwCore.Common;
 
-namespace SBoard.Strings
+namespace SBoard.Core.Strings
 {
-    public static class SBoardResources
+    public static class SBoardCoreResources
     {
-        private static readonly ResourceAccessor Accessor = new ResourceAccessor(ResourceLoader.GetForCurrentView("Resources"));
-        
+        private static readonly ResourceAccessor Accessor = new ResourceAccessor(ResourceLoader.GetForViewIndependentUse("SBoard.Core/Resources"));
+
         public static string Get(string resource)
         {
             return Accessor.Get(resource);
