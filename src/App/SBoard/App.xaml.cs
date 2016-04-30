@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Caliburn.Micro;
 using SBoard.ApplicationModes;
 using SBoard.Core.Common;
+using SBoard.Core.Services.Centron;
 using SBoard.Strings;
 using SBoard.Views.Login;
 using UwCore.Application;
@@ -31,6 +32,8 @@ namespace SBoard
             container
                 .PerRequest<LoggedOutApplicationMode>()
                 .PerRequest<LoggedInApplicationMode>();
+
+            container.Singleton<ICentronService, CentronService>();
         }
 
         public override string GetErrorTitle() => SBoardResources.Get("Errors.Title");
