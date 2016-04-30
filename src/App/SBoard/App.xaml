@@ -1,0 +1,12 @@
+﻿<application:UwCoreApp
+    x:Class="SBoard.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SBoard"
+    xmlns:application="using:UwCore.Application"
+    RequestedTheme="Light">
+
+</application:UwCoreApp>
+
+
+
