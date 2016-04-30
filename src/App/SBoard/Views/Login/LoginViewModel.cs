@@ -25,6 +25,8 @@ namespace SBoard.Views.Login
             this._applicationStateService.SetPassword(string.Empty);
 
             await this._centronService.LoginAsync();
+
+            var tickets = await this._centronService.GetHelpdesksAsync(0);
         }
     }
 }
