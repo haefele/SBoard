@@ -123,4 +123,22 @@
   <data name="Errors.Title" xml:space="preserve">
     <value>Fehler</value>
   </data>
+  <data name="Loading.Login" xml:space="preserve">
+    <value>Melde an...</value>
+  </data>
+  <data name="LoginButton.Content" xml:space="preserve">
+    <value>Anmelden</value>
+  </data>
+  <data name="PasswordPasswordBox.Header" xml:space="preserve">
+    <value>Passwort</value>
+  </data>
+  <data name="UsernameTextBox.Header" xml:space="preserve">
+    <value>Benutzername</value>
+  </data>
+  <data name="ViewModel.Login" xml:space="preserve">
+    <value>Anmeldung</value>
+  </data>
+  <data name="WebServiceAddressTextBox.Header" xml:space="preserve">
+    <value>Web-Service Adresse</value>
+  </data>
 </root>

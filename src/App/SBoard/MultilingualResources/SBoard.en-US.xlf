@@ -14,6 +14,30 @@
           <source>Fehler</source>
           <target state="translated">Error</target>
         </trans-unit>
+        <trans-unit id="LoginButton.Content" translate="yes" xml:space="preserve">
+          <source>Anmelden</source>
+          <target state="translated">Login</target>
+        </trans-unit>
+        <trans-unit id="PasswordPasswordBox.Header" translate="yes" xml:space="preserve">
+          <source>Passwort</source>
+          <target state="translated" state-qualifier="tm-suggestion">Password</target>
+        </trans-unit>
+        <trans-unit id="UsernameTextBox.Header" translate="yes" xml:space="preserve">
+          <source>Benutzername</source>
+          <target state="translated">Username</target>
+        </trans-unit>
+        <trans-unit id="WebServiceAddressTextBox.Header" translate="yes" xml:space="preserve">
+          <source>Web-Service Adresse</source>
+          <target state="translated">Webservice address</target>
+        </trans-unit>
+        <trans-unit id="Loading.Login" translate="yes" xml:space="preserve">
+          <source>Melde an...</source>
+          <target state="new">Melde an...</target>
+        </trans-unit>
+        <trans-unit id="ViewModel.Login" translate="yes" xml:space="preserve">
+          <source>Anmeldung</source>
+          <target state="new">Anmeldung</target>
+        </trans-unit>
       </group>
     </body>
   </file>

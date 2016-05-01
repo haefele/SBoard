@@ -18,4 +18,16 @@
   <data name="Errors.Title" xml:space="preserve">
     <value>Error</value>
   </data>
+  <data name="LoginButton.Content" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="PasswordPasswordBox.Header" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="UsernameTextBox.Header" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="WebServiceAddressTextBox.Header" xml:space="preserve">
+    <value>Webservice address</value>
+  </data>
 </root>

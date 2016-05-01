@@ -103,6 +103,7 @@
     </Compile>
     <Compile Include="ApplicationModes\LoggedInApplicationMode.cs" />
     <Compile Include="ApplicationModes\LoggedOutApplicationMode.cs" />
+    <Compile Include="Common\SymbolEx.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strings\SBoardResources.cs" />
     <Compile Include="Views\Login\LoginView.xaml.cs">

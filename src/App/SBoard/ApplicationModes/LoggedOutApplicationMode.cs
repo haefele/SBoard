@@ -1,4 +1,6 @@
 ﻿using Windows.UI.Xaml.Controls;
+using SBoard.Common;
+using SBoard.Strings;
 using SBoard.Views.Login;
 using UwCore.Application;
 using UwCore.Hamburger;
@@ -14,7 +16,8 @@ namespace SBoard.ApplicationModes
         public LoggedOutApplicationMode(INavigationService navigationService)
         {
             this._navigationService = navigationService;
-            this._loginItem = new NavigatingHamburgerItem("Login", Symbol.Accept, typeof(LoginViewModel));
+
+            this._loginItem = new NavigatingHamburgerItem(SBoardResources.Get("ViewModel.Login"), SymbolEx.Login, typeof(LoginViewModel));
         }
 
         public override void Enter()
