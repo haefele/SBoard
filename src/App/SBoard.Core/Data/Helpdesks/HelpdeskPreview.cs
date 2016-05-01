@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 
-namespace SBoard.Core.Services.Centron
+namespace SBoard.Core.Data.Helpdesks
 {
     public class HelpdeskPreview : IEquatable<HelpdeskPreview>
     {
@@ -55,7 +55,7 @@ namespace SBoard.Core.Services.Centron
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((HelpdeskPreview) obj);
+            return this.Equals((HelpdeskPreview) obj);
         }
 
         public override int GetHashCode()

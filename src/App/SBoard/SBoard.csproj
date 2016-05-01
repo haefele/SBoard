@@ -111,10 +111,11 @@
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Login\LoginViewModel.cs" />
-    <Compile Include="Views\TicketList\TicketListView.xaml.cs">
-      <DependentUpon>TicketListView.xaml</DependentUpon>
+    <Compile Include="Views\HelpdeskList\HelpdeskListKind.cs" />
+    <Compile Include="Views\HelpdeskList\HelpdeskListView.xaml.cs">
+      <DependentUpon>HelpdeskListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TicketList\TicketListViewModel.cs" />
+    <Compile Include="Views\HelpdeskList\HelpdeskListViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -143,7 +144,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\TicketList\TicketListView.xaml">
+    <Page Include="Views\HelpdeskList\HelpdeskListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

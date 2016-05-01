@@ -1,20 +1,24 @@
 using System;
-using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 
-namespace SBoard.Core.Services.Centron
+namespace SBoard.Core.Data.Helpdesks
 {
-    public class HelpdeskCategory : IEquatable<HelpdeskCategory>
+    public class HelpdeskTimer : IEquatable<HelpdeskTimer>
     {
         public int I3D { get; set; }
-        public string Name { get; set; }
-        public bool IsDeactivated { get; set; }
-        public IList<HelpdeskCategory> SubCategories { get; set; }
+
+        public bool IsCalculable { get; set; }
+        public string Description { get; set; }
+        public string InternalDescription { get; set; }
+        public bool IsPlanned { get; set; }
+        public TimeSpan LunchTime { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
 
         public JObject Original { get; set; }
 
         #region Equality
-        public bool Equals(HelpdeskCategory other)
+        public bool Equals(HelpdeskTimer other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -26,7 +30,7 @@ namespace SBoard.Core.Services.Centron
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return this.Equals((HelpdeskCategory) obj);
+            return this.Equals((HelpdeskTimer) obj);
         }
 
         public override int GetHashCode()
@@ -34,12 +38,12 @@ namespace SBoard.Core.Services.Centron
             return this.I3D;
         }
 
-        public static bool operator ==(HelpdeskCategory left, HelpdeskCategory right)
+        public static bool operator ==(HelpdeskTimer left, HelpdeskTimer right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(HelpdeskCategory left, HelpdeskCategory right)
+        public static bool operator !=(HelpdeskTimer left, HelpdeskTimer right)
         {
             return !Equals(left, right);
         }

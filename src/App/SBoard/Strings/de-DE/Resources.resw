@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddAppBarButton.Label" xml:space="preserve">
-    <value>Neu</value>
-  </data>
   <data name="Errors.Message" xml:space="preserve">
     <value>Ups, ein Fehler ist aufgetreten.</value>
   </data>
@@ -129,14 +126,23 @@
   <data name="Loading.Login" xml:space="preserve">
     <value>Melde an...</value>
   </data>
+  <data name="Loading.Tickets" xml:space="preserve">
+    <value>Lade Tickets...</value>
+  </data>
   <data name="LoginButton.Content" xml:space="preserve">
     <value>Anmelden</value>
   </data>
   <data name="Logout" xml:space="preserve">
     <value>Abmelden</value>
   </data>
+  <data name="OwnTickets" xml:space="preserve">
+    <value>Eigene Tickets</value>
+  </data>
   <data name="PasswordPasswordBox.Header" xml:space="preserve">
     <value>Passwort</value>
+  </data>
+  <data name="RefreshAppBarButton.Label" xml:space="preserve">
+    <value>Aktualisieren</value>
   </data>
   <data name="Tickets" xml:space="preserve">
     <value>Tickets</value>
@@ -144,11 +150,11 @@
   <data name="UsernameTextBox.Header" xml:space="preserve">
     <value>Benutzername</value>
   </data>
+  <data name="ViewModel.HelpdeskList" xml:space="preserve">
+    <value>Tickets</value>
+  </data>
   <data name="ViewModel.Login" xml:space="preserve">
     <value>Anmeldung</value>
-  </data>
-  <data name="ViewModel.TicketList" xml:space="preserve">
-    <value>Tickets</value>
   </data>
   <data name="WebServiceAddressTextBox.Header" xml:space="preserve">
     <value>Web-Service Adresse</value>

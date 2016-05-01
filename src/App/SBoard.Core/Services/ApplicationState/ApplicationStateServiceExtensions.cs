@@ -32,14 +32,5 @@ namespace SBoard.Core.Services.ApplicationState
         {
             self.Set("Password", password, AState.Vault);
         }
-
-        public static IList<TicketList> GetTicketLists(this IApplicationStateService self)
-        {
-            return self.Get<IList<TicketList>>("TicketLists", AState.Roaming) ?? new List<TicketList>();
-        }
-        public static void SetTicketLists(this IApplicationStateService self, IList<TicketList> ticketLists)
-        {
-            self.Set("TicketLists", ticketLists, AState.Roaming);
-        }
     }
 }

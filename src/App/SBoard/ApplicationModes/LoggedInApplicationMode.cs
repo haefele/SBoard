@@ -3,7 +3,7 @@ using SBoard.Common;
 using SBoard.Core.Services.ApplicationState;
 using SBoard.Extensions;
 using SBoard.Strings;
-using SBoard.Views.TicketList;
+using SBoard.Views.HelpdeskList;
 using UwCore.Application;
 using UwCore.Hamburger;
 using UwCore.Services.ApplicationState;
@@ -18,32 +18,29 @@ namespace SBoard.ApplicationModes
         private readonly INavigationService _navigationService;
 
         private readonly ClickableHamburgerItem _logoutItem;
+        private readonly NavigatingHamburgerItem _onlyOwnItem;
 
         public LoggedInApplicationMode(IApplicationStateService applicationStateService, INavigationService navigationService)
         {
             this._applicationStateService = applicationStateService;
             this._navigationService = navigationService;
-
+            
             this._logoutItem = new ClickableHamburgerItem(SBoardResources.Get("Logout"), SymbolEx.Logout, this.Logout);
+            this._onlyOwnItem = new NavigatingHamburgerItem(SBoardResources.Get("OwnTickets"), Symbol.List, typeof(HelpdeskListViewModel));
         }
 
         public override void Enter()
         {   
             this.Application.SecondaryActions.Add(this._logoutItem);
-            
-            var ticketLists = this._applicationStateService.GetTicketLists();
-            foreach (var ticketList in ticketLists)
-            {
-                this.Application.Actions.Add(new NavigatingHamburgerItem(ticketList.Name, Symbol.List, typeof(TicketListViewModel)));
-            }
+            this.Application.Actions.Add(this._onlyOwnItem);
 
-            this._navigationService.Navigate(typeof(TicketListViewModel));
+            this._navigationService.Navigate(typeof(HelpdeskListViewModel));
         }
 
         public override void Leave()
         {
             this.Application.SecondaryActions.Remove(this._logoutItem);
-            this.Application.Actions.RemoveWhere(f => f is NavigatingHamburgerItem && ((NavigatingHamburgerItem)f).ViewModelType == typeof(TicketListViewModel));
+            this.Application.Actions.Remove(this._onlyOwnItem);
         }
 
         private async void Logout()

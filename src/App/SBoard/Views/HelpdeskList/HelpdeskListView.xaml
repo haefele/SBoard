@@ -1,10 +1,10 @@
 ﻿<Page
-    x:Class="SBoard.Views.TicketList.TicketListView"
+    x:Class="SBoard.Views.HelpdeskList.HelpdeskListView"
     
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:SBoard.Views.TicketList"
-    
+    xmlns:helpdesks="using:SBoard.Core.Data.Helpdesks"
+
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -21,17 +21,20 @@
         
         <ListView Grid.Column="0"
                   Grid.Row="0"
-                  >
-            
+                  ItemsSource="{x:Bind ViewModel.Helpdesks, Mode=OneWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="helpdesks:HelpdeskPreview">
+                    <TextBlock Text="{x:Bind Number}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
         
         <CommandBar Grid.Column="0" 
                     Grid.Row="1">
-            <AppBarButton Icon="Add"
-                          Label="~Neu"
-                          x:Uid="AddAppBarButton"
-                          Click="{x:Bind ViewModel.Add}"
-                          />
+            <AppBarButton Icon="Refresh"
+                          Label="~Aktualisieren"
+                          x:Uid="RefreshAppBarButton"
+                          Click="{x:Bind ViewModel.Refresh}" />
         </CommandBar>
     </Grid>
 </Page>

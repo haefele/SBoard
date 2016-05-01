@@ -10,7 +10,8 @@ using Windows.System.Profile;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SBoard.Core.Common;
+using SBoard.Core.Data.Helpdesks;
+using SBoard.Core.Exceptions;
 using SBoard.Core.Services.ApplicationState;
 using UwCore.Common;
 using UwCore.Extensions;
@@ -59,17 +60,16 @@ namespace SBoard.Core.Services.Centron
         }
 
         [ItemNotNull]
-        public async Task<IList<HelpdeskPreview>> GetHelpdesksAsync(int customerI3D)
+        public async Task<IList<HelpdeskPreview>> GetHelpdesksAsync(int? customerI3D, bool? onlyOwn)
         {
-            Guard.NotZeroOrNegative(customerI3D, nameof(customerI3D));
-
             var request = new
             {
                 Page = 1,
                 EntriesPerPage = 1000,
                 HelpdeskFilter = new
                 {
-                    CustomerI3D = customerI3D
+                    CustomerI3D = customerI3D,
+                    OnlyOwn = onlyOwn
                 }
             };
 

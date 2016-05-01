@@ -1,7 +1,6 @@
-﻿using System;
-using SBoard.Core.Strings;
+﻿using SBoard.Core.Strings;
 
-namespace SBoard.Core.Common
+namespace SBoard.Core.Exceptions
 {
     public class InvalidTicketException : SBoardException
     {

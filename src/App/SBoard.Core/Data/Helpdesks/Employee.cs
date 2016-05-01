@@ -1,18 +1,21 @@
 using System;
 using Newtonsoft.Json.Linq;
 
-namespace SBoard.Core.Services.Centron
+namespace SBoard.Core.Data.Helpdesks
 {
-    public class HelpdeskState : IEquatable<HelpdeskState>
+    public class Employee : IEquatable<Employee>
     {
         public int I3D { get; set; }
-        public string Name { get; set; }
-        public bool IsDeactivated { get; set; }
 
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string ShortSign { get; set; }
+        public string EmailAddress { get; set; }
+        
         public JObject Original { get; set; }
 
         #region Equality
-        public bool Equals(HelpdeskState other)
+        public bool Equals(Employee other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -24,7 +27,7 @@ namespace SBoard.Core.Services.Centron
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return this.Equals((HelpdeskState) obj);
+            return this.Equals((Employee) obj);
         }
 
         public override int GetHashCode()
@@ -32,12 +35,12 @@ namespace SBoard.Core.Services.Centron
             return this.I3D;
         }
 
-        public static bool operator ==(HelpdeskState left, HelpdeskState right)
+        public static bool operator ==(Employee left, Employee right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(HelpdeskState left, HelpdeskState right)
+        public static bool operator !=(Employee left, Employee right)
         {
             return !Equals(left, right);
         }

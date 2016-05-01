@@ -1,7 +1,7 @@
 using System;
 using Newtonsoft.Json.Linq;
 
-namespace SBoard.Core.Services.Centron
+namespace SBoard.Core.Data.Helpdesks
 {
     public class HelpdeskPriority : IEquatable<HelpdeskPriority>
     {

@@ -39,4 +39,19 @@
   <data name="Logout" xml:space="preserve">
     <value>Logout</value>
   </data>
+  <data name="Tickets" xml:space="preserve">
+    <value>Tickets</value>
+  </data>
+  <data name="Loading.Tickets" xml:space="preserve">
+    <value>Loading tickets...</value>
+  </data>
+  <data name="OwnTickets" xml:space="preserve">
+    <value>Own tickets</value>
+  </data>
+  <data name="ViewModel.HelpdeskList" xml:space="preserve">
+    <value>Tickets</value>
+  </data>
+  <data name="RefreshAppBarButton.Label" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
 </root>

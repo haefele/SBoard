@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SBoard.Core.Common
+namespace SBoard.Core.Exceptions
 {
     public class SBoardException : Exception
     {

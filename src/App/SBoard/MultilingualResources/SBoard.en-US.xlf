@@ -44,15 +44,23 @@
         </trans-unit>
         <trans-unit id="Tickets" translate="yes" xml:space="preserve">
           <source>Tickets</source>
-          <target state="new">Tickets</target>
+          <target state="translated">Tickets</target>
         </trans-unit>
-        <trans-unit id="ViewModel.TicketList" translate="yes" xml:space="preserve">
+        <trans-unit id="Loading.Tickets" translate="yes" xml:space="preserve">
+          <source>Lade Tickets...</source>
+          <target state="translated">Loading tickets...</target>
+        </trans-unit>
+        <trans-unit id="OwnTickets" translate="yes" xml:space="preserve">
+          <source>Eigene Tickets</source>
+          <target state="translated">Own tickets</target>
+        </trans-unit>
+        <trans-unit id="ViewModel.HelpdeskList" translate="yes" xml:space="preserve">
           <source>Tickets</source>
-          <target state="new">Tickets</target>
+          <target state="translated">Tickets</target>
         </trans-unit>
-        <trans-unit id="AddAppBarButton.Label" translate="yes" xml:space="preserve">
-          <source>Neu</source>
-          <target state="new">Neu</target>
+        <trans-unit id="RefreshAppBarButton.Label" translate="yes" xml:space="preserve">
+          <source>Aktualisieren</source>
+          <target state="translated">Refresh</target>
         </trans-unit>
       </group>
     </body>

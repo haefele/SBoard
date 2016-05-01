@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using SBoard.Core.Data.Helpdesks;
 
 namespace SBoard.Core.Services.Centron
 {
@@ -10,7 +11,7 @@ namespace SBoard.Core.Services.Centron
 
         Task LogoutAsync();
 
-        Task<IList<HelpdeskPreview>> GetHelpdesksAsync(int customerI3D);
+        Task<IList<HelpdeskPreview>> GetHelpdesksAsync(int? customerI3D, bool? onlyOwn);
 
         Task<IList<HelpdeskTimer>> GetHelpdeskTimersAsync(int helpdeskI3D);
 
