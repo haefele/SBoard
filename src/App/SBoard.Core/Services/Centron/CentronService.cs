@@ -82,6 +82,46 @@ namespace SBoard.Core.Services.Centron
                 .Select(this.ConvertHelpdeskTimer)
                 .ToList();
         }
+
+        public async Task<IList<HelpdeskPriority>> GetHelpdeskPrioritiesAsync()
+        {
+            var response = await this.SendRequestAsync("GetActiveHelpdeskPriorities", new object());
+
+            return response
+                .Values<JObject>()
+                .Select(this.ConvertHelpdeskPrioritiy)
+                .ToList();
+        }
+
+        public async Task<IList<HelpdeskState>> GetHelpdeskStatesAsync()
+        {
+            var response = await this.SendRequestAsync("GetHelpdeskStates", new object());
+
+            return response
+                .Values<JObject>()
+                .Select(this.ConvertHelpdeskState)
+                .ToList();
+        }
+
+        public async Task<IList<HelpdeskType>> GetHelpdeskTypesAsync()
+        {
+            var response = await this.SendRequestAsync("GetActiveHelpdeskTypes", new object());
+
+            return response
+                .Values<JObject>()
+                .Select(this.ConvertHelpdeskType)
+                .ToList();
+        }
+
+        public async Task<IList<HelpdeskCategory>> GetHelpdeskCategoriesAsync()
+        {
+            var response = await this.SendRequestAsync("GetActiveHelpdeskCategories", new object());
+
+            return response
+                .Values<JObject>()
+                .Select(this.ConvertCategory)
+                .ToList();
+        }
         #endregion
 
         #region Converter Methods
@@ -163,6 +203,65 @@ namespace SBoard.Core.Services.Centron
                 FirstName = data.Value<string>("FirstName"),
                 LastName = data.Value<string>("LastName"),
                 ShortSign = data.Value<string>("ShortSign")
+            };
+        }
+        private HelpdeskPriority ConvertHelpdeskPrioritiy(JObject data)
+        {
+            if (data == null)
+                return null;
+
+            return new HelpdeskPriority
+            {
+                I3D = data.Value<int>("I3D"),
+                Name = data.Value<string>("Name"),
+                IsDeactivated = data.Value<bool?>("IsDeactivated") ?? false,
+
+                Original = data,
+            };
+        }
+        private HelpdeskState ConvertHelpdeskState(JObject data)
+        {
+            if (data == null)
+                return null;
+
+            return new HelpdeskState
+            {
+                I3D = data.Value<int>("I3D"),
+                Name = data.Value<string>("Name"),
+                IsDeactivated = data.Value<bool?>("IsDeactivated") ?? false,
+
+                Original = data
+            };
+        }
+        private HelpdeskType ConvertHelpdeskType(JObject data)
+        {
+            if (data == null)
+                return null;
+
+            return new HelpdeskType
+            {
+                I3D = data.Value<int>("I3D"),
+                Name = data.Value<string>("Name"),
+                IsDeactivated = data.Value<bool?>("IsDeactivated") ?? false,
+
+                Original = data
+            };
+        }
+        private HelpdeskCategory ConvertCategory(JObject data)
+        {
+            if (data == null)
+                return null;
+
+            return new HelpdeskCategory
+            {
+                I3D = data.Value<int>("I3D"),
+                Name = data.Value<string>("Name"),
+                IsDeactivated = data.Value<bool?>("IsDeactivated") ?? false,
+                SubCategories = data
+                    .Value<JArray>("SubCategories")
+                    .Values<JObject>()
+                    .Select(this.ConvertCategory)
+                    .ToList()
             };
         }
         #endregion

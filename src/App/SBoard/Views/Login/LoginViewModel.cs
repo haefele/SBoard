@@ -27,6 +27,10 @@ namespace SBoard.Views.Login
             await this._centronService.LoginAsync();
 
             var tickets = await this._centronService.GetHelpdesksAsync(0);
+            var priorities = await this._centronService.GetHelpdeskPrioritiesAsync();
+            var types = await this._centronService.GetHelpdeskTypesAsync();
+            var states = await this._centronService.GetHelpdeskStatesAsync();
+            var categories = await this._centronService.GetHelpdeskCategoriesAsync();
         }
     }
 }

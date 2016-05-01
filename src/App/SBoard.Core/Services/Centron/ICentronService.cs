@@ -13,5 +13,13 @@ namespace SBoard.Core.Services.Centron
         Task<IList<HelpdeskPreview>> GetHelpdesksAsync(int customerI3D);
 
         Task<IList<HelpdeskTimer>> GetHelpdeskTimersAsync(int helpdeskI3D);
+
+        Task<IList<HelpdeskPriority>> GetHelpdeskPrioritiesAsync();
+
+        Task<IList<HelpdeskState>> GetHelpdeskStatesAsync();
+
+        Task<IList<HelpdeskType>> GetHelpdeskTypesAsync();
+
+        Task<IList<HelpdeskCategory>> GetHelpdeskCategoriesAsync();
     }
 }

@@ -118,8 +118,12 @@
     <Compile Include="Services\ApplicationState\ApplicationStateServiceExtensions.cs" />
     <Compile Include="Services\Centron\CentronService.cs" />
     <Compile Include="Services\Centron\Employee.cs" />
+    <Compile Include="Services\Centron\HelpdeskCategory.cs" />
     <Compile Include="Services\Centron\HelpdeskPreview.cs" />
+    <Compile Include="Services\Centron\HelpdeskPriority.cs" />
+    <Compile Include="Services\Centron\HelpdeskState.cs" />
     <Compile Include="Services\Centron\HelpdeskTimer.cs" />
+    <Compile Include="Services\Centron\HelpdeskType.cs" />
     <Compile Include="Services\Centron\ICentronService.cs" />
     <Compile Include="Strings\SBoardCoreResources.cs" />
     <EmbeddedResource Include="Properties\SBoard.Core.rd.xml" />
