@@ -1,4 +1,5 @@
-﻿using UwCore.Services.ApplicationState;
+﻿using System.Collections.Generic;
+using UwCore.Services.ApplicationState;
 using AState = UwCore.Services.ApplicationState.ApplicationState;
 
 namespace SBoard.Core.Services.ApplicationState
@@ -30,6 +31,15 @@ namespace SBoard.Core.Services.ApplicationState
         public static void SetPassword(this IApplicationStateService self, string password)
         {
             self.Set("Password", password, AState.Vault);
+        }
+
+        public static IList<TicketList> GetTicketLists(this IApplicationStateService self)
+        {
+            return self.Get<IList<TicketList>>("TicketLists", AState.Roaming) ?? new List<TicketList>();
+        }
+        public static void SetTicketLists(this IApplicationStateService self, IList<TicketList> ticketLists)
+        {
+            self.Set("TicketLists", ticketLists, AState.Roaming);
         }
     }
 }

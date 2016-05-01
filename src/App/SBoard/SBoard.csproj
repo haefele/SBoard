@@ -104,12 +104,17 @@
     <Compile Include="ApplicationModes\LoggedInApplicationMode.cs" />
     <Compile Include="ApplicationModes\LoggedOutApplicationMode.cs" />
     <Compile Include="Common\SymbolEx.cs" />
+    <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strings\SBoardResources.cs" />
     <Compile Include="Views\Login\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Login\LoginViewModel.cs" />
+    <Compile Include="Views\TicketList\TicketListView.xaml.cs">
+      <DependentUpon>TicketListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TicketList\TicketListViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -135,6 +140,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\Login\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TicketList\TicketListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

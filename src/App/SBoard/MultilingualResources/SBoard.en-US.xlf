@@ -42,6 +42,18 @@
           <source>Abmelden</source>
           <target state="translated">Logout</target>
         </trans-unit>
+        <trans-unit id="Tickets" translate="yes" xml:space="preserve">
+          <source>Tickets</source>
+          <target state="new">Tickets</target>
+        </trans-unit>
+        <trans-unit id="ViewModel.TicketList" translate="yes" xml:space="preserve">
+          <source>Tickets</source>
+          <target state="new">Tickets</target>
+        </trans-unit>
+        <trans-unit id="AddAppBarButton.Label" translate="yes" xml:space="preserve">
+          <source>Neu</source>
+          <target state="new">Neu</target>
+        </trans-unit>
       </group>
     </body>
   </file>

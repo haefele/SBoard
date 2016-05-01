@@ -9,6 +9,7 @@ using SBoard.Core.Services.ApplicationState;
 using SBoard.Core.Services.Centron;
 using SBoard.Strings;
 using SBoard.Views.Login;
+using SBoard.Views.TicketList;
 using UwCore.Application;
 using UwCore.Services.ApplicationState;
 
@@ -31,6 +32,7 @@ namespace SBoard
         public override IEnumerable<Type> GetViewModelTypes()
         {
             yield return typeof(LoginViewModel);
+            yield return typeof(TicketListViewModel);
         }
 
         public override void ConfigureContainer(WinRTContainer container)
