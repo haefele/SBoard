@@ -5,6 +5,9 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
+using Windows.Security.ExchangeActiveSyncProvisioning;
+using Windows.System.Profile;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SBoard.Core.Common;
@@ -17,42 +20,49 @@ namespace SBoard.Core.Services.Centron
 {
     public class CentronService : ICentronService
     {
+        #region Fields
         private readonly IApplicationStateService _applicationStateService;
-        private string _ticket;
 
+        private string _ticket;
+        #endregion
+
+        #region Constructors
         public CentronService(IApplicationStateService applicationStateService)
         {
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
 
             this._applicationStateService = applicationStateService;
         }
+        #endregion
 
         #region Implementation of ICentronService
-        public async Task LoginAsync()
+        public async Task TestLoginAsync([NotNull]string webServiceAddress, [NotNull]string username, [NotNull]string password)
         {
-            var request = new
-            {
-                LoginKind = 0,
-                Username = this._applicationStateService.GetUsername(),
-                Password = this._applicationStateService.GetPassword(),
-                Device = string.Empty,
-                Application = string.Empty,
-                AppVersion = Package.Current.Id.Version.ToVersion().ToString(),
-            };
+            Guard.NotNullOrWhiteSpace(webServiceAddress, nameof(webServiceAddress));
+            Guard.NotNullOrWhiteSpace(username, nameof(username));
+            Guard.NotNullOrWhiteSpace(password, nameof(password));
 
-            var response = await this.SendRequestAsync("Login", request);
-
-            this._ticket = response.Values<string>().First();
+            await this.LoginInternalAsync(webServiceAddress, username, password);
         }
 
         public async Task LogoutAsync()
         {
-            var response = await this.SendRequestAsync("Logout", new object());
-            this._ticket = null;
+            try
+            {
+                var response = await this.SendRequestAsync(this._applicationStateService.GetWebServiceAddress(), "Logout", new object());
+                this._ticket = null;
+            }
+            catch (InvalidTicketException)
+            {
+                this._ticket = null;
+            }
         }
 
+        [ItemNotNull]
         public async Task<IList<HelpdeskPreview>> GetHelpdesksAsync(int customerI3D)
         {
+            Guard.NotZeroOrNegative(customerI3D, nameof(customerI3D));
+
             var request = new
             {
                 Page = 1,
@@ -63,69 +73,83 @@ namespace SBoard.Core.Services.Centron
                 }
             };
 
-            var response = await this.SendRequestAsync("GetHelpdesksThroughPaging", request);
+            var response = await this.SendAuthenticatedRequestAsync(this._applicationStateService.GetWebServiceAddress(), "GetHelpdesksThroughPaging", request);
 
             return response
                 .Values<JObject>().First()
                 .Value<JArray>("Result")
                 .Values<JObject>()
                 .Select(this.ConvertHelpdeskPreview)
+                .Where(f => f != null)
                 .ToList();
         }
 
+        [ItemNotNull]
         public async Task<IList<HelpdeskTimer>>  GetHelpdeskTimersAsync(int helpdeskI3D)
         {
-            var response = await this.SendRequestAsync("GetActiveHelpdeskTimersFromHelpdesk", helpdeskI3D);
+            Guard.NotZeroOrNegative(helpdeskI3D, nameof(helpdeskI3D));
+
+            var response = await this.SendAuthenticatedRequestAsync(this._applicationStateService.GetWebServiceAddress(), "GetActiveHelpdeskTimersFromHelpdesk", helpdeskI3D);
 
             return response
                 .Values<JObject>()
                 .Select(this.ConvertHelpdeskTimer)
+                .Where(f => f != null)
                 .ToList();
         }
 
+        [ItemNotNull]
         public async Task<IList<HelpdeskPriority>> GetHelpdeskPrioritiesAsync()
         {
-            var response = await this.SendRequestAsync("GetActiveHelpdeskPriorities", new object());
+            var response = await this.SendAuthenticatedRequestAsync(this._applicationStateService.GetWebServiceAddress(), "GetActiveHelpdeskPriorities", new object());
 
             return response
                 .Values<JObject>()
                 .Select(this.ConvertHelpdeskPrioritiy)
+                .Where(f => f != null)
                 .ToList();
         }
 
+        [ItemNotNull]
         public async Task<IList<HelpdeskState>> GetHelpdeskStatesAsync()
         {
-            var response = await this.SendRequestAsync("GetHelpdeskStates", new object());
+            var response = await this.SendAuthenticatedRequestAsync(this._applicationStateService.GetWebServiceAddress(), "GetHelpdeskStates", new object());
 
             return response
                 .Values<JObject>()
                 .Select(this.ConvertHelpdeskState)
+                .Where(f => f != null)
                 .ToList();
         }
 
+        [ItemNotNull]
         public async Task<IList<HelpdeskType>> GetHelpdeskTypesAsync()
         {
-            var response = await this.SendRequestAsync("GetActiveHelpdeskTypes", new object());
+            var response = await this.SendAuthenticatedRequestAsync(this._applicationStateService.GetWebServiceAddress(), "GetActiveHelpdeskTypes", new object());
 
             return response
                 .Values<JObject>()
                 .Select(this.ConvertHelpdeskType)
+                .Where(f => f != null)
                 .ToList();
         }
 
+        [ItemNotNull]
         public async Task<IList<HelpdeskCategory>> GetHelpdeskCategoriesAsync()
         {
-            var response = await this.SendRequestAsync("GetActiveHelpdeskCategories", new object());
+            var response = await this.SendAuthenticatedRequestAsync(this._applicationStateService.GetWebServiceAddress(), "GetActiveHelpdeskCategories", new object());
 
             return response
                 .Values<JObject>()
                 .Select(this.ConvertCategory)
+                .Where(f => f != null)
                 .ToList();
         }
         #endregion
 
         #region Converter Methods
-        private HelpdeskPreview ConvertHelpdeskPreview(JObject data)
+        [CanBeNull]
+        private HelpdeskPreview ConvertHelpdeskPreview([CanBeNull]JObject data)
         {
             if (data == null)
                 return null;
@@ -172,7 +196,8 @@ namespace SBoard.Core.Services.Centron
                 Original = data
             };
         }
-        private HelpdeskTimer ConvertHelpdeskTimer(JObject data)
+        [CanBeNull]
+        private HelpdeskTimer ConvertHelpdeskTimer([CanBeNull]JObject data)
         {
             if (data == null)
                 return null;
@@ -191,7 +216,8 @@ namespace SBoard.Core.Services.Centron
                 Original = data
             };
         }
-        private Employee ConvertEmployee(JObject data)
+        [CanBeNull]
+        private Employee ConvertEmployee([CanBeNull]JObject data)
         {
             if (data == null)
                 return null;
@@ -205,7 +231,8 @@ namespace SBoard.Core.Services.Centron
                 ShortSign = data.Value<string>("ShortSign")
             };
         }
-        private HelpdeskPriority ConvertHelpdeskPrioritiy(JObject data)
+        [CanBeNull]
+        private HelpdeskPriority ConvertHelpdeskPrioritiy([CanBeNull]JObject data)
         {
             if (data == null)
                 return null;
@@ -219,7 +246,8 @@ namespace SBoard.Core.Services.Centron
                 Original = data,
             };
         }
-        private HelpdeskState ConvertHelpdeskState(JObject data)
+        [CanBeNull]
+        private HelpdeskState ConvertHelpdeskState([CanBeNull]JObject data)
         {
             if (data == null)
                 return null;
@@ -233,7 +261,8 @@ namespace SBoard.Core.Services.Centron
                 Original = data
             };
         }
-        private HelpdeskType ConvertHelpdeskType(JObject data)
+        [CanBeNull]
+        private HelpdeskType ConvertHelpdeskType([CanBeNull]JObject data)
         {
             if (data == null)
                 return null;
@@ -247,7 +276,8 @@ namespace SBoard.Core.Services.Centron
                 Original = data
             };
         }
-        private HelpdeskCategory ConvertCategory(JObject data)
+        [CanBeNull]
+        private HelpdeskCategory ConvertCategory([CanBeNull]JObject data)
         {
             if (data == null)
                 return null;
@@ -261,14 +291,60 @@ namespace SBoard.Core.Services.Centron
                     .Value<JArray>("SubCategories")
                     .Values<JObject>()
                     .Select(this.ConvertCategory)
+                    .Where(f => f != null)
                     .ToList()
             };
         }
         #endregion
 
         #region Private Methods
-        private async Task<JArray> SendRequestAsync(string method, object request)
+        [ItemNotNull]
+        private async Task<string> LoginInternalAsync([NotNull]string address, [NotNull]string username, [NotNull]string password)
         {
+            Guard.NotNullOrWhiteSpace(address, nameof(address));
+            Guard.NotNullOrWhiteSpace(username, nameof(username));
+            Guard.NotNullOrWhiteSpace(password, nameof(password));
+
+            var request = new
+            {
+                LoginKind = 0,
+                Username = username,
+                Password = password,
+                Device = new EasClientDeviceInformation().FriendlyName,
+                Application = string.Empty,
+                AppVersion = Package.Current.Id.Version.ToVersion().ToString(),
+            };
+
+            var response = await this.SendRequestAsync(address, "Login", request);
+
+            return response.Values<string>().First();
+        }
+
+        [ItemNotNull]
+        private async Task<JArray> SendAuthenticatedRequestAsync([NotNull]string address, [NotNull]string method, [NotNull]object request)
+        {
+            Guard.NotNullOrWhiteSpace(address, nameof(address));
+            Guard.NotNullOrWhiteSpace(method, nameof(method));
+            Guard.NotNull(request, nameof(request));
+
+            try
+            {
+                return await this.SendRequestAsync(address, method, request);
+            }
+            catch (InvalidTicketException)
+            {
+                this._ticket = await this.LoginInternalAsync(address, this._applicationStateService.GetUsername(), this._applicationStateService.GetPassword());
+                return await this.SendAuthenticatedRequestAsync(address, method, request);
+            }
+        }
+
+        [ItemNotNull]
+        private async Task<JArray> SendRequestAsync([NotNull]string address, [NotNull]string method, [NotNull]object request)
+        {
+            Guard.NotNullOrWhiteSpace(address, nameof(address));
+            Guard.NotNullOrWhiteSpace(method, nameof(method));
+            Guard.NotNull(request, nameof(request));
+
             var requestJObject = new JObject
             {
                 ["Ticket"] = this._ticket,
@@ -276,30 +352,38 @@ namespace SBoard.Core.Services.Centron
             };
 
             var json = JsonConvert.SerializeObject(requestJObject);
-            var response = await this.GetClient().PostAsync(method, new StringContent(json, Encoding.UTF8, "application/json"));
+            var response = await this.GetClient(address).PostAsync(method, new StringContent(json, Encoding.UTF8, "application/json"));
 
             var responseString = await response.Content.ReadAsStringAsync();
             var responseJObject = JObject.Parse(responseString);
 
+            if (responseJObject.Value<int>("Status") == 2)
+                throw new InvalidTicketException();
+
             if (responseJObject.Value<int>("Status") != 0)
                 throw new SBoardException(responseJObject.Value<string>("Message"));
 
-            return responseJObject.Value<JArray>("Result");
+            return responseJObject.Value<JArray>("Result") ?? new JArray();
         }
 
-        private HttpClient GetClient()
+        [NotNull]
+        private HttpClient GetClient([NotNull]string address)
         {
-            var webServiceAddress = this._applicationStateService.GetWebServiceAddress();
-            webServiceAddress = this.SanitizeWebServiceAddress(webServiceAddress);
+            Guard.NotNullOrWhiteSpace(address, nameof(address));
+
+            address = this.SanitizeWebServiceAddress(address);
 
             return new HttpClient
             {
-                BaseAddress = new Uri(webServiceAddress)
+                BaseAddress = new Uri(address)
             };
         }
 
-        private string SanitizeWebServiceAddress(string webServiceAddress)
+        [NotNull]
+        private string SanitizeWebServiceAddress([NotNull]string address)
         {
+            Guard.NotNullOrWhiteSpace(address, nameof(address));
+
             string[] endings =
             {
                 "REST",
@@ -309,14 +393,14 @@ namespace SBoard.Core.Services.Centron
                 "/"
             };
 
-            while (endings.Any(f => webServiceAddress.EndsWith(f, StringComparison.OrdinalIgnoreCase)))
+            while (endings.Any(f => address.EndsWith(f, StringComparison.OrdinalIgnoreCase)))
             {
-                var matchingEnding = endings.First(f => webServiceAddress.EndsWith(f, StringComparison.CurrentCultureIgnoreCase));
+                var matchingEnding = endings.First(f => address.EndsWith(f, StringComparison.CurrentCultureIgnoreCase));
 
-                webServiceAddress = webServiceAddress.Substring(0, webServiceAddress.Length - matchingEnding.Length);
+                address = address.Substring(0, address.Length - matchingEnding.Length);
             }
 
-            return webServiceAddress + "/REST/";
+            return address + "/REST/";
         }
         #endregion
     }

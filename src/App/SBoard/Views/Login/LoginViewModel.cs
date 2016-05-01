@@ -20,11 +20,15 @@ namespace SBoard.Views.Login
 
         public async void Login()
         {
-            this._applicationStateService.SetWebServiceAddress(string.Empty);
-            this._applicationStateService.SetUsername(string.Empty);
-            this._applicationStateService.SetPassword(string.Empty);
+            var address = string.Empty;
+            var username = string.Empty;
+            var password = string.Empty;
 
-            await this._centronService.LoginAsync();
+            await this._centronService.TestLoginAsync(address, username, password);
+
+            this._applicationStateService.SetWebServiceAddress(address);
+            this._applicationStateService.SetUsername(username);
+            this._applicationStateService.SetPassword(password);
 
             var tickets = await this._centronService.GetHelpdesksAsync(0);
             var priorities = await this._centronService.GetHelpdeskPrioritiesAsync();

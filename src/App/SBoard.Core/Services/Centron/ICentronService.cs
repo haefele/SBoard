@@ -6,7 +6,7 @@ namespace SBoard.Core.Services.Centron
 {
     public interface ICentronService
     {
-        Task LoginAsync();
+        Task TestLoginAsync(string webServiceAddress, string username, string password);
 
         Task LogoutAsync();
 
