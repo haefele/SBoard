@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Windows.Foundation;
+using Windows.UI.ViewManagement;
 using Caliburn.Micro;
 using SBoard.ApplicationModes;
 using SBoard.Core.Common;
@@ -18,7 +20,14 @@ namespace SBoard
         {
             this.InitializeComponent();
         }
-         
+
+        protected override void Configure()
+        {
+            base.Configure();
+
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(360, 500));
+        }
+
         public override IEnumerable<Type> GetViewModelTypes()
         {
             yield return typeof(LoginViewModel);
