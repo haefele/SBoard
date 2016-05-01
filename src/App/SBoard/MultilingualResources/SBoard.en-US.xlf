@@ -32,11 +32,15 @@
         </trans-unit>
         <trans-unit id="Loading.Login" translate="yes" xml:space="preserve">
           <source>Melde an...</source>
-          <target state="new">Melde an...</target>
+          <target state="translated">Logging in...</target>
         </trans-unit>
         <trans-unit id="ViewModel.Login" translate="yes" xml:space="preserve">
           <source>Anmeldung</source>
-          <target state="new">Anmeldung</target>
+          <target state="translated">Login</target>
+        </trans-unit>
+        <trans-unit id="Logout" translate="yes" xml:space="preserve">
+          <source>Abmelden</source>
+          <target state="translated">Logout</target>
         </trans-unit>
       </group>
     </body>

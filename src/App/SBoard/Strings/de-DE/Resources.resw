@@ -129,6 +129,9 @@
   <data name="LoginButton.Content" xml:space="preserve">
     <value>Anmelden</value>
   </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Abmelden</value>
+  </data>
   <data name="PasswordPasswordBox.Header" xml:space="preserve">
     <value>Passwort</value>
   </data>

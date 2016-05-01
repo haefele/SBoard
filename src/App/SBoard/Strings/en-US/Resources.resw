@@ -30,4 +30,13 @@
   <data name="WebServiceAddressTextBox.Header" xml:space="preserve">
     <value>Webservice address</value>
   </data>
+  <data name="Loading.Login" xml:space="preserve">
+    <value>Logging in...</value>
+  </data>
+  <data name="ViewModel.Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
 </root>
