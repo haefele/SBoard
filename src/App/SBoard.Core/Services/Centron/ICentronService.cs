@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using SBoard.Core.Data.Customers;
 using SBoard.Core.Data.Helpdesks;
 
 namespace SBoard.Core.Services.Centron
@@ -22,5 +23,7 @@ namespace SBoard.Core.Services.Centron
         Task<IList<HelpdeskType>> GetHelpdeskTypesAsync();
 
         Task<IList<HelpdeskCategory>> GetHelpdeskCategoriesAsync();
+
+        Task<IList<CustomerPreview>> GetCustomersAsync();
     }
 }

@@ -113,24 +113,26 @@
     <PRIResource Include="Strings\en-US\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\HelpdeskLists\AndHelpdeskFilter.cs" />
-    <Compile Include="Data\HelpdeskLists\ClientHelpdeskFilter.cs" />
-    <Compile Include="Data\HelpdeskLists\NotHelpdeskFilter.cs" />
-    <Compile Include="Data\HelpdeskLists\OrHelpdeskFilter.cs" />
-    <Compile Include="Data\HelpdeskLists\PropertyHelpdeskFilter.cs" />
-    <Compile Include="Data\HelpdeskLists\PropertyTicketFilterComparator.cs" />
-    <Compile Include="Data\HelpdeskLists\WebServiceHelpdeskFilter.cs" />
+    <Compile Include="Data\Customers\CustomerPreview.cs" />
+    <Compile Include="Data\HelpdeskGroups\AndHelpdeskFilter.cs" />
+    <Compile Include="Data\HelpdeskGroups\ClientHelpdeskFilter.cs" />
+    <Compile Include="Data\HelpdeskGroups\NotHelpdeskFilter.cs" />
+    <Compile Include="Data\HelpdeskGroups\OrHelpdeskFilter.cs" />
+    <Compile Include="Data\HelpdeskGroups\PropertyHelpdeskFilter.cs" />
+    <Compile Include="Data\HelpdeskGroups\PropertyTicketFilterComparator.cs" />
+    <Compile Include="Data\HelpdeskGroups\WebServiceHelpdeskFilter.cs" />
     <Compile Include="Exceptions\InvalidTicketException.cs" />
     <Compile Include="Exceptions\SBoardException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Queries\HelpdeskQuery\CustomHelpdesksQuery.cs" />
+    <Compile Include="Queries\Customers\AllCustomersQuery.cs" />
+    <Compile Include="Queries\Helpdesks\HelpdeskGroupQuery.cs" />
     <Compile Include="Queries\IQuery.cs" />
     <Compile Include="Queries\IQueryExecutor.cs" />
     <Compile Include="Queries\IQueryHandler.cs" />
     <Compile Include="Queries\QueryExecutor.cs" />
-    <Compile Include="Queries\HelpdeskQuery\OnlyOwnHelpdesksQuery.cs" />
+    <Compile Include="Queries\Helpdesks\OnlyOwnHelpdesksQuery.cs" />
     <Compile Include="Services\ApplicationState\ApplicationStateServiceExtensions.cs" />
-    <Compile Include="Data\HelpdeskLists\HelpdeskList.cs" />
+    <Compile Include="Data\HelpdeskGroups\HelpdeskGroup.cs" />
     <Compile Include="Services\Centron\CentronService.cs" />
     <Compile Include="Data\Helpdesks\Employee.cs" />
     <Compile Include="Data\Helpdesks\HelpdeskCategory.cs" />
@@ -140,8 +142,8 @@
     <Compile Include="Data\Helpdesks\HelpdeskTimer.cs" />
     <Compile Include="Data\Helpdesks\HelpdeskType.cs" />
     <Compile Include="Services\Centron\ICentronService.cs" />
-    <Compile Include="Services\HelpdeskLists\HelpdeskListsService.cs" />
-    <Compile Include="Services\HelpdeskLists\IHelpdeskListsService.cs" />
+    <Compile Include="Services\HelpdeskGroups\HelpdeskGroupsService.cs" />
+    <Compile Include="Services\HelpdeskGroups\IHelpdeskGroupsService.cs" />
     <Compile Include="Strings\SBoardCoreResources.cs" />
     <EmbeddedResource Include="Properties\SBoard.Core.rd.xml" />
   </ItemGroup>

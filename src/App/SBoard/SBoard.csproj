@@ -116,6 +116,10 @@
       <DependentUpon>HelpdeskListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HelpdeskList\HelpdeskListViewModel.cs" />
+    <Compile Include="Views\NewHelpdeskGroup\NewHelpdeskGroupView.xaml.cs">
+      <DependentUpon>NewHelpdeskGroupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NewHelpdeskGroup\NewHelpdeskGroupViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -145,6 +149,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\HelpdeskList\HelpdeskListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NewHelpdeskGroup\NewHelpdeskGroupView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

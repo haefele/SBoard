@@ -4,16 +4,19 @@ using Windows.Foundation;
 using Windows.UI.ViewManagement;
 using Caliburn.Micro;
 using SBoard.ApplicationModes;
+using SBoard.Core.Data.Customers;
 using SBoard.Core.Data.Helpdesks;
 using SBoard.Core.Exceptions;
 using SBoard.Core.Queries;
-using SBoard.Core.Queries.HelpdeskQuery;
+using SBoard.Core.Queries.Customers;
+using SBoard.Core.Queries.Helpdesks;
 using SBoard.Core.Services.ApplicationState;
 using SBoard.Core.Services.Centron;
-using SBoard.Core.Services.HelpdeskLists;
+using SBoard.Core.Services.HelpdeskGroups;
 using SBoard.Strings;
 using SBoard.Views.HelpdeskList;
 using SBoard.Views.Login;
+using SBoard.Views.NewHelpdeskGroup;
 using UwCore.Application;
 using UwCore.Services.ApplicationState;
 
@@ -37,6 +40,7 @@ namespace SBoard
         {
             yield return typeof(LoginViewModel);
             yield return typeof(HelpdeskListViewModel);
+            yield return typeof(NewHelpdeskGroupViewModel);
         }
 
         public override void ConfigureContainer(WinRTContainer container)
@@ -47,12 +51,13 @@ namespace SBoard
 
             container
                 .Singleton<ICentronService, CentronService>()
-                .Singleton<IHelpdeskListsService, HelpdeskListsService>()
+                .Singleton<IHelpdeskGroupsService, HelpdeskGroupsService>()
                 .Singleton<IQueryExecutor, QueryExecutor>();
             
             container
                 .PerRequest<IQueryHandler<OnlyOwnHelpdesksQuery, IList<HelpdeskPreview>>, OnlyOwnHelpdesksQueryHandler>()
-                .PerRequest<IQueryHandler<CustomHelpdesksQuery, IList<HelpdeskPreview>>, CustomHelpdesksQueryHandler>();
+                .PerRequest<IQueryHandler<HelpdeskGroupQuery, IList<HelpdeskPreview>>, HelpdeskGroupQueryHandler>()
+                .PerRequest<IQueryHandler<AllCustomersQuery, IList<CustomerPreview>>, AllCustomersQueryHandler>();
         }
 
         public override string GetErrorTitle() => SBoardResources.Get("Errors.Title");

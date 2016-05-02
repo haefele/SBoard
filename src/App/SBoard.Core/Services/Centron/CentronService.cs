@@ -10,6 +10,7 @@ using Windows.System.Profile;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SBoard.Core.Data.Customers;
 using SBoard.Core.Data.Helpdesks;
 using SBoard.Core.Exceptions;
 using SBoard.Core.Services.ApplicationState;
@@ -142,6 +143,30 @@ namespace SBoard.Core.Services.Centron
             return response
                 .Values<JObject>()
                 .Select(this.ConvertCategory)
+                .Where(f => f != null)
+                .ToList();
+        }
+
+        [ItemNotNull]
+        public async Task<IList<CustomerPreview>> GetCustomersAsync()
+        {
+            var request = new
+            {
+                Page = 1,
+                EntriesPerPage = int.MaxValue,
+                Filter = new
+                {
+                    IsActive = true
+                }
+            };
+
+            var response = await this.SendAuthenticatedRequestAsync(this._applicationStateService.GetWebServiceAddress(), "SearchAccountsThroughPaging", request);
+
+            return response
+                .Values<JObject>().First()
+                .Value<JArray>("Result")
+                .Values<JObject>()
+                .Select(this.ConvertCustomerPreview)
                 .Where(f => f != null)
                 .ToList();
         }
@@ -293,6 +318,20 @@ namespace SBoard.Core.Services.Centron
                     .Select(this.ConvertCategory)
                     .Where(f => f != null)
                     .ToList()
+            };
+        }
+        [CanBeNull]
+        private CustomerPreview ConvertCustomerPreview(JObject data)
+        {
+            if (data == null)
+                return null;
+
+            return new CustomerPreview
+            {
+                I3D = data.Value<int>("I3D"),
+                Name = data.Value<string>("AccountName"),
+
+                Original = data
             };
         }
         #endregion

@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using SBoard.Core.Data.Helpdesks;
 
-namespace SBoard.Core.Data.HelpdeskLists
+namespace SBoard.Core.Data.HelpdeskGroups
 {
-    public class OrHelpdeskFilter : ClientHelpdeskFilter
+    public class AndHelpdeskFilter  : ClientHelpdeskFilter
     {
-        public OrHelpdeskFilter()
+        public AndHelpdeskFilter()
         {
             this.Children = new List<ClientHelpdeskFilter>();
         }
@@ -15,7 +15,7 @@ namespace SBoard.Core.Data.HelpdeskLists
 
         public override bool Apply(HelpdeskPreview helpdesk)
         {
-            return this.Children.Any(f => f.Apply(helpdesk));
+            return this.Children.All(f => f.Apply(helpdesk));
         }
     }
 }

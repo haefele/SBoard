@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Caliburn.Micro;
 using SBoard.Core.Data.Helpdesks;
 using SBoard.Core.Queries;
-using SBoard.Core.Queries.HelpdeskQuery;
+using SBoard.Core.Queries.Helpdesks;
 using SBoard.Strings;
 using UwCore.Extensions;
 using UwCore.Services.Loading;
@@ -29,7 +29,7 @@ namespace SBoard.Views.HelpdeskList
 
         #region Parameter
         public HelpdeskListKind Kind { get; set; }
-        public string CustomHelpdeskListId { get; set; }
+        public string HelpdeskGroupId { get; set; }
         #endregion
 
         #region Constructors
@@ -67,9 +67,9 @@ namespace SBoard.Views.HelpdeskList
                     }
                     break;
                         
-                    case HelpdeskListKind.Custom:
+                    case HelpdeskListKind.HelpdeskGroup:
                     {
-                        var helpdesks = await this._queryExecutor.ExecuteAsync(new CustomHelpdesksQuery(this.CustomHelpdeskListId));
+                        var helpdesks = await this._queryExecutor.ExecuteAsync(new HelpdeskGroupQuery(this.HelpdeskGroupId));
                         this.Helpdesks = new BindableCollection<HelpdeskPreview>(helpdesks);
                     }
                     break;

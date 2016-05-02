@@ -2,32 +2,31 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using SBoard.Core.Data.HelpdeskLists;
-using SBoard.Core.Services.ApplicationState;
+using SBoard.Core.Data.HelpdeskGroups;
 using UwCore.Services.ApplicationState;
 
-namespace SBoard.Core.Services.HelpdeskLists
+namespace SBoard.Core.Services.HelpdeskGroups
 {
-    public class HelpdeskListsService : IHelpdeskListsService
+    public class HelpdeskGroupsService : IHelpdeskGroupsService
     {
-        private const string Key = "HelpdeskLists";
+        private const string Key = "HelpdeskGroups";
 
         private readonly IApplicationStateService _applicationStateService;
 
-        public HelpdeskListsService(IApplicationStateService applicationStateService)
+        public HelpdeskGroupsService(IApplicationStateService applicationStateService)
         {
             this._applicationStateService = applicationStateService;
         }
 
-        public Task<IList<HelpdeskList>> GetHelpdeskListsAsync()
+        public Task<IList<HelpdeskGroup>> GetHelpdeskListsAsync()
         {
-            var helpdeskLists = this._applicationStateService.Get<List<HelpdeskList>>(Key, UwCore.Services.ApplicationState.ApplicationState.Roaming);
-            return Task.FromResult((IList<HelpdeskList>)helpdeskLists);
+            var helpdeskLists = this._applicationStateService.Get<List<HelpdeskGroup>>(Key, UwCore.Services.ApplicationState.ApplicationState.Roaming);
+            return Task.FromResult((IList<HelpdeskGroup>)helpdeskLists);
         }
 
-        public async Task<HelpdeskList> AddHelpdeskListAsync(string name, WebServiceHelpdeskFilter webServiceHelpdeskFilter, ClientHelpdeskFilter clientHelpdeskFilter)
+        public async Task<HelpdeskGroup> AddHelpdeskListAsync(string name, WebServiceHelpdeskFilter webServiceHelpdeskFilter, ClientHelpdeskFilter clientHelpdeskFilter)
         {
-            var item = new HelpdeskList
+            var item = new HelpdeskGroup
             {
                 Id = Guid.NewGuid().ToString("N"),
                 Name = name,

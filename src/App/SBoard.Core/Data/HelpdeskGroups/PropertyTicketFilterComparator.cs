@@ -1,4 +1,4 @@
-namespace SBoard.Core.Data.HelpdeskLists
+namespace SBoard.Core.Data.HelpdeskGroups
 {
     public enum PropertyTicketFilterComparator
     {

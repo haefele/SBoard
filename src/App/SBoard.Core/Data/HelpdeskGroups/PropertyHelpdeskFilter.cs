@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using SBoard.Core.Data.Helpdesks;
 
-namespace SBoard.Core.Data.HelpdeskLists
+namespace SBoard.Core.Data.HelpdeskGroups
 {
     public class PropertyHelpdeskFilter : ClientHelpdeskFilter
     {

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using SBoard.Core.Data.Helpdesks;
 using SBoard.Core.Services.Centron;
 
-namespace SBoard.Core.Queries.HelpdeskQuery
+namespace SBoard.Core.Queries.Helpdesks
 {
     public class OnlyOwnHelpdesksQuery : IQuery<IList<HelpdeskPreview>>
     {

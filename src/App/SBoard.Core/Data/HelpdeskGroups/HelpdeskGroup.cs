@@ -1,6 +1,6 @@
-﻿namespace SBoard.Core.Data.HelpdeskLists
+﻿namespace SBoard.Core.Data.HelpdeskGroups
 {
-    public class HelpdeskList
+    public class HelpdeskGroup
     {
         public string Id { get; set; }
 

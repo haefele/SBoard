@@ -3,6 +3,6 @@
     public enum HelpdeskListKind
     {
         OnlyOwn,
-        Custom
+        HelpdeskGroup
     }
 }

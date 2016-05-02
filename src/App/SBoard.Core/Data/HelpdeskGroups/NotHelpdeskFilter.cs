@@ -1,6 +1,6 @@
 using SBoard.Core.Data.Helpdesks;
 
-namespace SBoard.Core.Data.HelpdeskLists
+namespace SBoard.Core.Data.HelpdeskGroups
 {
     public class NotHelpdeskFilter : ClientHelpdeskFilter
     {
