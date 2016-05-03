@@ -27,9 +27,9 @@ namespace SBoard.ApplicationModes
             this._applicationStateService = applicationStateService;
             this._navigationService = navigationService;
             
-            this._logoutItem = new ClickableHamburgerItem(SBoardResources.Get("Logout"), SymbolEx.Logout, this.Logout);
-            this._onlyOwnItem = new NavigatingHamburgerItem(SBoardResources.Get("OwnTickets"), Symbol.List, typeof(HelpdeskListViewModel));
-            this._newHelpdeskGroupItem = new NavigatingHamburgerItem("Neue Ticket-Gruppe", Symbol.Add, typeof(NewHelpdeskGroupViewModel));
+            this._logoutItem = new ClickableHamburgerItem(SBoardResources.Get("Navigation.Logout"), SymbolEx.Logout, this.Logout);
+            this._onlyOwnItem = new NavigatingHamburgerItem(SBoardResources.Get("Navigation.OwnTickets"), Symbol.List, typeof(HelpdeskListViewModel));
+            this._newHelpdeskGroupItem = new NavigatingHamburgerItem(SBoardResources.Get("Navigation.NewHelpdeskGroup"), Symbol.Add, typeof(NewHelpdeskGroupViewModel));
         }
 
         public override void Enter()

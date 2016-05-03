@@ -126,16 +126,28 @@
   <data name="Loading.Login" xml:space="preserve">
     <value>Melde an...</value>
   </data>
+  <data name="Loading.Saving" xml:space="preserve">
+    <value>Speichere...</value>
+  </data>
   <data name="Loading.Tickets" xml:space="preserve">
     <value>Lade Tickets...</value>
   </data>
   <data name="LoginButton.Content" xml:space="preserve">
     <value>Anmelden</value>
   </data>
-  <data name="Logout" xml:space="preserve">
+  <data name="NameTextBox.Header" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Navigation.Login" xml:space="preserve">
+    <value>Anmeldung</value>
+  </data>
+  <data name="Navigation.Logout" xml:space="preserve">
     <value>Abmelden</value>
   </data>
-  <data name="OwnTickets" xml:space="preserve">
+  <data name="Navigation.NewHelpdeskGroup" xml:space="preserve">
+    <value>Neue Ticket-Gruppe</value>
+  </data>
+  <data name="Navigation.OwnTickets" xml:space="preserve">
     <value>Eigene Tickets</value>
   </data>
   <data name="PasswordPasswordBox.Header" xml:space="preserve">
@@ -144,8 +156,17 @@
   <data name="RefreshAppBarButton.Label" xml:space="preserve">
     <value>Aktualisieren</value>
   </data>
-  <data name="Tickets" xml:space="preserve">
-    <value>Tickets</value>
+  <data name="SaveAppBarButton.Label" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="SearchCustomerTextBox.Header" xml:space="preserve">
+    <value>Kunde</value>
+  </data>
+  <data name="SearchCustomerTextBox.PlaceholderText" xml:space="preserve">
+    <value>Suchtext</value>
+  </data>
+  <data name="SelectCustomerComboBox.PlaceholderText" xml:space="preserve">
+    <value>Wählen Sie einen Kunden aus</value>
   </data>
   <data name="UsernameTextBox.Header" xml:space="preserve">
     <value>Benutzername</value>
@@ -155,6 +176,9 @@
   </data>
   <data name="ViewModel.Login" xml:space="preserve">
     <value>Anmeldung</value>
+  </data>
+  <data name="ViewModel.NewHelpdeskGroup" xml:space="preserve">
+    <value>Neue Ticket-Gruppe</value>
   </data>
   <data name="WebServiceAddressTextBox.Header" xml:space="preserve">
     <value>Web-Service Adresse</value>

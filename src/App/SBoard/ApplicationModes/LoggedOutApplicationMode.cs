@@ -17,7 +17,7 @@ namespace SBoard.ApplicationModes
         {
             this._navigationService = navigationService;
 
-            this._loginItem = new NavigatingHamburgerItem(SBoardResources.Get("ViewModel.Login"), SymbolEx.Login, typeof(LoginViewModel));
+            this._loginItem = new NavigatingHamburgerItem(SBoardResources.Get("Navigation.Login"), SymbolEx.Login, typeof(LoginViewModel));
         }
 
         public override void Enter()

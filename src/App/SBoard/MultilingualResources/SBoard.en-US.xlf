@@ -38,21 +38,9 @@
           <source>Anmeldung</source>
           <target state="translated">Login</target>
         </trans-unit>
-        <trans-unit id="Logout" translate="yes" xml:space="preserve">
-          <source>Abmelden</source>
-          <target state="translated">Logout</target>
-        </trans-unit>
-        <trans-unit id="Tickets" translate="yes" xml:space="preserve">
-          <source>Tickets</source>
-          <target state="translated">Tickets</target>
-        </trans-unit>
         <trans-unit id="Loading.Tickets" translate="yes" xml:space="preserve">
           <source>Lade Tickets...</source>
           <target state="translated">Loading tickets...</target>
-        </trans-unit>
-        <trans-unit id="OwnTickets" translate="yes" xml:space="preserve">
-          <source>Eigene Tickets</source>
-          <target state="translated">Own tickets</target>
         </trans-unit>
         <trans-unit id="ViewModel.HelpdeskList" translate="yes" xml:space="preserve">
           <source>Tickets</source>
@@ -61,6 +49,50 @@
         <trans-unit id="RefreshAppBarButton.Label" translate="yes" xml:space="preserve">
           <source>Aktualisieren</source>
           <target state="translated">Refresh</target>
+        </trans-unit>
+        <trans-unit id="Loading.Saving" translate="yes" xml:space="preserve">
+          <source>Speichere...</source>
+          <target state="translated">Saving...</target>
+        </trans-unit>
+        <trans-unit id="Navigation.Login" translate="yes" xml:space="preserve">
+          <source>Anmeldung</source>
+          <target state="translated">Login</target>
+        </trans-unit>
+        <trans-unit id="Navigation.Logout" translate="yes" xml:space="preserve">
+          <source>Abmelden</source>
+          <target state="translated">Logout</target>
+        </trans-unit>
+        <trans-unit id="Navigation.NewHelpdeskGroup" translate="yes" xml:space="preserve">
+          <source>Neue Ticket-Gruppe</source>
+          <target state="translated">New ticket-group</target>
+        </trans-unit>
+        <trans-unit id="Navigation.OwnTickets" translate="yes" xml:space="preserve">
+          <source>Eigene Tickets</source>
+          <target state="translated">Own tickets</target>
+        </trans-unit>
+        <trans-unit id="ViewModel.NewHelpdeskGroup" translate="yes" xml:space="preserve">
+          <source>Neue Ticket-Gruppe</source>
+          <target state="translated">New ticket-group</target>
+        </trans-unit>
+        <trans-unit id="NameTextBox.Header" translate="yes" xml:space="preserve">
+          <source>Name</source>
+          <target state="translated">Name</target>
+        </trans-unit>
+        <trans-unit id="SearchCustomerTextBox.Header" translate="yes" xml:space="preserve">
+          <source>Kunde</source>
+          <target state="translated">Customer</target>
+        </trans-unit>
+        <trans-unit id="SearchCustomerTextBox.PlaceholderText" translate="yes" xml:space="preserve">
+          <source>Suchtext</source>
+          <target state="translated">Searchtext</target>
+        </trans-unit>
+        <trans-unit id="SelectCustomerComboBox.PlaceholderText" translate="yes" xml:space="preserve">
+          <source>Wählen Sie einen Kunden aus</source>
+          <target state="translated">Please select a customer</target>
+        </trans-unit>
+        <trans-unit id="SaveAppBarButton.Label" translate="yes" xml:space="preserve">
+          <source>Speichern</source>
+          <target state="translated">Save</target>
         </trans-unit>
       </group>
     </body>

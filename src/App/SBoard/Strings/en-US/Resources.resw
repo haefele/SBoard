@@ -36,22 +36,46 @@
   <data name="ViewModel.Login" xml:space="preserve">
     <value>Login</value>
   </data>
-  <data name="Logout" xml:space="preserve">
-    <value>Logout</value>
-  </data>
-  <data name="Tickets" xml:space="preserve">
-    <value>Tickets</value>
-  </data>
   <data name="Loading.Tickets" xml:space="preserve">
     <value>Loading tickets...</value>
-  </data>
-  <data name="OwnTickets" xml:space="preserve">
-    <value>Own tickets</value>
   </data>
   <data name="ViewModel.HelpdeskList" xml:space="preserve">
     <value>Tickets</value>
   </data>
   <data name="RefreshAppBarButton.Label" xml:space="preserve">
     <value>Refresh</value>
+  </data>
+  <data name="Loading.Saving" xml:space="preserve">
+    <value>Saving...</value>
+  </data>
+  <data name="Navigation.Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Navigation.Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="Navigation.NewHelpdeskGroup" xml:space="preserve">
+    <value>New ticket-group</value>
+  </data>
+  <data name="Navigation.OwnTickets" xml:space="preserve">
+    <value>Own tickets</value>
+  </data>
+  <data name="ViewModel.NewHelpdeskGroup" xml:space="preserve">
+    <value>New ticket-group</value>
+  </data>
+  <data name="NameTextBox.Header" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="SearchCustomerTextBox.Header" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+  <data name="SearchCustomerTextBox.PlaceholderText" xml:space="preserve">
+    <value>Searchtext</value>
+  </data>
+  <data name="SelectCustomerComboBox.PlaceholderText" xml:space="preserve">
+    <value>Please select a customer</value>
+  </data>
+  <data name="SaveAppBarButton.Label" xml:space="preserve">
+    <value>Save</value>
   </data>
 </root>

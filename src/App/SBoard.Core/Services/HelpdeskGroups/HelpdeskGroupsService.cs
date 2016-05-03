@@ -21,7 +21,7 @@ namespace SBoard.Core.Services.HelpdeskGroups
         public Task<IList<HelpdeskGroup>> GetHelpdeskListsAsync()
         {
             var helpdeskLists = this._applicationStateService.Get<List<HelpdeskGroup>>(Key, UwCore.Services.ApplicationState.ApplicationState.Roaming);
-            return Task.FromResult((IList<HelpdeskGroup>)helpdeskLists);
+            return Task.FromResult((IList<HelpdeskGroup>)helpdeskLists ?? new List<HelpdeskGroup>());
         }
 
         public async Task<HelpdeskGroup> AddHelpdeskListAsync(string name, WebServiceHelpdeskFilter webServiceHelpdeskFilter, ClientHelpdeskFilter clientHelpdeskFilter)
