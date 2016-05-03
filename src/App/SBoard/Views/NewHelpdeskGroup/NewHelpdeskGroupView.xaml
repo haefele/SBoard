@@ -29,19 +29,25 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="5" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         
         <TextBox Grid.Row="0"
                  Header="Name"
                  Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-        
-        <ComboBox Grid.Row="2"
-                  Header="Kunde"
+
+
+        <TextBox Grid.Row="2"
+                 Header="Kunde"
+                 Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <ComboBox Grid.Row="4"
                   HorizontalAlignment="Stretch"
                   ItemsSource="{x:Bind ViewModel.Customers, Mode=OneWay}"
                   DisplayMemberPath="Name" />
 
-        <ProgressBar Grid.Row="3"
+        <ProgressBar Grid.Row="5"
                      IsIndeterminate="True"
                      Visibility="{x:Bind ViewModel.IsSearchingCustomers, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"  />
         
