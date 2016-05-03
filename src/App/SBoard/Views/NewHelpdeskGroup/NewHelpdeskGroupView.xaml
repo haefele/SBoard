@@ -5,7 +5,22 @@
     xmlns:local="using:SBoard.Views.NewHelpdeskGroup"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    xmlns:converter="using:UwCore.Converter"
+    mc:Ignorable="d"
+    
+    d:DataContext="{d:DesignInstance local:NewHelpdeskGroupViewModel}"
+    >
+    
+    <Page.Resources>
+        <converter:BooleanToObjectConverter x:Key="BooleanToVisibilityConverter">
+            <converter:BooleanToObjectConverter.TrueValue>
+                <Visibility>Visible</Visibility>
+            </converter:BooleanToObjectConverter.TrueValue>
+            <converter:BooleanToObjectConverter.FalseValue>
+                <Visibility>Collapsed</Visibility>
+            </converter:BooleanToObjectConverter.FalseValue>
+        </converter:BooleanToObjectConverter>
+    </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
@@ -17,13 +32,18 @@
         </Grid.RowDefinitions>
         
         <TextBox Grid.Row="0"
-                 Header="Name" />
+                 Header="Name"
+                 Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         
         <ComboBox Grid.Row="2"
                   Header="Kunde"
                   HorizontalAlignment="Stretch"
                   ItemsSource="{x:Bind ViewModel.Customers, Mode=OneWay}"
                   DisplayMemberPath="Name" />
+
+        <ProgressBar Grid.Row="3"
+                     IsIndeterminate="True"
+                     Visibility="{x:Bind ViewModel.IsSearchingCustomers, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"  />
         
     </Grid>
 </Page>

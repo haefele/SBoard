@@ -148,7 +148,7 @@ namespace SBoard.Core.Services.Centron
         }
 
         [ItemNotNull]
-        public async Task<IList<CustomerPreview>> GetCustomersAsync()
+        public async Task<IList<CustomerPreview>> GetCustomersAsync(string searchText)
         {
             var request = new
             {
@@ -156,6 +156,7 @@ namespace SBoard.Core.Services.Centron
                 EntriesPerPage = int.MaxValue,
                 Filter = new
                 {
+                    SearchText = searchText,
                     IsActive = true
                 }
             };

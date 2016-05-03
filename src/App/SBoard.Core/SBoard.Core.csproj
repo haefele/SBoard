@@ -124,7 +124,7 @@
     <Compile Include="Exceptions\InvalidTicketException.cs" />
     <Compile Include="Exceptions\SBoardException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Queries\Customers\AllCustomersQuery.cs" />
+    <Compile Include="Queries\Customers\SearchCustomersQuery.cs" />
     <Compile Include="Queries\Helpdesks\HelpdeskGroupQuery.cs" />
     <Compile Include="Queries\IQuery.cs" />
     <Compile Include="Queries\IQueryExecutor.cs" />

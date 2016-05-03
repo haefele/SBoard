@@ -24,6 +24,6 @@ namespace SBoard.Core.Services.Centron
 
         Task<IList<HelpdeskCategory>> GetHelpdeskCategoriesAsync();
 
-        Task<IList<CustomerPreview>> GetCustomersAsync();
+        Task<IList<CustomerPreview>> GetCustomersAsync(string searchText);
     }
 }
