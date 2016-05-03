@@ -1,20 +1,23 @@
 ﻿using System;
+using System.Reactive;
+using System.Threading.Tasks;
 using Caliburn.Micro;
+using Caliburn.Micro.ReactiveUI;
 using JetBrains.Annotations;
+using ReactiveUI;
 using SBoard.ApplicationModes;
 using SBoard.Core.Services.ApplicationState;
 using SBoard.Core.Services.Centron;
 using SBoard.Strings;
 using UwCore.Application;
 using UwCore.Common;
-using UwCore.Extensions;
 using UwCore.Services.ApplicationState;
 using UwCore.Services.ExceptionHandler;
 using UwCore.Services.Loading;
 
 namespace SBoard.Views.Login
 {
-    public class LoginViewModel : Screen
+    public class LoginViewModel : ReactiveScreen
     {
         private readonly ICentronService _centronService;
         private readonly IApplicationStateService _applicationStateService;
@@ -30,21 +33,22 @@ namespace SBoard.Views.Login
         public string WebServiceAddress
         {
             get { return this._webServiceAddress; }
-            set { this.SetProperty(ref this._webServiceAddress, value); }
+            set { this.RaiseAndSetIfChanged(ref this._webServiceAddress, value); }
         }
 
         public string Username
         {
             get { return this._username; }
-            set { this.SetProperty(ref this._username, value); }
+            set { this.RaiseAndSetIfChanged(ref this._username, value); }
         }
 
         public string Password
         {
             get { return this._password; }
-            set { this.SetProperty(ref this._password, value); }
+            set { this.RaiseAndSetIfChanged(ref this._password, value); }
         }
 
+        public ReactiveCommand<Unit> Login { get; }
 
         public LoginViewModel([NotNull]ICentronService centronService, [NotNull]IApplicationStateService applicationStateService, [NotNull]ILoadingService loadingService, [NotNull]IExceptionHandler exceptionHandler, [NotNull]IApplication application)
         {
@@ -61,6 +65,14 @@ namespace SBoard.Views.Login
             this._application = application;
             
             this.DisplayName = SBoardResources.Get("ViewModel.Login");
+
+            var canLogin = this.WhenAnyValue(f => f.WebServiceAddress, f => f.Username, f => f.Password, (webServiceAddress, username, password) =>
+                string.IsNullOrWhiteSpace(webServiceAddress) == false &&
+                string.IsNullOrWhiteSpace(username) == false &&
+                string.IsNullOrWhiteSpace(password) == false);
+
+            this.Login = ReactiveCommand.CreateAsyncTask(canLogin, _ => this.LoginImpl());
+            this.Login.ThrownExceptions.Subscribe(async e => await this._exceptionHandler.HandleAsync(e));
         }
 
 
@@ -70,26 +82,19 @@ namespace SBoard.Views.Login
             this.Username = this._applicationStateService.GetUsername();
         }
 
-        public async void Login()
+        private async Task LoginImpl()
         {
             using (this._loadingService.Show(SBoardResources.Get("Loading.Login")))
             {
-                try
-                {
-                    await this._centronService.TestLoginAsync(this.WebServiceAddress, this.Username, this.Password);
+                await this._centronService.TestLoginAsync(this.WebServiceAddress, this.Username, this.Password);
 
-                    this._applicationStateService.SetWebServiceAddress(this.WebServiceAddress);
-                    this._applicationStateService.SetUsername(this.Username);
-                    this._applicationStateService.SetPassword(this.Password);
+                this._applicationStateService.SetWebServiceAddress(this.WebServiceAddress);
+                this._applicationStateService.SetUsername(this.Username);
+                this._applicationStateService.SetPassword(this.Password);
 
-                    await this._applicationStateService.SaveStateAsync();
+                await this._applicationStateService.SaveStateAsync();
 
-                    this._application.CurrentMode = IoC.Get<LoggedInApplicationMode>();
-                }
-                catch (Exception exception)
-                {
-                    await this._exceptionHandler.HandleAsync(exception);
-                }
+                this._application.CurrentMode = IoC.Get<LoggedInApplicationMode>();
             }
         }
     }

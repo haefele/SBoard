@@ -38,7 +38,9 @@ namespace SBoard.ApplicationModes
             this.Application.Actions.Add(this._onlyOwnItem);
             this.Application.Actions.Add(this._newHelpdeskGroupItem);
 
-            this._navigationService.Navigate(typeof(HelpdeskListViewModel));
+            this._navigationService.For<HelpdeskListViewModel>()
+                .WithParam(f => f.Kind, HelpdeskListKind.OnlyOwn)
+                .Navigate();
         }
 
         public override void Leave()

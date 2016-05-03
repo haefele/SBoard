@@ -8,6 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     mc:Ignorable="d"
+    
+    d:DataContext="{d:DesignInstance local:LoginViewModel}"
     >
 
     <Grid Margin="5">
@@ -24,12 +26,12 @@
         <TextBox Header="~Web-Service Adresse"
                  Grid.Row="0"
                  x:Uid="WebServiceAddressTextBox"
-                 Text="{x:Bind ViewModel.WebServiceAddress, Mode=TwoWay}" />
+                 Text="{Binding WebServiceAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <TextBox Header="~Benutzername"
                  Grid.Row="2"
                  x:Uid="UsernameTextBox"
-                 Text="{x:Bind ViewModel.Username, Mode=TwoWay}" />
+                 Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         
         <PasswordBox Header="~Password"
                      Grid.Row="4"
@@ -39,7 +41,7 @@
         <Button Content="~Anmelden"
                 Grid.Row="6"
                 x:Uid="LoginButton"
-                Click="{x:Bind ViewModel.Login}"
+                Command="{x:Bind ViewModel.Login}"
                 HorizontalAlignment="Stretch" />
     </Grid>
 </Page>

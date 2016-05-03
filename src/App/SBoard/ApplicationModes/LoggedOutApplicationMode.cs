@@ -24,7 +24,7 @@ namespace SBoard.ApplicationModes
         {
             this.Application.Actions.Add(this._loginItem);
 
-            this._navigationService.Navigate(typeof(LoginViewModel));
+            this._navigationService.For<LoginViewModel>().Navigate();
         }
 
         public override void Leave()
