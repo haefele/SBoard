@@ -18,13 +18,13 @@ namespace SBoard.Core.Services.HelpdeskGroups
             this._applicationStateService = applicationStateService;
         }
 
-        public Task<IList<HelpdeskGroup>> GetHelpdeskListsAsync()
+        public Task<IList<HelpdeskGroup>> GetHelpdeskGroupsAsync()
         {
             var helpdeskLists = this._applicationStateService.Get<List<HelpdeskGroup>>(Key, UwCore.Services.ApplicationState.ApplicationState.Roaming);
             return Task.FromResult((IList<HelpdeskGroup>)helpdeskLists ?? new List<HelpdeskGroup>());
         }
 
-        public async Task<HelpdeskGroup> AddHelpdeskListAsync(string name, WebServiceHelpdeskFilter webServiceHelpdeskFilter, ClientHelpdeskFilter clientHelpdeskFilter)
+        public async Task<HelpdeskGroup> AddHelpdeskGroupAsync(string name, WebServiceHelpdeskFilter webServiceHelpdeskFilter, ClientHelpdeskFilter clientHelpdeskFilter)
         {
             var item = new HelpdeskGroup
             {
@@ -33,7 +33,7 @@ namespace SBoard.Core.Services.HelpdeskGroups
                 WebServiceHelpdeskFilter = webServiceHelpdeskFilter,
                 ClientHelpdeskFilter = clientHelpdeskFilter
             };
-            var helpdeskLists = await this.GetHelpdeskListsAsync();
+            var helpdeskLists = await this.GetHelpdeskGroupsAsync();
             helpdeskLists.Add(item);
 
             this._applicationStateService.Set(Key, helpdeskLists, UwCore.Services.ApplicationState.ApplicationState.Roaming);
@@ -41,9 +41,9 @@ namespace SBoard.Core.Services.HelpdeskGroups
             return item;
         }
 
-        public async Task DeleteHelpdeskListAsync(string id)
+        public async Task DeleteHelpdeskGroupAsync(string id)
         {
-            var helpdeskLists = await this.GetHelpdeskListsAsync();
+            var helpdeskLists = await this.GetHelpdeskGroupsAsync();
             var found = helpdeskLists.FirstOrDefault(f => f.Id == id);
 
             helpdeskLists.Remove(found);

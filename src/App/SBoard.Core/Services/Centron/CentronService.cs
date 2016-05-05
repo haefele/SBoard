@@ -351,7 +351,7 @@ namespace SBoard.Core.Services.Centron
                 Username = username,
                 Password = password,
                 Device = new EasClientDeviceInformation().FriendlyName,
-                Application = string.Empty,
+                Application = "{8A9E6F82-4DFF-4C93-916C-CEA90EE4ED22}",
                 AppVersion = Package.Current.Id.Version.ToVersion().ToString(),
             };
 

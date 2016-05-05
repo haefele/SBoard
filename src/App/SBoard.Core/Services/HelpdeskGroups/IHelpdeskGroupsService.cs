@@ -6,10 +6,10 @@ namespace SBoard.Core.Services.HelpdeskGroups
 {
     public interface IHelpdeskGroupsService
     {
-        Task<IList<HelpdeskGroup>> GetHelpdeskListsAsync();
+        Task<IList<HelpdeskGroup>> GetHelpdeskGroupsAsync();
 
-        Task<HelpdeskGroup> AddHelpdeskListAsync(string name, WebServiceHelpdeskFilter webServiceHelpdeskFilter, ClientHelpdeskFilter clientHelpdeskFilter);
+        Task<HelpdeskGroup> AddHelpdeskGroupAsync(string name, WebServiceHelpdeskFilter webServiceHelpdeskFilter, ClientHelpdeskFilter clientHelpdeskFilter);
 
-        Task DeleteHelpdeskListAsync(string id);
+        Task DeleteHelpdeskGroupAsync(string id);
     }
 }

@@ -101,7 +101,7 @@ namespace SBoard.Views.NewHelpdeskGroup
 
         private async Task SaveImpl()
         {
-            await this._helpdeskGroupsService.AddHelpdeskListAsync(this._name, new WebServiceHelpdeskFilter {CustomerI3D = this.SelectedCustomer.I3D}, null);
+            await this._helpdeskGroupsService.AddHelpdeskGroupAsync(this._name, new WebServiceHelpdeskFilter {CustomerI3D = this.SelectedCustomer.I3D}, null);
             this.TryClose(true);
         }
     }

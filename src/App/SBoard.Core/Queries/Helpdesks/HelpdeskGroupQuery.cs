@@ -30,7 +30,7 @@ namespace SBoard.Core.Queries.Helpdesks
 
         public async Task<IList<HelpdeskPreview>> ExecuteAsync(HelpdeskGroupQuery query)
         {
-            var helpdeskLists = await this._helpdeskGroupsService.GetHelpdeskListsAsync();
+            var helpdeskLists = await this._helpdeskGroupsService.GetHelpdeskGroupsAsync();
             var helpdeskList = helpdeskLists.First(f => f.Id == query.HelpdeskListId);
 
             var helpdesks = await this._centronService.GetHelpdesksAsync(helpdeskList.WebServiceHelpdeskFilter.CustomerI3D, null);
