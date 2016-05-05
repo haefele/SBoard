@@ -117,11 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DeleteAppBarButton.Label" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
   <data name="Errors.Message" xml:space="preserve">
     <value>Ups, ein Fehler ist aufgetreten.</value>
   </data>
   <data name="Errors.Title" xml:space="preserve">
     <value>Fehler</value>
+  </data>
+  <data name="Loading.DeletingHelpdeskGroup" xml:space="preserve">
+    <value>Lösche Ticket-Gruppe...</value>
   </data>
   <data name="Loading.Login" xml:space="preserve">
     <value>Melde an...</value>

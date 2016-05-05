@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Caliburn.Micro;
 using SBoard.Core.Data.HelpdeskGroups;
+using SBoard.Core.Services.HelpdeskGroups.Events;
 using UwCore.Services.ApplicationState;
 
 namespace SBoard.Core.Services.HelpdeskGroups
@@ -12,10 +14,12 @@ namespace SBoard.Core.Services.HelpdeskGroups
         private const string Key = "HelpdeskGroups";
 
         private readonly IApplicationStateService _applicationStateService;
+        private readonly IEventAggregator _eventAggregator;
 
-        public HelpdeskGroupsService(IApplicationStateService applicationStateService)
+        public HelpdeskGroupsService(IApplicationStateService applicationStateService, IEventAggregator eventAggregator)
         {
             this._applicationStateService = applicationStateService;
+            this._eventAggregator = eventAggregator;
         }
 
         public Task<IList<HelpdeskGroup>> GetHelpdeskGroupsAsync()
@@ -38,6 +42,8 @@ namespace SBoard.Core.Services.HelpdeskGroups
 
             this._applicationStateService.Set(Key, helpdeskLists, UwCore.Services.ApplicationState.ApplicationState.Roaming);
 
+            this._eventAggregator.PublishOnCurrentThread(new HelpdeskGroupAdded(item));
+
             return item;
         }
 
@@ -49,6 +55,8 @@ namespace SBoard.Core.Services.HelpdeskGroups
             helpdeskLists.Remove(found);
 
             this._applicationStateService.Set(Key, helpdeskLists, UwCore.Services.ApplicationState.ApplicationState.Roaming);
+
+            this._eventAggregator.PublishOnCurrentThread(new HelpdeskGroupDeleted(found));
         }
     }
 }

@@ -81,4 +81,10 @@
   <data name="Loading.Logout" xml:space="preserve">
     <value>Logging out...</value>
   </data>
+  <data name="Loading.DeletingHelpdeskGroup" xml:space="preserve">
+    <value>Deleting ticket-group...</value>
+  </data>
+  <data name="DeleteAppBarButton.Label" xml:space="preserve">
+    <value>Delete</value>
+  </data>
 </root>

@@ -31,10 +31,15 @@
         
         <CommandBar Grid.Column="0" 
                     Grid.Row="1">
+            <AppBarButton Icon="Delete"
+                          Label="~Löschen"
+                          x:Uid="DeleteAppBarButton"
+                          Command="{x:Bind ViewModel.Delete}"
+                          />
             <AppBarButton Icon="Refresh"
                           Label="~Aktualisieren"
                           x:Uid="RefreshAppBarButton"
-                          Click="{x:Bind ViewModel.Refresh}" />
+                          Command="{x:Bind ViewModel.RefreshHelpdesks}" />
         </CommandBar>
     </Grid>
 </Page>

@@ -98,6 +98,14 @@
           <source>Abmelden...</source>
           <target state="translated">Logging out...</target>
         </trans-unit>
+        <trans-unit id="Loading.DeletingHelpdeskGroup" translate="yes" xml:space="preserve">
+          <source>Lösche Ticket-Gruppe...</source>
+          <target state="translated">Deleting ticket-group...</target>
+        </trans-unit>
+        <trans-unit id="DeleteAppBarButton.Label" translate="yes" xml:space="preserve">
+          <source>Löschen</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Delete</target>
+        </trans-unit>
       </group>
     </body>
   </file>

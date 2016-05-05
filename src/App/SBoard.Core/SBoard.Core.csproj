@@ -142,6 +142,8 @@
     <Compile Include="Data\Helpdesks\HelpdeskTimer.cs" />
     <Compile Include="Data\Helpdesks\HelpdeskType.cs" />
     <Compile Include="Services\Centron\ICentronService.cs" />
+    <Compile Include="Services\HelpdeskGroups\Events\HelpdeskGroupAdded.cs" />
+    <Compile Include="Services\HelpdeskGroups\Events\HelpdeskGroupDeleted.cs" />
     <Compile Include="Services\HelpdeskGroups\HelpdeskGroupsService.cs" />
     <Compile Include="Services\HelpdeskGroups\IHelpdeskGroupsService.cs" />
     <Compile Include="Strings\SBoardCoreResources.cs" />

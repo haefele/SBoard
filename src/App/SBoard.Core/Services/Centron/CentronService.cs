@@ -61,7 +61,7 @@ namespace SBoard.Core.Services.Centron
         }
 
         [ItemNotNull]
-        public async Task<IList<HelpdeskPreview>> GetHelpdesksAsync(int? customerI3D, bool? onlyOwn)
+        public async Task<IList<HelpdeskPreview>> GetHelpdesksAsync(int? customerI3D, bool onlyOwn)
         {
             var request = new
             {

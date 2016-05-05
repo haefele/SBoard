@@ -1,83 +1,99 @@
 ﻿using System;
+using System.Reactive;
 using System.Threading.Tasks;
 using Caliburn.Micro;
+using Caliburn.Micro.ReactiveUI;
+using ReactiveUI;
 using SBoard.Core.Data.Helpdesks;
 using SBoard.Core.Queries;
 using SBoard.Core.Queries.Helpdesks;
+using SBoard.Core.Services.HelpdeskGroups;
 using SBoard.Strings;
+using SBoard.Views.NewHelpdeskGroup;
 using UwCore.Extensions;
+using UwCore.Services.ExceptionHandler;
 using UwCore.Services.Loading;
 
 namespace SBoard.Views.HelpdeskList
 {
-    public class HelpdeskListViewModel : Screen
+    public class HelpdeskListViewModel : ReactiveScreen
     {
-        #region Fields
-        private readonly ILoadingService _loadingService;
         private readonly IQueryExecutor _queryExecutor;
+        private readonly IHelpdeskGroupsService _helpdeskGroupsService;
+        
+        private readonly ObservableAsPropertyHelper<ReactiveObservableCollection<HelpdeskPreview>> _helpdesksHelper;
 
-        private BindableCollection<HelpdeskPreview> _helpdesks;
-        #endregion
+        private HelpdeskListKind _kind;
+        private string _helpdeskGroupId;
+        
 
-        #region Properties
-        public BindableCollection<HelpdeskPreview> Helpdesks
+        public ReactiveObservableCollection<HelpdeskPreview> Helpdesks
         {
-            get { return this._helpdesks; }
-            set { this.SetProperty(ref this._helpdesks, value); }
+            get { return this._helpdesksHelper.Value; }
         }
-        #endregion
-
-        #region Parameter
-        public HelpdeskListKind Kind { get; set; }
-        public string HelpdeskGroupId { get; set; }
-        #endregion
-
-        #region Constructors
-        public HelpdeskListViewModel(ILoadingService loadingService, IQueryExecutor queryExecutor)
+        
+        public ReactiveCommand<Unit> Delete { get; }
+        public ReactiveCommand<ReactiveObservableCollection<HelpdeskPreview>> RefreshHelpdesks { get; }
+        
+        public HelpdeskListKind Kind
         {
-            this._loadingService = loadingService;
+            get { return this._kind; }
+            set { this.RaiseAndSetIfChanged(ref this._kind, value); }
+        }
+        public string HelpdeskGroupId
+        {
+            get { return this._helpdeskGroupId; }
+            set { this.RaiseAndSetIfChanged(ref this._helpdeskGroupId, value); }
+        }
+        
+
+        public HelpdeskListViewModel(IQueryExecutor queryExecutor, IHelpdeskGroupsService helpdeskGroupsService)
+        {
             this._queryExecutor = queryExecutor;
+            this._helpdeskGroupsService = helpdeskGroupsService;
 
             this.DisplayName = SBoardResources.Get("ViewModel.HelpdeskList");
 
-            this.Kind = HelpdeskListKind.OnlyOwn;
+            var canDelete = this.WhenAnyValue(f => f.Kind, kind => kind == HelpdeskListKind.HelpdeskGroup);
+            this.Delete = ReactiveCommand.CreateAsyncTask(canDelete, _ => this.DeleteImpl());
+            this.Delete.AttachExceptionHandler();
+            this.Delete.AttachLoadingService(SBoardResources.Get("Loading.DeletingHelpdeskGroup"));
+
+            this.RefreshHelpdesks = ReactiveCommand.CreateAsyncTask(_ => this.RefreshHelpdesksImpl());
+            this.RefreshHelpdesks.AttachExceptionHandler();
+            this.RefreshHelpdesks.AttachLoadingService(SBoardResources.Get("Loading.Tickets"));
+            this.RefreshHelpdesks.ToProperty(this, f => f.Helpdesks, out this._helpdesksHelper);
         }
-        #endregion
 
         protected override async void OnActivate()
         {
-            await this.RefreshInternalAsync();
+            await this.RefreshHelpdesks.ExecuteAsyncTask();
         }
-
-        public new async void Refresh()
+        
+        private async Task DeleteImpl()
         {
-            await this.RefreshInternalAsync();
+            await this._helpdeskGroupsService.DeleteHelpdeskGroupAsync(this.HelpdeskGroupId);
         }
-
-        private async Task RefreshInternalAsync()
+        
+        private async Task<ReactiveObservableCollection<HelpdeskPreview>> RefreshHelpdesksImpl()
         {
-            using (this._loadingService.Show(SBoardResources.Get("Loading.Tickets")))
+            switch (this.Kind)
             {
-                switch (this.Kind)
+                case HelpdeskListKind.OnlyOwn:
                 {
-                    case HelpdeskListKind.OnlyOwn:
-                    {
-                        var helpdesks = await this._queryExecutor.ExecuteAsync(new OnlyOwnHelpdesksQuery());
-                        this.Helpdesks = new BindableCollection<HelpdeskPreview>(helpdesks);
-                    }
-                    break;
-                        
-                    case HelpdeskListKind.HelpdeskGroup:
-                    {
-                        var helpdesks = await this._queryExecutor.ExecuteAsync(new HelpdeskGroupQuery(this.HelpdeskGroupId));
-                        this.Helpdesks = new BindableCollection<HelpdeskPreview>(helpdesks);
-                    }
-                    break;
+                    var helpdesks = await this._queryExecutor.ExecuteAsync(new OnlyOwnHelpdesksQuery());
+                    return new ReactiveObservableCollection<HelpdeskPreview>(helpdesks);
+                }
 
-                    default:
-                    {
-                        throw new ArgumentOutOfRangeException();
-                    }
+                case HelpdeskListKind.HelpdeskGroup:
+                {
+                    var helpdesks = await this._queryExecutor.ExecuteAsync(new HelpdeskGroupQuery(this.HelpdeskGroupId));
+                    return new ReactiveObservableCollection<HelpdeskPreview>(helpdesks);
+                }
+
+                default:
+                {
+                    throw new ArgumentOutOfRangeException();
                 }
             }
         }
