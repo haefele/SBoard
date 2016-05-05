@@ -73,8 +73,7 @@ namespace SBoard.Views.NewHelpdeskGroup
 
             this.DisplayName = SBoardResources.Get("ViewModel.NewHelpdeskGroup");
             
-            var canSearchCustomers = this.WhenAnyValue(f => f.CustomerSearchText, searchText => string.IsNullOrWhiteSpace(searchText) == false);
-            this.SearchCustomers = ReactiveCommand.CreateAsyncTask(canSearchCustomers, _ => this.SearchCustomersImpl());
+            this.SearchCustomers = ReactiveCommand.CreateAsyncTask(_ => this.SearchCustomersImpl());
             this.SearchCustomers.ToProperty(this, f => f.Customers, out this._customersHelper);
             this.SearchCustomers.IsExecuting.ToProperty(this, f => f.IsSearchingCustomers, out this._isSearchingCustomersHelper);
             this.SearchCustomers.ThrownExceptions.Subscribe(async e => await this._exceptionHandler.HandleAsync(e));
@@ -93,6 +92,9 @@ namespace SBoard.Views.NewHelpdeskGroup
         
         private async Task<ReactiveObservableCollection<CustomerPreview>> SearchCustomersImpl()
         {
+            if (string.IsNullOrWhiteSpace(this.CustomerSearchText))
+                return new ReactiveObservableCollection<CustomerPreview>();
+
             var customers = await this._queryExecutor.ExecuteAsync(new SearchCustomersQuery(this.CustomerSearchText));
             return new ReactiveObservableCollection<CustomerPreview>(customers);
         }
