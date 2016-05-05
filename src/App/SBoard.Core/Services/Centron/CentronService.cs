@@ -169,6 +169,7 @@ namespace SBoard.Core.Services.Centron
                 .Values<JObject>()
                 .Select(this.ConvertCustomerPreview)
                 .Where(f => f != null)
+                .Distinct()
                 .ToList();
         }
         #endregion
