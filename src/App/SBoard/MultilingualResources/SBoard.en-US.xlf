@@ -94,6 +94,10 @@
           <source>Speichern</source>
           <target state="translated">Save</target>
         </trans-unit>
+        <trans-unit id="Loading.Logout" translate="yes" xml:space="preserve">
+          <source>Abmelden...</source>
+          <target state="translated">Logging out...</target>
+        </trans-unit>
       </group>
     </body>
   </file>

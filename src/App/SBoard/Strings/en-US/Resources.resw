@@ -78,4 +78,7 @@
   <data name="SaveAppBarButton.Label" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="Loading.Logout" xml:space="preserve">
+    <value>Logging out...</value>
+  </data>
 </root>

@@ -126,6 +126,9 @@
   <data name="Loading.Login" xml:space="preserve">
     <value>Melde an...</value>
   </data>
+  <data name="Loading.Logout" xml:space="preserve">
+    <value>Abmelden...</value>
+  </data>
   <data name="Loading.Saving" xml:space="preserve">
     <value>Speichere...</value>
   </data>

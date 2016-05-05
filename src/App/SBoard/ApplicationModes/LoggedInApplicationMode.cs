@@ -1,6 +1,7 @@
 ﻿using Windows.UI.Xaml.Controls;
 using SBoard.Common;
 using SBoard.Core.Services.ApplicationState;
+using SBoard.Core.Services.Centron;
 using SBoard.Extensions;
 using SBoard.Strings;
 using SBoard.Views.HelpdeskList;
@@ -8,6 +9,7 @@ using SBoard.Views.NewHelpdeskGroup;
 using UwCore.Application;
 using UwCore.Hamburger;
 using UwCore.Services.ApplicationState;
+using UwCore.Services.Loading;
 using UwCore.Services.Navigation;
 using IoC = Caliburn.Micro.IoC;
 
@@ -17,16 +19,20 @@ namespace SBoard.ApplicationModes
     {
         private readonly IApplicationStateService _applicationStateService;
         private readonly INavigationService _navigationService;
+        private readonly ICentronService _centronService;
+        private readonly ILoadingService _loadingService;
 
         private readonly ClickableHamburgerItem _logoutItem;
         private readonly NavigatingHamburgerItem _onlyOwnItem;
         private readonly NavigatingHamburgerItem _newHelpdeskGroupItem;
 
-        public LoggedInApplicationMode(IApplicationStateService applicationStateService, INavigationService navigationService)
+        public LoggedInApplicationMode(IApplicationStateService applicationStateService, INavigationService navigationService, ICentronService centronService, ILoadingService loadingService)
         {
             this._applicationStateService = applicationStateService;
             this._navigationService = navigationService;
-            
+            this._centronService = centronService;
+            this._loadingService = loadingService;
+
             this._logoutItem = new ClickableHamburgerItem(SBoardResources.Get("Navigation.Logout"), SymbolEx.Logout, this.Logout);
             this._onlyOwnItem = new NavigatingHamburgerItem(SBoardResources.Get("Navigation.OwnTickets"), Symbol.List, typeof(HelpdeskListViewModel));
             this._newHelpdeskGroupItem = new NavigatingHamburgerItem(SBoardResources.Get("Navigation.NewHelpdeskGroup"), Symbol.Add, typeof(NewHelpdeskGroupViewModel));
@@ -52,10 +58,15 @@ namespace SBoard.ApplicationModes
 
         private async void Logout()
         {
-            this._applicationStateService.SetPassword(string.Empty);
-            await this._applicationStateService.SaveStateAsync();
+            using (this._loadingService.Show(SBoardResources.Get("Loading.Logout")))
+            {
+                await this._centronService.LogoutAsync();
 
-            this.Application.CurrentMode = IoC.Get<LoggedOutApplicationMode>();
+                this._applicationStateService.SetPassword(string.Empty);
+                await this._applicationStateService.SaveStateAsync();
+
+                this.Application.CurrentMode = IoC.Get<LoggedOutApplicationMode>();
+            }
         }
     }
 }
