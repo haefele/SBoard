@@ -40,10 +40,8 @@ namespace SBoard.ApplicationModes
             this._eventAggregator = eventAggregator;
 
             this._logoutItem = new ClickableHamburgerItem(SBoardResources.Get("Navigation.Logout"), SymbolEx.Logout, this.Logout);
-            this._onlyOwnItem = new NavigatingHamburgerItem(SBoardResources.Get("Navigation.OwnTickets"), Symbol.List, typeof(HelpdeskListViewModel), new Dictionary<string, object>
-            {
-                [nameof(HelpdeskListViewModel.Kind)] = HelpdeskListKind.OnlyOwn
-            });
+            this._onlyOwnItem = new NavigatingHamburgerItem(SBoardResources.Get("Navigation.OwnTickets"), Symbol.List, typeof(HelpdeskListViewModel));
+            this._onlyOwnItem.AddParameter<HelpdeskListViewModel>(f => f.Kind, HelpdeskListKind.OnlyOwn);
             this._newHelpdeskGroupItem = new NavigatingHamburgerItem(SBoardResources.Get("Navigation.NewHelpdeskGroup"), Symbol.Add, typeof(NewHelpdeskGroupViewModel));
             this._helpdeskGroupItems = new List<NavigatingHamburgerItem>();
         }
@@ -103,11 +101,9 @@ namespace SBoard.ApplicationModes
 
         private void AddHelpdeskGroupItem(HelpdeskGroup group)
         {
-            var item = new NavigatingHamburgerItem(group.Name, Symbol.List, typeof(HelpdeskListViewModel), new Dictionary<string, object>
-            {
-                [nameof(HelpdeskListViewModel.Kind)] = HelpdeskListKind.HelpdeskGroup,
-                [nameof(HelpdeskListViewModel.HelpdeskGroupId)] = group.Id
-            });
+            var item = new NavigatingHamburgerItem(group.Name, Symbol.List, typeof(HelpdeskListViewModel));
+            item.AddParameter<HelpdeskListViewModel>(f => f.Kind, HelpdeskListKind.HelpdeskGroup);
+            item.AddParameter<HelpdeskListViewModel>(f => f.HelpdeskGroupId, group.Id);
 
             this._helpdeskGroupItems.Add(item);
             this.Application.Actions.Add(item);
