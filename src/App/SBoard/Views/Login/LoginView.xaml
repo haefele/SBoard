@@ -4,6 +4,9 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:SBoard.Views.Login"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:behaviors="using:UwCore.Behaviors"
     
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -26,17 +29,35 @@
         <TextBox Header="~Web-Service Adresse"
                  Grid.Row="0"
                  x:Uid="WebServiceAddressTextBox"
-                 Text="{Binding WebServiceAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                 Text="{Binding WebServiceAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:TextBoxEnterTriggerBehavior>
+                    <core:InvokeCommandAction Command="{x:Bind ViewModel.Login}" />
+                </behaviors:TextBoxEnterTriggerBehavior>
+            </interactivity:Interaction.Behaviors>
+        </TextBox>
 
         <TextBox Header="~Benutzername"
                  Grid.Row="2"
                  x:Uid="UsernameTextBox"
-                 Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-        
+                 Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:TextBoxEnterTriggerBehavior>
+                    <core:InvokeCommandAction Command="{x:Bind ViewModel.Login}" />
+                </behaviors:TextBoxEnterTriggerBehavior>
+            </interactivity:Interaction.Behaviors>    
+        </TextBox>
+
         <PasswordBox Header="~Password"
                      Grid.Row="4"
                      Password="{x:Bind ViewModel.Password, Mode=TwoWay}"
-                     x:Uid="PasswordPasswordBox" />
+                     x:Uid="PasswordPasswordBox">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:PasswordBoxEnterTriggerBehavior>
+                    <core:InvokeCommandAction Command="{x:Bind ViewModel.Login}" />
+                </behaviors:PasswordBoxEnterTriggerBehavior>
+            </interactivity:Interaction.Behaviors>
+        </PasswordBox>
         
         <Button Content="~Anmelden"
                 Grid.Row="6"
