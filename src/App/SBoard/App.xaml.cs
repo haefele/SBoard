@@ -41,6 +41,7 @@ namespace SBoard
             yield return typeof(LoginViewModel);
             yield return typeof(HelpdeskListViewModel);
             yield return typeof(NewHelpdeskGroupViewModel);
+            yield return typeof(HelpdeskListItemViewModel);
         }
 
         public override void ConfigureContainer(WinRTContainer container)

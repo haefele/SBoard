@@ -104,7 +104,27 @@
         </trans-unit>
         <trans-unit id="DeleteAppBarButton.Label" translate="yes" xml:space="preserve">
           <source>Löschen</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">Delete</target>
+          <target state="translated" state-qualifier="tm-suggestion">Delete</target>
+        </trans-unit>
+        <trans-unit id="DescriptionTextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Beschreibung</source>
+          <target state="translated" state-qualifier="tm-suggestion">Description</target>
+        </trans-unit>
+        <trans-unit id="NumberTextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Nummer</source>
+          <target state="translated">Number</target>
+        </trans-unit>
+        <trans-unit id="PriorityTextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Priorität</source>
+          <target state="translated" state-qualifier="tm-suggestion">Priority</target>
+        </trans-unit>
+        <trans-unit id="ShortDescriptionTextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Kurzbeschreibung</source>
+          <target state="translated">Short description</target>
+        </trans-unit>
+        <trans-unit id="StatusTextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Status</source>
+          <target state="translated">Status</target>
         </trans-unit>
       </group>
     </body>

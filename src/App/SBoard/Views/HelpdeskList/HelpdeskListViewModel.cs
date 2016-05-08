@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Reactive;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using Caliburn.Micro.ReactiveUI;
@@ -21,13 +23,13 @@ namespace SBoard.Views.HelpdeskList
         private readonly IQueryExecutor _queryExecutor;
         private readonly IHelpdeskGroupsService _helpdeskGroupsService;
         
-        private readonly ObservableAsPropertyHelper<ReactiveObservableCollection<HelpdeskPreview>> _helpdesksHelper;
+        private readonly ObservableAsPropertyHelper<ReactiveObservableCollection<HelpdeskListItemViewModel>> _helpdesksHelper;
 
         private HelpdeskListKind _kind;
         private string _helpdeskGroupId;
         
 
-        public ReactiveObservableCollection<HelpdeskPreview> Helpdesks
+        public ReactiveObservableCollection<HelpdeskListItemViewModel> Helpdesks
         {
             get { return this._helpdesksHelper.Value; }
         }
@@ -62,7 +64,22 @@ namespace SBoard.Views.HelpdeskList
             this.RefreshHelpdesks = ReactiveCommand.CreateAsyncTask(_ => this.RefreshHelpdesksImpl());
             this.RefreshHelpdesks.AttachExceptionHandler();
             this.RefreshHelpdesks.AttachLoadingService(SBoardResources.Get("Loading.Tickets"));
-            this.RefreshHelpdesks.ToProperty(this, f => f.Helpdesks, out this._helpdesksHelper);
+            this.RefreshHelpdesks
+                .Select(f =>
+                {
+                    var result = new ReactiveObservableCollection<HelpdeskListItemViewModel>();
+
+                    foreach (var helpdesk in f.OrderByDescending(d => d.I3D))
+                    {
+                        var viewModel = IoC.Get<HelpdeskListItemViewModel>();
+                        viewModel.Helpdesk = helpdesk;
+
+                        result.Add(viewModel);
+                    }
+
+                    return result;
+                })
+                .ToProperty(this, f => f.Helpdesks, out this._helpdesksHelper);
         }
 
         protected override async void OnActivate()

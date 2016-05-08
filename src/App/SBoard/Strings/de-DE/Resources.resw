@@ -120,6 +120,9 @@
   <data name="DeleteAppBarButton.Label" xml:space="preserve">
     <value>Löschen</value>
   </data>
+  <data name="DescriptionTextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
   <data name="Errors.Message" xml:space="preserve">
     <value>Ups, ein Fehler ist aufgetreten.</value>
   </data>
@@ -159,8 +162,14 @@
   <data name="Navigation.OwnTickets" xml:space="preserve">
     <value>Eigene Tickets</value>
   </data>
+  <data name="NumberTextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Nummer</value>
+  </data>
   <data name="PasswordPasswordBox.Header" xml:space="preserve">
     <value>Passwort</value>
+  </data>
+  <data name="PriorityTextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Priorität</value>
   </data>
   <data name="RefreshAppBarButton.Label" xml:space="preserve">
     <value>Aktualisieren</value>
@@ -176,6 +185,12 @@
   </data>
   <data name="SelectCustomerComboBox.PlaceholderText" xml:space="preserve">
     <value>Wählen Sie einen Kunden aus</value>
+  </data>
+  <data name="ShortDescriptionTextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Kurzbeschreibung</value>
+  </data>
+  <data name="StatusTextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Status</value>
   </data>
   <data name="UsernameTextBox.Header" xml:space="preserve">
     <value>Benutzername</value>

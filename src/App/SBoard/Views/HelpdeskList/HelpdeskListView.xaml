@@ -7,35 +7,34 @@
 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:helpdeskList="using:SBoard.Views.HelpdeskList"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         
-        <ListView Grid.Column="0"
-                  Grid.Row="0"
+        <ListView Grid.Row="0"
                   ItemsSource="{x:Bind ViewModel.Helpdesks, Mode=OneWay}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="helpdesks:HelpdeskPreview">
-                    <TextBlock Text="{x:Bind Number}" />
+                <DataTemplate x:DataType="helpdeskList:HelpdeskListItemViewModel">
+                    <helpdeskList:HelpdeskListItemView Margin="0, 4" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
         
-        <CommandBar Grid.Column="0" 
-                    Grid.Row="1">
+        <CommandBar Grid.Row="1">
             <AppBarButton Icon="Delete"
                           Label="~Löschen"
                           x:Uid="DeleteAppBarButton"
-                          Command="{x:Bind ViewModel.Delete}"
-                          />
+                          Command="{x:Bind ViewModel.Delete}" />
             <AppBarButton Icon="Refresh"
                           Label="~Aktualisieren"
                           x:Uid="RefreshAppBarButton"
