@@ -113,7 +113,7 @@ namespace SBoard.ApplicationModes
         {
             var item = this._helpdeskGroupItems.FirstOrDefault(f => 
                 f.ViewModelType == typeof(HelpdeskListViewModel) &&
-                f.TryGetParameterValue<HelpdeskListKind?>(nameof(HelpdeskListViewModel.Kind)) == HelpdeskListKind.HelpdeskGroup &&
+                f.TryGetParameterValue<HelpdeskListKind>(nameof(HelpdeskListViewModel.Kind)) == HelpdeskListKind.HelpdeskGroup &&
                 f.TryGetParameterValue<string>(nameof(HelpdeskListViewModel.HelpdeskGroupId)) == message.HelpdeskGroup.Id);
 
             if (item != null)
