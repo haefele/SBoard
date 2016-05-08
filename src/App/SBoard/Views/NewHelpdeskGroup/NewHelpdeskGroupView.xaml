@@ -4,7 +4,9 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:SBoard.Views.NewHelpdeskGroup"
-    xmlns:converter="using:UwCore.Converter"
+    xmlns:customers="using:SBoard.Core.Data.Customers"
+    xmlns:uwCoreConverter="using:UwCore.Converter"
+    xmlns:converter="using:SBoard.Converters"
     
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -14,14 +16,15 @@
     >
     
     <Page.Resources>
-        <converter:BooleanToObjectConverter x:Key="BooleanToVisibilityConverter">
-            <converter:BooleanToObjectConverter.TrueValue>
+        <uwCoreConverter:BooleanToObjectConverter x:Key="BooleanToVisibilityConverter">
+            <uwCoreConverter:BooleanToObjectConverter.TrueValue>
                 <Visibility>Visible</Visibility>
-            </converter:BooleanToObjectConverter.TrueValue>
-            <converter:BooleanToObjectConverter.FalseValue>
+            </uwCoreConverter:BooleanToObjectConverter.TrueValue>
+            <uwCoreConverter:BooleanToObjectConverter.FalseValue>
                 <Visibility>Collapsed</Visibility>
-            </converter:BooleanToObjectConverter.FalseValue>
-        </converter:BooleanToObjectConverter>
+            </uwCoreConverter:BooleanToObjectConverter.FalseValue>
+        </uwCoreConverter:BooleanToObjectConverter>
+        <converter:StringToOneLineConverter x:Key="StringToOneLineConverter" />
     </Page.Resources>
 
     <Grid>
@@ -56,8 +59,19 @@
                       x:Uid="SelectCustomerComboBox"
                       HorizontalAlignment="Stretch"
                       ItemsSource="{x:Bind ViewModel.Customers, Mode=OneWay}"
-                      SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}"
-                      DisplayMemberPath="Name" />
+                      SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate x:DataType="customers:CustomerPreview">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{x:Bind I3D}" />
+                            <TextBlock>
+                                <Run>&#160;</Run>
+                            </TextBlock>
+                            <TextBlock Text="{x:Bind Name, Converter={StaticResource StringToOneLineConverter}}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
 
             <ProgressBar Grid.Row="5"
                          IsIndeterminate="True"
@@ -69,3 +83,4 @@
         </CommandBar>
     </Grid>
 </Page>
+

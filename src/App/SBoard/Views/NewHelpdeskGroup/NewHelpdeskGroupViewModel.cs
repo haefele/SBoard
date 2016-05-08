@@ -10,7 +10,10 @@ using SBoard.Core.Queries;
 using SBoard.Core.Queries.Customers;
 using SBoard.Core.Services.HelpdeskGroups;
 using SBoard.Strings;
+using SBoard.Views.HelpdeskList;
+using UwCore.Common;
 using UwCore.Extensions;
+using UwCore.Services.Navigation;
 
 namespace SBoard.Views.NewHelpdeskGroup
 {
@@ -18,6 +21,7 @@ namespace SBoard.Views.NewHelpdeskGroup
     {
         private readonly IHelpdeskGroupsService _helpdeskGroupsService;
         private readonly IQueryExecutor _queryExecutor;
+        private readonly INavigationService _navigationService;
 
         private string _name;
         private string _customerSearchText;
@@ -54,10 +58,15 @@ namespace SBoard.Views.NewHelpdeskGroup
         public ReactiveCommand<Unit> Save { get; }
 
 
-        public NewHelpdeskGroupViewModel(IHelpdeskGroupsService helpdeskGroupsService, IQueryExecutor queryExecutor)
+        public NewHelpdeskGroupViewModel(IHelpdeskGroupsService helpdeskGroupsService, IQueryExecutor queryExecutor, INavigationService navigationService)
         {
+            Guard.NotNull(helpdeskGroupsService, nameof(helpdeskGroupsService));
+            Guard.NotNull(queryExecutor, nameof(queryExecutor));
+            Guard.NotNull(navigationService, nameof(navigationService));
+
             this._helpdeskGroupsService = helpdeskGroupsService;
             this._queryExecutor = queryExecutor;
+            this._navigationService = navigationService;
 
             this.DisplayName = SBoardResources.Get("ViewModel.NewHelpdeskGroup");
             
@@ -90,8 +99,17 @@ namespace SBoard.Views.NewHelpdeskGroup
 
         private async Task SaveImpl()
         {
-            await this._helpdeskGroupsService.AddHelpdeskGroupAsync(this._name, new WebServiceHelpdeskFilter {CustomerI3D = this.SelectedCustomer.I3D}, null);
-            this.TryClose(true);
+            var group = await this._helpdeskGroupsService.AddHelpdeskGroupAsync(
+                this._name, 
+                new WebServiceHelpdeskFilter {CustomerI3D = this.SelectedCustomer.I3D}, 
+                null);
+            
+            this._navigationService.For<HelpdeskListViewModel>()
+                .WithParam(f => f.Kind, HelpdeskListKind.HelpdeskGroup)
+                .WithParam(f => f.HelpdeskGroupId, group.Id)
+                .Navigate();
+
+            this._navigationService.ClearBackStack();
         }
     }
 }
