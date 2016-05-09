@@ -93,8 +93,8 @@ namespace SBoard.Views.NewHelpdeskGroup
             if (string.IsNullOrWhiteSpace(this.CustomerSearchText))
                 return new ReactiveObservableCollection<CustomerPreview>();
 
-            var customers = await this._queryExecutor.ExecuteAsync(new SearchCustomersQuery(this.CustomerSearchText));
-            return new ReactiveObservableCollection<CustomerPreview>(customers);
+            var queryResult = await this._queryExecutor.ExecuteAsync(new SearchCustomersQuery(this.CustomerSearchText));
+            return new ReactiveObservableCollection<CustomerPreview>(queryResult.Result);
         }
 
         private async Task SaveImpl()

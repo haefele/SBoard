@@ -98,14 +98,14 @@ namespace SBoard.Views.HelpdeskList
             {
                 case HelpdeskListKind.OnlyOwn:
                 {
-                    var helpdesks = await this._queryExecutor.ExecuteAsync(new OnlyOwnHelpdesksQuery());
-                    return new ReactiveObservableCollection<HelpdeskPreview>(helpdesks);
+                    var queryResult = await this._queryExecutor.ExecuteAsync(new OnlyOwnHelpdesksQuery());
+                    return new ReactiveObservableCollection<HelpdeskPreview>(queryResult.Result);
                 }
 
                 case HelpdeskListKind.HelpdeskGroup:
                 {
-                    var helpdesks = await this._queryExecutor.ExecuteAsync(new HelpdeskGroupQuery(this.HelpdeskGroupId));
-                    return new ReactiveObservableCollection<HelpdeskPreview>(helpdesks);
+                    var queryResult = await this._queryExecutor.ExecuteAsync(new HelpdeskGroupQuery(this.HelpdeskGroupId));
+                    return new ReactiveObservableCollection<HelpdeskPreview>(queryResult.Result);
                 }
 
                 default:

@@ -53,7 +53,8 @@ namespace SBoard
             container
                 .Singleton<ICentronService, CentronService>()
                 .Singleton<IHelpdeskGroupsService, HelpdeskGroupsService>()
-                .Singleton<IQueryExecutor, QueryExecutor>();
+                .Singleton<IQueryExecutor, QueryExecutor>()
+                .Singleton<IQueryCache, QueryCache>();
             
             container
                 .PerRequest<IQueryHandler<OnlyOwnHelpdesksQuery, IList<HelpdeskPreview>>, OnlyOwnHelpdesksQueryHandler>()

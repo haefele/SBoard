@@ -127,8 +127,10 @@
     <Compile Include="Queries\Customers\SearchCustomersQuery.cs" />
     <Compile Include="Queries\Helpdesks\HelpdeskGroupQuery.cs" />
     <Compile Include="Queries\IQuery.cs" />
+    <Compile Include="Queries\IQueryCache.cs" />
     <Compile Include="Queries\IQueryExecutor.cs" />
     <Compile Include="Queries\IQueryHandler.cs" />
+    <Compile Include="Queries\QueryCache.cs" />
     <Compile Include="Queries\QueryExecutor.cs" />
     <Compile Include="Queries\Helpdesks\OnlyOwnHelpdesksQuery.cs" />
     <Compile Include="Services\ApplicationState\ApplicationStateServiceExtensions.cs" />

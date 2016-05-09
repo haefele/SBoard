@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SBoard.Core.Data.Helpdesks;
@@ -7,7 +8,7 @@ using SBoard.Core.Services.HelpdeskGroups;
 
 namespace SBoard.Core.Queries.Helpdesks
 {
-    public class HelpdeskGroupQuery : IQuery<IList<HelpdeskPreview>>
+    public class HelpdeskGroupQuery : IQuery<IList<HelpdeskPreview>>, IEquatable<HelpdeskGroupQuery>
     {
         public string HelpdeskListId { get; }
 
@@ -15,6 +16,38 @@ namespace SBoard.Core.Queries.Helpdesks
         {
             this.HelpdeskListId = helpdeskListId;
         }
+
+        #region Equality
+        public bool Equals(HelpdeskGroupQuery other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return string.Equals(this.HelpdeskListId, other.HelpdeskListId);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((HelpdeskGroupQuery) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return (this.HelpdeskListId != null ? this.HelpdeskListId.GetHashCode() : 0);
+        }
+
+        public static bool operator ==(HelpdeskGroupQuery left, HelpdeskGroupQuery right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(HelpdeskGroupQuery left, HelpdeskGroupQuery right)
+        {
+            return !Equals(left, right);
+        }
+        #endregion
     }
 
     public class HelpdeskGroupQueryHandler : IQueryHandler<HelpdeskGroupQuery, IList<HelpdeskPreview>>
