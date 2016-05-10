@@ -102,4 +102,7 @@
   <data name="StatusTextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Status</value>
   </data>
+  <data name="PlannedDurationTextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Planned duration (in hours)</value>
+  </data>
 </root>

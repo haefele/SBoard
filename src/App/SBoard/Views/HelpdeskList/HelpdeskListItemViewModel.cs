@@ -15,6 +15,7 @@ namespace SBoard.Views.HelpdeskList
         private readonly ObservableAsPropertyHelper<string> _descriptionHelper;
         private readonly ObservableAsPropertyHelper<string> _priorityHelper;
         private readonly ObservableAsPropertyHelper<string> _stateHelper;
+        private readonly ObservableAsPropertyHelper<TimeSpan> _plannedDurationHelper;
 
         public HelpdeskPreview Helpdesk
         {
@@ -31,6 +32,8 @@ namespace SBoard.Views.HelpdeskList
         public string Priority => this._priorityHelper.Value;
 
         public string Status => this._stateHelper.Value;
+
+        public TimeSpan PlannedDuration => this._plannedDurationHelper.Value;
 
         public HelpdeskListItemViewModel()
         {
@@ -57,6 +60,10 @@ namespace SBoard.Views.HelpdeskList
                 .Select(f => f?.StatusCaption ?? string.Empty)
                 .Select(f => f.MakeOneLiner())
                 .ToProperty(this, f => f.Status, out this._stateHelper);
+
+            this.WhenAnyValue(f => f.Helpdesk)
+                .Select(f => f.PlannedDuration)
+                .ToProperty(this, f => f.PlannedDuration, out this._plannedDurationHelper);
         }
     }
 }

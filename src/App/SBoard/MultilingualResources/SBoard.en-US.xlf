@@ -126,6 +126,10 @@
           <source>Status</source>
           <target state="translated">Status</target>
         </trans-unit>
+        <trans-unit id="PlannedDurationTextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Geplante Dauer (in Stunden)</source>
+          <target state="translated">Planned duration (in hours)</target>
+        </trans-unit>
       </group>
     </body>
   </file>

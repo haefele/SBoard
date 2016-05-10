@@ -168,6 +168,9 @@
   <data name="PasswordPasswordBox.Header" xml:space="preserve">
     <value>Passwort</value>
   </data>
+  <data name="PlannedDurationTextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Geplante Dauer (in Stunden)</value>
+  </data>
   <data name="PriorityTextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Priorität</value>
   </data>
