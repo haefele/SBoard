@@ -150,6 +150,9 @@
   <data name="NameTextBox.Header" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="Navigation.Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
   <data name="Navigation.Login" xml:space="preserve">
     <value>Anmeldung</value>
   </data>
@@ -197,6 +200,9 @@
   </data>
   <data name="UsernameTextBox.Header" xml:space="preserve">
     <value>Benutzername</value>
+  </data>
+  <data name="ViewModel.Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
   </data>
   <data name="ViewModel.HelpdeskList" xml:space="preserve">
     <value>Tickets</value>

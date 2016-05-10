@@ -105,4 +105,10 @@
   <data name="OnlyOwnTicketsToggleSwitch.Header" xml:space="preserve">
     <value>Only own tickets</value>
   </data>
+  <data name="Navigation.Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="ViewModel.Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
 </root>

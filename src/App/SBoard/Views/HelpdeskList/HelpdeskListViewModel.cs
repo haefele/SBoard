@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
@@ -11,10 +10,9 @@ using SBoard.Core.Queries;
 using SBoard.Core.Queries.Helpdesks;
 using SBoard.Core.Services.HelpdeskGroups;
 using SBoard.Strings;
-using SBoard.Views.NewHelpdeskGroup;
+using SBoard.Views.Dashboard;
 using UwCore.Extensions;
-using UwCore.Services.ExceptionHandler;
-using UwCore.Services.Loading;
+using INavigationService = UwCore.Services.Navigation.INavigationService;
 
 namespace SBoard.Views.HelpdeskList
 {
@@ -22,7 +20,8 @@ namespace SBoard.Views.HelpdeskList
     {
         private readonly IQueryExecutor _queryExecutor;
         private readonly IHelpdeskGroupsService _helpdeskGroupsService;
-        
+        private readonly INavigationService _navigationService;
+
         private readonly ObservableAsPropertyHelper<ReactiveObservableCollection<HelpdeskListItemViewModel>> _helpdesksHelper;
         
         private string _helpdeskGroupId;
@@ -43,10 +42,11 @@ namespace SBoard.Views.HelpdeskList
         }
         
 
-        public HelpdeskListViewModel(IQueryExecutor queryExecutor, IHelpdeskGroupsService helpdeskGroupsService)
+        public HelpdeskListViewModel(IQueryExecutor queryExecutor, IHelpdeskGroupsService helpdeskGroupsService, INavigationService navigationService)
         {
             this._queryExecutor = queryExecutor;
             this._helpdeskGroupsService = helpdeskGroupsService;
+            this._navigationService = navigationService;
 
             this.DisplayName = SBoardResources.Get("ViewModel.HelpdeskList");
             
@@ -83,6 +83,9 @@ namespace SBoard.Views.HelpdeskList
         private async Task DeleteImpl()
         {
             await this._helpdeskGroupsService.DeleteHelpdeskGroupAsync(this.HelpdeskGroupId);
+
+            this._navigationService.For<DashboardViewModel>().Navigate();
+            this._navigationService.ClearBackStack();
         }
         
         private async Task<ReactiveObservableCollection<HelpdeskPreview>> RefreshHelpdesksImpl()

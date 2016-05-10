@@ -9,6 +9,7 @@ using SBoard.Core.Services.Centron;
 using SBoard.Core.Services.HelpdeskGroups;
 using SBoard.Core.Services.HelpdeskGroups.Events;
 using SBoard.Strings;
+using SBoard.Views.Dashboard;
 using SBoard.Views.HelpdeskList;
 using SBoard.Views.NewHelpdeskGroup;
 using UwCore.Application;
@@ -26,6 +27,7 @@ namespace SBoard.ApplicationModes
         private readonly IHelpdeskGroupsService _helpdeskGroupsService;
         private readonly IEventAggregator _eventAggregator;
 
+        private readonly NavigatingHamburgerItem _dashboardItem;
         private readonly ClickableHamburgerItem _logoutItem;
         private readonly NavigatingHamburgerItem _newHelpdeskGroupItem;
         private readonly IList<NavigatingHamburgerItem> _helpdeskGroupItems;
@@ -38,6 +40,7 @@ namespace SBoard.ApplicationModes
             this._helpdeskGroupsService = helpdeskGroupsService;
             this._eventAggregator = eventAggregator;
 
+            this._dashboardItem = new NavigatingHamburgerItem(SBoardResources.Get("Navigation.Dashboard"), Symbol.Home, typeof(DashboardViewModel));
             this._logoutItem = new ClickableHamburgerItem(SBoardResources.Get("Navigation.Logout"), SymbolEx.Logout, this.Logout);
             this._newHelpdeskGroupItem = new NavigatingHamburgerItem(SBoardResources.Get("Navigation.NewHelpdeskGroup"), Symbol.Add, typeof(NewHelpdeskGroupViewModel));
             this._helpdeskGroupItems = new List<NavigatingHamburgerItem>();
@@ -47,6 +50,7 @@ namespace SBoard.ApplicationModes
         {   
             this._eventAggregator.Subscribe(this);
 
+            this.Application.Actions.Add(this._dashboardItem);
             this.Application.SecondaryActions.Add(this._logoutItem);
             this.Application.Actions.Add(this._newHelpdeskGroupItem);
 
@@ -57,12 +61,15 @@ namespace SBoard.ApplicationModes
             {
                 this.AddHelpdeskGroupItem(group);
             }
+
+            this._dashboardItem.Execute();
         }
 
         public override void Leave()
         {
             this._eventAggregator.Unsubscribe(this);
 
+            this.Application.Actions.Remove(this._dashboardItem);
             this.Application.SecondaryActions.Remove(this._logoutItem);
             this.Application.Actions.Remove(this._newHelpdeskGroupItem);
 

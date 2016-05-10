@@ -109,6 +109,10 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strings\SBoardResources.cs" />
+    <Compile Include="Views\Dashboard\DashboardView.xaml.cs">
+      <DependentUpon>DashboardView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dashboard\DashboardViewModel.cs" />
     <Compile Include="Views\HelpdeskList\HelpdeskListItemView.xaml.cs">
       <DependentUpon>HelpdeskListItemView.xaml</DependentUpon>
     </Compile>
@@ -149,6 +153,10 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\Dashboard\DashboardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\HelpdeskList\HelpdeskListItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

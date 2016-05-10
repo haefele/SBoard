@@ -14,6 +14,7 @@ using SBoard.Core.Services.ApplicationState;
 using SBoard.Core.Services.Centron;
 using SBoard.Core.Services.HelpdeskGroups;
 using SBoard.Strings;
+using SBoard.Views.Dashboard;
 using SBoard.Views.HelpdeskList;
 using SBoard.Views.Login;
 using SBoard.Views.NewHelpdeskGroup;
@@ -42,6 +43,7 @@ namespace SBoard
             yield return typeof(HelpdeskListViewModel);
             yield return typeof(NewHelpdeskGroupViewModel);
             yield return typeof(HelpdeskListItemViewModel);
+            yield return typeof(DashboardViewModel);
         }
 
         public override void ConfigureContainer(WinRTContainer container)

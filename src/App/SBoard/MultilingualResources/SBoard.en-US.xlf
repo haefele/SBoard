@@ -130,6 +130,14 @@
           <source>Nur eigene Tickets</source>
           <target state="translated">Only own tickets</target>
         </trans-unit>
+        <trans-unit id="Navigation.Dashboard" translate="yes" xml:space="preserve">
+          <source>Dashboard</source>
+          <target state="translated">Dashboard</target>
+        </trans-unit>
+        <trans-unit id="ViewModel.Dashboard" translate="yes" xml:space="preserve">
+          <source>Dashboard</source>
+          <target state="translated">Dashboard</target>
+        </trans-unit>
       </group>
     </body>
   </file>
