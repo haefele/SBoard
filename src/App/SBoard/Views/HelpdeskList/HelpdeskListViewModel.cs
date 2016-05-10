@@ -24,8 +24,7 @@ namespace SBoard.Views.HelpdeskList
         private readonly IHelpdeskGroupsService _helpdeskGroupsService;
         
         private readonly ObservableAsPropertyHelper<ReactiveObservableCollection<HelpdeskListItemViewModel>> _helpdesksHelper;
-
-        private HelpdeskListKind _kind;
+        
         private string _helpdeskGroupId;
         
 
@@ -37,11 +36,6 @@ namespace SBoard.Views.HelpdeskList
         public ReactiveCommand<Unit> Delete { get; }
         public ReactiveCommand<ReactiveObservableCollection<HelpdeskPreview>> RefreshHelpdesks { get; }
         
-        public HelpdeskListKind Kind
-        {
-            get { return this._kind; }
-            set { this.RaiseAndSetIfChanged(ref this._kind, value); }
-        }
         public string HelpdeskGroupId
         {
             get { return this._helpdeskGroupId; }
@@ -55,9 +49,8 @@ namespace SBoard.Views.HelpdeskList
             this._helpdeskGroupsService = helpdeskGroupsService;
 
             this.DisplayName = SBoardResources.Get("ViewModel.HelpdeskList");
-
-            var canDelete = this.WhenAnyValue(f => f.Kind, kind => kind == HelpdeskListKind.HelpdeskGroup);
-            this.Delete = ReactiveCommand.CreateAsyncTask(canDelete, _ => this.DeleteImpl());
+            
+            this.Delete = ReactiveCommand.CreateAsyncTask(_ => this.DeleteImpl());
             this.Delete.AttachExceptionHandler();
             this.Delete.AttachLoadingService(SBoardResources.Get("Loading.DeletingHelpdeskGroup"));
 
@@ -94,25 +87,8 @@ namespace SBoard.Views.HelpdeskList
         
         private async Task<ReactiveObservableCollection<HelpdeskPreview>> RefreshHelpdesksImpl()
         {
-            switch (this.Kind)
-            {
-                case HelpdeskListKind.OnlyOwn:
-                {
-                    var queryResult = await this._queryExecutor.ExecuteAsync(new OnlyOwnHelpdesksQuery());
-                    return new ReactiveObservableCollection<HelpdeskPreview>(queryResult.Result);
-                }
-
-                case HelpdeskListKind.HelpdeskGroup:
-                {
-                    var queryResult = await this._queryExecutor.ExecuteAsync(new HelpdeskGroupQuery(this.HelpdeskGroupId));
-                    return new ReactiveObservableCollection<HelpdeskPreview>(queryResult.Result);
-                }
-
-                default:
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
-            }
+            var queryResult = await this._queryExecutor.ExecuteAsync(new HelpdeskGroupQuery(this.HelpdeskGroupId));
+            return new ReactiveObservableCollection<HelpdeskPreview>(queryResult.Result);
         }
     }
 }

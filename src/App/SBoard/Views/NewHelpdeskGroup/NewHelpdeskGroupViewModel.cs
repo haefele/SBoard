@@ -28,6 +28,7 @@ namespace SBoard.Views.NewHelpdeskGroup
         private readonly ObservableAsPropertyHelper<ReactiveObservableCollection<CustomerPreview>> _customersHelper;
         private CustomerPreview _selectedCustomer;
         private readonly ObservableAsPropertyHelper<bool> _isSearchingCustomersHelper;
+        private bool _onlyOwnTickets;
 
 
         public string Name
@@ -53,7 +54,12 @@ namespace SBoard.Views.NewHelpdeskGroup
         {
             get { return this._isSearchingCustomersHelper.Value; }
         }
-        
+        public bool OnlyOwnTickets
+        {
+            get { return this._onlyOwnTickets; }
+            set { this.RaiseAndSetIfChanged(ref this._onlyOwnTickets, value); }
+        }
+
         public ReactiveCommand<ReactiveObservableCollection<CustomerPreview>> SearchCustomers { get; }
         public ReactiveCommand<Unit> Save { get; }
 
@@ -80,13 +86,11 @@ namespace SBoard.Views.NewHelpdeskGroup
                 .DistinctUntilChanged()
                 .InvokeCommand(this, f => f.SearchCustomers);
 
-            var canSave = this.WhenAnyValue(f => f.Name, f => f.SelectedCustomer, (name, selectedCustomer) =>
-                string.IsNullOrWhiteSpace(name) == false && selectedCustomer != null);
+            var canSave = this.WhenAnyValue(f => f.Name, name => string.IsNullOrWhiteSpace(name) == false);
             this.Save = ReactiveCommand.CreateAsyncTask(canSave, _ => this.SaveImpl());
             this.Save.AttachLoadingService(SBoardResources.Get("Loading.Saving"));
             this.Save.AttachExceptionHandler();
         }
-        
 
         private async Task<ReactiveObservableCollection<CustomerPreview>> SearchCustomersImpl()
         {
@@ -99,13 +103,17 @@ namespace SBoard.Views.NewHelpdeskGroup
 
         private async Task SaveImpl()
         {
+            var webServiceHelpdeskFilter = new WebServiceHelpdeskFilter
+            {
+                CustomerI3D = this.SelectedCustomer?.I3D,
+                OnlyOwn = this.OnlyOwnTickets
+            };
             var group = await this._helpdeskGroupsService.AddHelpdeskGroupAsync(
                 this._name, 
-                new WebServiceHelpdeskFilter {CustomerI3D = this.SelectedCustomer.I3D}, 
+                webServiceHelpdeskFilter, 
                 null);
             
             this._navigationService.For<HelpdeskListViewModel>()
-                .WithParam(f => f.Kind, HelpdeskListKind.HelpdeskGroup)
                 .WithParam(f => f.HelpdeskGroupId, group.Id)
                 .Navigate();
 

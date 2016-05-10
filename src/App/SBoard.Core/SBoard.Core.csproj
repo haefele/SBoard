@@ -132,7 +132,6 @@
     <Compile Include="Queries\IQueryHandler.cs" />
     <Compile Include="Queries\QueryCache.cs" />
     <Compile Include="Queries\QueryExecutor.cs" />
-    <Compile Include="Queries\Helpdesks\OnlyOwnHelpdesksQuery.cs" />
     <Compile Include="Services\ApplicationState\ApplicationStateServiceExtensions.cs" />
     <Compile Include="Data\HelpdeskGroups\HelpdeskGroup.cs" />
     <Compile Include="Services\Centron\CentronService.cs" />

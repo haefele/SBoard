@@ -117,7 +117,6 @@
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Login\LoginViewModel.cs" />
-    <Compile Include="Views\HelpdeskList\HelpdeskListKind.cs" />
     <Compile Include="Views\HelpdeskList\HelpdeskListView.xaml.cs">
       <DependentUpon>HelpdeskListView.xaml</DependentUpon>
     </Compile>

@@ -27,7 +27,6 @@ namespace SBoard.ApplicationModes
         private readonly IEventAggregator _eventAggregator;
 
         private readonly ClickableHamburgerItem _logoutItem;
-        private readonly NavigatingHamburgerItem _onlyOwnItem;
         private readonly NavigatingHamburgerItem _newHelpdeskGroupItem;
         private readonly IList<NavigatingHamburgerItem> _helpdeskGroupItems;
 
@@ -40,8 +39,6 @@ namespace SBoard.ApplicationModes
             this._eventAggregator = eventAggregator;
 
             this._logoutItem = new ClickableHamburgerItem(SBoardResources.Get("Navigation.Logout"), SymbolEx.Logout, this.Logout);
-            this._onlyOwnItem = new NavigatingHamburgerItem(SBoardResources.Get("Navigation.OwnTickets"), Symbol.List, typeof(HelpdeskListViewModel));
-            this._onlyOwnItem.AddParameter<HelpdeskListViewModel>(f => f.Kind, HelpdeskListKind.OnlyOwn);
             this._newHelpdeskGroupItem = new NavigatingHamburgerItem(SBoardResources.Get("Navigation.NewHelpdeskGroup"), Symbol.Add, typeof(NewHelpdeskGroupViewModel));
             this._helpdeskGroupItems = new List<NavigatingHamburgerItem>();
         }
@@ -51,7 +48,6 @@ namespace SBoard.ApplicationModes
             this._eventAggregator.Subscribe(this);
 
             this.Application.SecondaryActions.Add(this._logoutItem);
-            this.Application.Actions.Add(this._onlyOwnItem);
             this.Application.Actions.Add(this._newHelpdeskGroupItem);
 
             this._helpdeskGroupItems.Clear();
@@ -61,8 +57,6 @@ namespace SBoard.ApplicationModes
             {
                 this.AddHelpdeskGroupItem(group);
             }
-
-            this._onlyOwnItem.Execute();
         }
 
         public override void Leave()
@@ -70,7 +64,6 @@ namespace SBoard.ApplicationModes
             this._eventAggregator.Unsubscribe(this);
 
             this.Application.SecondaryActions.Remove(this._logoutItem);
-            this.Application.Actions.Remove(this._onlyOwnItem);
             this.Application.Actions.Remove(this._newHelpdeskGroupItem);
 
             foreach (var item in this._helpdeskGroupItems)
@@ -102,7 +95,6 @@ namespace SBoard.ApplicationModes
         private void AddHelpdeskGroupItem(HelpdeskGroup group)
         {
             var item = new NavigatingHamburgerItem(group.Name, Symbol.List, typeof(HelpdeskListViewModel));
-            item.AddParameter<HelpdeskListViewModel>(f => f.Kind, HelpdeskListKind.HelpdeskGroup);
             item.AddParameter<HelpdeskListViewModel>(f => f.HelpdeskGroupId, group.Id);
 
             this._helpdeskGroupItems.Add(item);
@@ -113,7 +105,6 @@ namespace SBoard.ApplicationModes
         {
             var item = this._helpdeskGroupItems.FirstOrDefault(f => 
                 f.ViewModelType == typeof(HelpdeskListViewModel) &&
-                f.TryGetParameterValue<HelpdeskListKind>(nameof(HelpdeskListViewModel.Kind)) == HelpdeskListKind.HelpdeskGroup &&
                 f.TryGetParameterValue<string>(nameof(HelpdeskListViewModel.HelpdeskGroupId)) == message.HelpdeskGroup.Id);
 
             if (item != null)

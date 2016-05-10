@@ -66,7 +66,9 @@ namespace SBoard.Core.Queries.Helpdesks
             var helpdeskLists = await this._helpdeskGroupsService.GetHelpdeskGroupsAsync();
             var helpdeskList = helpdeskLists.First(f => f.Id == query.HelpdeskListId);
 
-            var helpdesks = await this._centronService.GetHelpdesksAsync(helpdeskList.WebServiceHelpdeskFilter.CustomerI3D, false);
+            var helpdesks = await this._centronService.GetHelpdesksAsync(
+                helpdeskList.WebServiceHelpdeskFilter.CustomerI3D, 
+                helpdeskList.WebServiceHelpdeskFilter.OnlyOwn);
 
             if (helpdeskList.ClientHelpdeskFilter != null)
             {

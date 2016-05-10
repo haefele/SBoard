@@ -66,10 +66,6 @@
           <source>Neue Ticket-Gruppe</source>
           <target state="translated">New ticket-group</target>
         </trans-unit>
-        <trans-unit id="Navigation.OwnTickets" translate="yes" xml:space="preserve">
-          <source>Eigene Tickets</source>
-          <target state="translated">Own tickets</target>
-        </trans-unit>
         <trans-unit id="ViewModel.NewHelpdeskGroup" translate="yes" xml:space="preserve">
           <source>Neue Ticket-Gruppe</source>
           <target state="translated">New ticket-group</target>
@@ -129,6 +125,10 @@
         <trans-unit id="PlannedDurationTextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
           <source>Geplante Dauer (in Stunden)</source>
           <target state="translated">Planned duration (in hours)</target>
+        </trans-unit>
+        <trans-unit id="OnlyOwnTicketsToggleSwitch.Header" translate="yes" xml:space="preserve">
+          <source>Nur eigene Tickets</source>
+          <target state="translated">Only own tickets</target>
         </trans-unit>
       </group>
     </body>

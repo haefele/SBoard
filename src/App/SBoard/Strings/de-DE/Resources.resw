@@ -159,11 +159,11 @@
   <data name="Navigation.NewHelpdeskGroup" xml:space="preserve">
     <value>Neue Ticket-Gruppe</value>
   </data>
-  <data name="Navigation.OwnTickets" xml:space="preserve">
-    <value>Eigene Tickets</value>
-  </data>
   <data name="NumberTextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Nummer</value>
+  </data>
+  <data name="OnlyOwnTicketsToggleSwitch.Header" xml:space="preserve">
+    <value>Nur eigene Tickets</value>
   </data>
   <data name="PasswordPasswordBox.Header" xml:space="preserve">
     <value>Passwort</value>

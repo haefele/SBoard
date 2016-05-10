@@ -57,9 +57,6 @@
   <data name="Navigation.NewHelpdeskGroup" xml:space="preserve">
     <value>New ticket-group</value>
   </data>
-  <data name="Navigation.OwnTickets" xml:space="preserve">
-    <value>Own tickets</value>
-  </data>
   <data name="ViewModel.NewHelpdeskGroup" xml:space="preserve">
     <value>New ticket-group</value>
   </data>
@@ -104,5 +101,8 @@
   </data>
   <data name="PlannedDurationTextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Planned duration (in hours)</value>
+  </data>
+  <data name="OnlyOwnTicketsToggleSwitch.Header" xml:space="preserve">
+    <value>Only own tickets</value>
   </data>
 </root>

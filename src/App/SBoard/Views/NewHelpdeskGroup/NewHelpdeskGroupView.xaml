@@ -42,19 +42,34 @@
                 <RowDefinition Height="5" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="5" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <TextBox Grid.Row="0"
+            <TextBlock Grid.Row="0" 
+                       Style="{StaticResource TitleTextBlockStyle}" 
+                       Text="Allgemeines" />
+            
+            <TextBox Grid.Row="2"
                      x:Uid="NameTextBox"
                      Header="~Name"
                      Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-            <TextBox Grid.Row="2"
+            <TextBlock Grid.Row="4" 
+                       Style="{StaticResource TitleTextBlockStyle}" 
+                       Text="Filter" />
+            
+            <TextBox Grid.Row="6"
                      x:Uid="SearchCustomerTextBox"
                      Header="~Kunde"
                      Text="{Binding CustomerSearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-            <ComboBox Grid.Row="4"
+            <ComboBox Grid.Row="8"
                       x:Uid="SelectCustomerComboBox"
                       HorizontalAlignment="Stretch"
                       ItemsSource="{x:Bind ViewModel.Customers, Mode=OneWay}"
@@ -72,9 +87,14 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <ProgressBar Grid.Row="5"
+            <ProgressBar Grid.Row="9"
                          IsIndeterminate="True"
                          Visibility="{x:Bind ViewModel.IsSearchingCustomers, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"  />
+            
+            <ToggleSwitch x:Uid="OnlyOwnTicketsToggleSwitch"
+                          Header="~Nur eigene Tickets" 
+                          Grid.Row="10"
+                          IsOn="{x:Bind ViewModel.OnlyOwnTickets}" />
         </Grid>
         
         <CommandBar Grid.Row="1">
