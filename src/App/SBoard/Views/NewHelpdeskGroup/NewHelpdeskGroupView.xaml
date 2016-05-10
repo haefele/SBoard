@@ -94,7 +94,7 @@
             <ToggleSwitch x:Uid="OnlyOwnTicketsToggleSwitch"
                           Header="~Nur eigene Tickets" 
                           Grid.Row="10"
-                          IsOn="{x:Bind ViewModel.OnlyOwnTickets}" />
+                          IsOn="{x:Bind ViewModel.OnlyOwnTickets, Mode=TwoWay}" />
         </Grid>
         
         <CommandBar Grid.Row="1">
