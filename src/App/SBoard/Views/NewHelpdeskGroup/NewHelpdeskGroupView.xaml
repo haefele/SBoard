@@ -24,6 +24,7 @@
                 <Visibility>Collapsed</Visibility>
             </uwCoreConverter:BooleanToObjectConverter.FalseValue>
         </uwCoreConverter:BooleanToObjectConverter>
+        
         <converter:StringToOneLineConverter x:Key="StringToOneLineConverter" />
     </Page.Resources>
 
@@ -36,6 +37,8 @@
         <Grid Grid.Row="0"
               Margin="5">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="5" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="5" />
                 <RowDefinition Height="Auto" />
@@ -67,10 +70,12 @@
             <TextBox Grid.Row="6"
                      x:Uid="SearchCustomerTextBox"
                      Header="~Kunde"
+                     PlaceholderText="~Suchtext"
                      Text="{Binding CustomerSearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
             <ComboBox Grid.Row="8"
                       x:Uid="SelectCustomerComboBox"
+                      PlaceholderText="~Wählen Sie einen Kunden aus"
                       HorizontalAlignment="Stretch"
                       ItemsSource="{x:Bind ViewModel.Customers, Mode=OneWay}"
                       SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}">
@@ -95,6 +100,16 @@
                           Header="~Nur eigene Tickets" 
                           Grid.Row="10"
                           IsOn="{x:Bind ViewModel.OnlyOwnTickets, Mode=TwoWay}" />
+
+            <ComboBox Grid.Row="12"
+                      HorizontalAlignment="Stretch"
+                      Header="~Typ"
+                      x:Uid="TicketTypesComboBox"
+                      PlaceholderText="~Wählen Sie einen Typ aus"
+                      ItemsSource="{x:Bind ViewModel.HelpdeskTypes, Mode=OneWay}"
+                      SelectedItem="{Binding SelectedHelpdeskType, Mode=TwoWay}"
+                      DisplayMemberPath="Name" />
+            
         </Grid>
         
         <CommandBar Grid.Row="1">

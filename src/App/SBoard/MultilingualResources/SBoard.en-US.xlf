@@ -138,6 +138,18 @@
           <source>Dashboard</source>
           <target state="translated">Dashboard</target>
         </trans-unit>
+        <trans-unit id="TicketTypesComboBox.Header" translate="yes" xml:space="preserve">
+          <source>Typ</source>
+          <target state="translated">Type</target>
+        </trans-unit>
+        <trans-unit id="Loading.TicketTypes" translate="yes" xml:space="preserve">
+          <source>Lade Ticket Typen...</source>
+          <target state="new">Lade Ticket Typen...</target>
+        </trans-unit>
+        <trans-unit id="TicketTypesComboBox.PlaceholderText" translate="yes" xml:space="preserve">
+          <source>Wählen Sie einen Typ aus</source>
+          <target state="new">Wählen Sie einen Typ aus</target>
+        </trans-unit>
       </group>
     </body>
   </file>

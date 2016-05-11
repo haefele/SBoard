@@ -144,6 +144,9 @@
   <data name="Loading.Tickets" xml:space="preserve">
     <value>Lade Tickets...</value>
   </data>
+  <data name="Loading.TicketTypes" xml:space="preserve">
+    <value>Lade Ticket Typen...</value>
+  </data>
   <data name="LoginButton.Content" xml:space="preserve">
     <value>Anmelden</value>
   </data>
@@ -197,6 +200,12 @@
   </data>
   <data name="StatusTextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Status</value>
+  </data>
+  <data name="TicketTypesComboBox.Header" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="TicketTypesComboBox.PlaceholderText" xml:space="preserve">
+    <value>Wählen Sie einen Typ aus</value>
   </data>
   <data name="UsernameTextBox.Header" xml:space="preserve">
     <value>Benutzername</value>

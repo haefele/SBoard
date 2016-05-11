@@ -60,7 +60,8 @@ namespace SBoard
             
             container
                 .PerRequest<IQueryHandler<HelpdeskGroupQuery, IList<HelpdeskPreview>>, HelpdeskGroupQueryHandler>()
-                .PerRequest<IQueryHandler<SearchCustomersQuery, IList<CustomerPreview>>, SearchCustomersQueryHandler>();
+                .PerRequest<IQueryHandler<SearchCustomersQuery, IList<CustomerPreview>>, SearchCustomersQueryHandler>()
+                .PerRequest<IQueryHandler<HelpdeskTypesQuery, IList<HelpdeskType>>, HelpdeskTypesQueryHandler>();
         }
 
         public override string GetErrorTitle() => SBoardResources.Get("Errors.Title");

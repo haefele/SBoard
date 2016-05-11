@@ -111,4 +111,7 @@
   <data name="ViewModel.Dashboard" xml:space="preserve">
     <value>Dashboard</value>
   </data>
+  <data name="TicketTypesComboBox.Header" xml:space="preserve">
+    <value>Type</value>
+  </data>
 </root>
