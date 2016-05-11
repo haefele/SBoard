@@ -136,16 +136,11 @@ namespace SBoard.Views.NewHelpdeskGroup
 
         private async Task SaveImpl()
         {
-            var webServiceHelpdeskFilter = new WebServiceHelpdeskFilter
-            {
-                CustomerI3D = this.SelectedCustomer?.I3D,
-                OnlyOwn = this.OnlyOwnTickets,
-                HelpdeskTypeI3D = this.SelectedHelpdeskType?.I3D,
-            };
             var group = await this._helpdeskGroupsService.AddHelpdeskGroupAsync(
                 this._name, 
-                webServiceHelpdeskFilter, 
-                null);
+                this.SelectedCustomer?.I3D,
+                this.OnlyOwnTickets,
+                this.SelectedHelpdeskType?.I3D);
             
             this._navigationService.For<HelpdeskListViewModel>()
                 .WithParam(f => f.HelpdeskGroupId, group.Id)

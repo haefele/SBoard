@@ -114,13 +114,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Customers\CustomerPreview.cs" />
-    <Compile Include="Data\HelpdeskGroups\AndHelpdeskFilter.cs" />
-    <Compile Include="Data\HelpdeskGroups\ClientHelpdeskFilter.cs" />
-    <Compile Include="Data\HelpdeskGroups\NotHelpdeskFilter.cs" />
-    <Compile Include="Data\HelpdeskGroups\OrHelpdeskFilter.cs" />
-    <Compile Include="Data\HelpdeskGroups\PropertyHelpdeskFilter.cs" />
-    <Compile Include="Data\HelpdeskGroups\PropertyTicketFilterComparator.cs" />
-    <Compile Include="Data\HelpdeskGroups\WebServiceHelpdeskFilter.cs" />
     <Compile Include="Exceptions\InvalidTicketException.cs" />
     <Compile Include="Exceptions\SBoardException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -5,7 +5,9 @@
         public string Id { get; set; }
 
         public string Name { get; set; }
-        public WebServiceHelpdeskFilter WebServiceHelpdeskFilter { get; set; }
-        public ClientHelpdeskFilter ClientHelpdeskFilter { get; set; }
+
+        public int? CustomerI3D { get; set; }
+        public bool OnlyOwn { get; set; }
+        public int? HelpdeskTypeI3D { get; set; }
     }
 }

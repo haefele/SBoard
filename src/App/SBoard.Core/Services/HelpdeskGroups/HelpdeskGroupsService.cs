@@ -28,14 +28,15 @@ namespace SBoard.Core.Services.HelpdeskGroups
             return Task.FromResult((IList<HelpdeskGroup>)helpdeskLists ?? new List<HelpdeskGroup>());
         }
 
-        public async Task<HelpdeskGroup> AddHelpdeskGroupAsync(string name, WebServiceHelpdeskFilter webServiceHelpdeskFilter, ClientHelpdeskFilter clientHelpdeskFilter)
+        public async Task<HelpdeskGroup> AddHelpdeskGroupAsync(string name, int? customerI3D, bool onlyOwn, int? helpdeskTypeI3D)
         {
             var item = new HelpdeskGroup
             {
                 Id = Guid.NewGuid().ToString("N"),
                 Name = name,
-                WebServiceHelpdeskFilter = webServiceHelpdeskFilter,
-                ClientHelpdeskFilter = clientHelpdeskFilter
+                CustomerI3D = customerI3D,
+                OnlyOwn = onlyOwn,
+                HelpdeskTypeI3D = helpdeskTypeI3D
             };
             var helpdeskLists = await this.GetHelpdeskGroupsAsync();
             helpdeskLists.Add(item);

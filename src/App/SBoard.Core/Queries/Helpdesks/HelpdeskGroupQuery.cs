@@ -67,13 +67,13 @@ namespace SBoard.Core.Queries.Helpdesks
             var helpdeskList = helpdeskLists.First(f => f.Id == query.HelpdeskListId);
 
             var helpdesks = await this._centronService.GetHelpdesksAsync(
-                helpdeskList.WebServiceHelpdeskFilter.CustomerI3D, 
-                helpdeskList.WebServiceHelpdeskFilter.OnlyOwn);
+                helpdeskList.CustomerI3D, 
+                helpdeskList.OnlyOwn);
 
-            if (helpdeskList.ClientHelpdeskFilter != null)
+            if (helpdeskList.HelpdeskTypeI3D.HasValue)
             {
                 helpdesks = helpdesks
-                    .Where(helpdeskList.ClientHelpdeskFilter.Apply)
+                    .Where(f => f.TypeI3D == helpdeskList.HelpdeskTypeI3D.Value)
                     .ToList();
             }
 
