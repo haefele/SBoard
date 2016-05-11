@@ -114,4 +114,19 @@
   <data name="TicketTypesComboBox.Header" xml:space="preserve">
     <value>Type</value>
   </data>
+  <data name="Loading.TicketTypes" xml:space="preserve">
+    <value>Loading ticket types...</value>
+  </data>
+  <data name="TicketTypesComboBox.PlaceholderText" xml:space="preserve">
+    <value>Select a type</value>
+  </data>
+  <data name="Loading.TicketStates" xml:space="preserve">
+    <value>Loading ticket states...</value>
+  </data>
+  <data name="TicketStatesComboBox.Header" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="TicketStatesComboBox.PlaceholderText" xml:space="preserve">
+    <value>Select a state</value>
+  </data>
 </root>

@@ -144,11 +144,23 @@
         </trans-unit>
         <trans-unit id="Loading.TicketTypes" translate="yes" xml:space="preserve">
           <source>Lade Ticket Typen...</source>
-          <target state="new">Lade Ticket Typen...</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Loading ticket types...</target>
         </trans-unit>
         <trans-unit id="TicketTypesComboBox.PlaceholderText" translate="yes" xml:space="preserve">
           <source>Wählen Sie einen Typ aus</source>
-          <target state="new">Wählen Sie einen Typ aus</target>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Select a type</target>
+        </trans-unit>
+        <trans-unit id="Loading.TicketStates" translate="yes" xml:space="preserve">
+          <source>Lade Ticket Status...</source>
+          <target state="translated">Loading ticket states...</target>
+        </trans-unit>
+        <trans-unit id="TicketStatesComboBox.Header" translate="yes" xml:space="preserve">
+          <source>Status</source>
+          <target state="translated">State</target>
+        </trans-unit>
+        <trans-unit id="TicketStatesComboBox.PlaceholderText" translate="yes" xml:space="preserve">
+          <source>Wählen Sie einen Status aus</source>
+          <target state="translated">Select a state</target>
         </trans-unit>
       </group>
     </body>

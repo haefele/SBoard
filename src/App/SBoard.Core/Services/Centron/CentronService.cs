@@ -61,7 +61,7 @@ namespace SBoard.Core.Services.Centron
         }
 
         [ItemNotNull]
-        public async Task<IList<HelpdeskPreview>> GetHelpdesksAsync(int? customerI3D, bool onlyOwn)
+        public async Task<IList<HelpdeskPreview>> GetHelpdesksAsync(int? customerI3D, bool onlyOwn, int? helpdeskStateI3D)
         {
             var request = new
             {
@@ -70,7 +70,8 @@ namespace SBoard.Core.Services.Centron
                 HelpdeskFilter = new
                 {
                     CustomerI3D = customerI3D,
-                    OnlyOwn = onlyOwn
+                    OnlyOwn = onlyOwn,
+                    HelpdeskState = helpdeskStateI3D
                 }
             };
 

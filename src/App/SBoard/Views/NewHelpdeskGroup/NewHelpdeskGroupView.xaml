@@ -51,6 +51,8 @@
                 <RowDefinition Height="5" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="5" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="5" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
@@ -109,6 +111,16 @@
                       ItemsSource="{x:Bind ViewModel.HelpdeskTypes, Mode=OneWay}"
                       SelectedItem="{Binding SelectedHelpdeskType, Mode=TwoWay}"
                       DisplayMemberPath="Name" />
+            
+            <ComboBox Grid.Row="14"
+                      HorizontalAlignment="Stretch"
+                      Header="~Status"
+                      x:Uid="TicketStatesComboBox"
+                      PlaceholderText="~Wählen Sie einen Status aus"
+                      ItemsSource="{x:Bind ViewModel.HelpdeskStates, Mode=OneWay}"
+                      SelectedItem="{Binding SelectedHelpdeskState, Mode=TwoWay}"
+                      DisplayMemberPath="Name"
+                      />
             
         </Grid>
         

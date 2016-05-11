@@ -8,7 +8,7 @@ namespace SBoard.Core.Services.HelpdeskGroups
     {
         Task<IList<HelpdeskGroup>> GetHelpdeskGroupsAsync();
 
-        Task<HelpdeskGroup> AddHelpdeskGroupAsync(string name, int? customerI3D, bool onlyOwn, int? helpdeskTypeI3D);
+        Task<HelpdeskGroup> AddHelpdeskGroupAsync(string name, int? customerI3D, bool onlyOwn, int? helpdeskTypeI3D, int? helpdeskStateI3D);
 
         Task DeleteHelpdeskGroupAsync(string id);
     }

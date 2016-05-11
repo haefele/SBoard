@@ -33,7 +33,8 @@ namespace SBoard.Views.NewHelpdeskGroup
         private bool _onlyOwnTickets;
         private readonly ObservableAsPropertyHelper<ReactiveObservableCollection<HelpdeskType>> _helpdeskTypesHelper;
         private HelpdeskType _selectedHelpdeskType;
-
+        private readonly ObservableAsPropertyHelper<ReactiveObservableCollection<HelpdeskState>> _helpdeskStatesHelper;
+        private HelpdeskState _selectedHelpdeskState;
 
         public string Name
         {
@@ -72,9 +73,19 @@ namespace SBoard.Views.NewHelpdeskGroup
             get { return this._selectedHelpdeskType; }
             set { this.RaiseAndSetIfChanged(ref this._selectedHelpdeskType, value); }
         }
+        public ReactiveObservableCollection<HelpdeskState> HelpdeskStates
+        {
+            get { return this._helpdeskStatesHelper.Value; }
+        }
+        public HelpdeskState SelectedHelpdeskState
+        {
+            get { return this._selectedHelpdeskState; }
+            set { this.RaiseAndSetIfChanged(ref this._selectedHelpdeskState, value); }
+        }
 
 
         public ReactiveCommand<ReactiveObservableCollection<HelpdeskType>> LoadHelpdeskTypes { get; }
+        public ReactiveCommand<ReactiveObservableCollection<HelpdeskState>> LoadHelpdeskStates { get; }
         public ReactiveCommand<ReactiveObservableCollection<CustomerPreview>> SearchCustomers { get; }
         public ReactiveCommand<Unit> Save { get; }
 
@@ -96,6 +107,11 @@ namespace SBoard.Views.NewHelpdeskGroup
             this.LoadHelpdeskTypes.AttachExceptionHandler();
             this.LoadHelpdeskTypes.AttachLoadingService(SBoardResources.Get("Loading.TicketTypes"));
 
+            this.LoadHelpdeskStates = ReactiveCommand.CreateAsyncTask(_ => this.LoadHelpdeskStatesImpl());
+            this.LoadHelpdeskStates.ToProperty(this, f => f.HelpdeskStates, out this._helpdeskStatesHelper);
+            this.LoadHelpdeskStates.AttachExceptionHandler();
+            this.LoadHelpdeskStates.AttachLoadingService(SBoardResources.Get("Loading.TicketStates"));
+
             this.SearchCustomers = ReactiveCommand.CreateAsyncTask(_ => this.SearchCustomersImpl());
             this.SearchCustomers.ToProperty(this, f => f.Customers, out this._customersHelper);
             this.SearchCustomers.IsExecuting.ToProperty(this, f => f.IsSearchingCustomers, out this._isSearchingCustomersHelper);
@@ -116,6 +132,7 @@ namespace SBoard.Views.NewHelpdeskGroup
         protected override async void OnInitialize()
         {
             await this.LoadHelpdeskTypes.ExecuteAsyncTask();
+            await this.LoadHelpdeskStates.ExecuteAsyncTask();
         }
 
 
@@ -123,6 +140,12 @@ namespace SBoard.Views.NewHelpdeskGroup
         {
             var queryResult = await this._queryExecutor.ExecuteAsync(new HelpdeskTypesQuery(onlyActive:true));
             return new ReactiveObservableCollection<HelpdeskType>(queryResult.Result);
+        }
+
+        private async Task<ReactiveObservableCollection<HelpdeskState>> LoadHelpdeskStatesImpl()
+        {
+            var queryResult = await this._queryExecutor.ExecuteAsync(new HelpdeskStatesQuery(onlyActive: true));
+            return new ReactiveObservableCollection<HelpdeskState>(queryResult.Result);
         }
 
         private async Task<ReactiveObservableCollection<CustomerPreview>> SearchCustomersImpl()
@@ -140,7 +163,8 @@ namespace SBoard.Views.NewHelpdeskGroup
                 this._name, 
                 this.SelectedCustomer?.I3D,
                 this.OnlyOwnTickets,
-                this.SelectedHelpdeskType?.I3D);
+                this.SelectedHelpdeskType?.I3D,
+                this.SelectedHelpdeskState?.I3D);
             
             this._navigationService.For<HelpdeskListViewModel>()
                 .WithParam(f => f.HelpdeskGroupId, group.Id)

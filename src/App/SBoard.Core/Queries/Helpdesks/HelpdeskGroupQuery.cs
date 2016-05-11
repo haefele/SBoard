@@ -68,7 +68,8 @@ namespace SBoard.Core.Queries.Helpdesks
 
             var helpdesks = await this._centronService.GetHelpdesksAsync(
                 helpdeskList.CustomerI3D, 
-                helpdeskList.OnlyOwn);
+                helpdeskList.OnlyOwn,
+                helpdeskList.HelpdeskStateI3D);
 
             if (helpdeskList.HelpdeskTypeI3D.HasValue)
             {

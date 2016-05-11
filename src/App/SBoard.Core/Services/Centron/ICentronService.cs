@@ -12,7 +12,7 @@ namespace SBoard.Core.Services.Centron
 
         Task LogoutAsync();
 
-        Task<IList<HelpdeskPreview>> GetHelpdesksAsync(int? customerI3D, bool onlyOwn);
+        Task<IList<HelpdeskPreview>> GetHelpdesksAsync(int? customerI3D, bool onlyOwn, int? helpdeskStateI3D);
 
         Task<IList<HelpdeskTimer>> GetHelpdeskTimersAsync(int helpdeskI3D);
 
