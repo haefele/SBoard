@@ -4,20 +4,28 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:helpdesks="using:SBoard.Core.Data.Helpdesks"
+    xmlns:helpdeskList="using:SBoard.Views.HelpdeskList"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:interactions="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:behaviors="using:SBoard.Behaviors"
 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:helpdeskList="using:SBoard.Views.HelpdeskList"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    
+    d:DataContext="{d:DesignInstance helpdeskList:HelpdeskListViewModel}"
+    
+    x:Name="PageRoot">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        
+
         <ListView Grid.Row="0"
-                  ItemsSource="{x:Bind ViewModel.Helpdesks, Mode=OneWay}">
+                  ItemsSource="{x:Bind ViewModel.Helpdesks, Mode=OneWay}"
+                  SelectedItem="{Binding SelectedHelpdesk, Mode=TwoWay}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -25,9 +33,16 @@
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="helpdeskList:HelpdeskListItemViewModel">
-                    <helpdeskList:HelpdeskListItemView Margin="0, 4" />
+                    <helpdeskList:HelpdeskListItemView Margin="0, 4">
+                        
+                    </helpdeskList:HelpdeskListItemView>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            <interactivity:Interaction.Behaviors>
+                <behaviors:ContextMenuTriggerBehavior DataType="helpdeskList:HelpdeskListItemViewModel">
+                    <interactions:CallMethodAction MethodName="ShowContextMenu" TargetObject="{Binding ElementName=PageRoot}" />
+                </behaviors:ContextMenuTriggerBehavior>
+            </interactivity:Interaction.Behaviors>
         </ListView>
         
         <CommandBar Grid.Row="1">

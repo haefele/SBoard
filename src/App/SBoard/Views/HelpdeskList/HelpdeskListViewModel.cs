@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
@@ -12,7 +13,11 @@ using SBoard.Core.Services.HelpdeskGroups;
 using SBoard.Strings;
 using SBoard.Views.Dashboard;
 using UwCore.Extensions;
+using UwCore.Services.Loading;
 using INavigationService = UwCore.Services.Navigation.INavigationService;
+using SBoard.Core.Commands;
+using SBoard.Core.Commands.Helpdesks;
+using SBoard.Extensions;
 
 namespace SBoard.Views.HelpdeskList
 {
@@ -21,19 +26,40 @@ namespace SBoard.Views.HelpdeskList
         private readonly IQueryExecutor _queryExecutor;
         private readonly IHelpdeskGroupsService _helpdeskGroupsService;
         private readonly INavigationService _navigationService;
+        private readonly ICommandQueue _commandQueue;
 
         private readonly ObservableAsPropertyHelper<ReactiveObservableCollection<HelpdeskListItemViewModel>> _helpdesksHelper;
+        private HelpdeskListItemViewModel _selectedHelpdesk;
+        private readonly ObservableAsPropertyHelper<ReactiveObservableCollection<HelpdeskState>> _statesHelper;
+        private HelpdeskState _selectedState;
         
         private string _helpdeskGroupId;
-        
+
 
         public ReactiveObservableCollection<HelpdeskListItemViewModel> Helpdesks
         {
             get { return this._helpdesksHelper.Value; }
         }
-        
+        public HelpdeskListItemViewModel SelectedHelpdesk
+        {
+            get { return this._selectedHelpdesk; }
+            set { this.RaiseAndSetIfChanged(ref this._selectedHelpdesk, value); }
+        }
+        public ReactiveObservableCollection<HelpdeskState> States
+        {
+            get { return this._statesHelper.Value; }
+        }
+        public HelpdeskState SelectedState
+        {
+            get { return this._selectedState; }
+            set { this.RaiseAndSetIfChanged(ref this._selectedState, value); }
+        }
+
+
         public ReactiveCommand<Unit> Delete { get; }
         public ReactiveCommand<ReactiveObservableCollection<HelpdeskPreview>> RefreshHelpdesks { get; }
+        public ReactiveCommand<ReactiveObservableCollection<HelpdeskState>> LoadStates { get; }
+        public ReactiveCommand<Unit> ChangeState { get; }
         
         public string HelpdeskGroupId
         {
@@ -42,11 +68,12 @@ namespace SBoard.Views.HelpdeskList
         }
         
 
-        public HelpdeskListViewModel(IQueryExecutor queryExecutor, IHelpdeskGroupsService helpdeskGroupsService, INavigationService navigationService)
+        public HelpdeskListViewModel(IQueryExecutor queryExecutor, IHelpdeskGroupsService helpdeskGroupsService, INavigationService navigationService, ICommandQueue commandQueue)
         {
             this._queryExecutor = queryExecutor;
             this._helpdeskGroupsService = helpdeskGroupsService;
             this._navigationService = navigationService;
+            this._commandQueue = commandQueue;
 
             this.DisplayName = SBoardResources.Get("ViewModel.HelpdeskList");
             
@@ -72,12 +99,24 @@ namespace SBoard.Views.HelpdeskList
 
                     return result;
                 })
-                .ToProperty(this, f => f.Helpdesks, out this._helpdesksHelper);
+                .ToLoadedProperty(this, f => f.Helpdesks, out this._helpdesksHelper);
+            
+            this.LoadStates = ReactiveCommand.CreateAsyncTask(_ => this.LoadStatesImpl());
+            this.LoadStates.AttachExceptionHandler();
+            this.LoadStates.AttachLoadingService(SBoardResources.Get("Loading.TicketStates"));
+            this.LoadStates.ToLoadedProperty(this, f => f.States, out this._statesHelper);
+
+            var canChangeState = this.WhenAnyValue(f => f.SelectedState, f => f.SelectedHelpdesk, (state, helpdesk) => state != null && helpdesk != null);
+            this.ChangeState = ReactiveCommand.CreateAsyncTask(canChangeState, _ => this.ChangeStateImpl());
+            this.ChangeState.AttachExceptionHandler();
+            this.ChangeState.AttachLoadingService(SBoardResources.Get("Loading.ChangingTicketState"));
         }
 
         protected override async void OnActivate()
         {
-            await this.RefreshHelpdesks.ExecuteAsyncTask();
+            await Task.WhenAll(
+                this.RefreshHelpdesks.ExecuteAsyncTask(),
+                this.LoadStates.ExecuteAsyncTask());
         }
         
         private async Task DeleteImpl()
@@ -92,6 +131,17 @@ namespace SBoard.Views.HelpdeskList
         {
             var queryResult = await this._queryExecutor.ExecuteAsync(new HelpdeskGroupQuery(this.HelpdeskGroupId));
             return new ReactiveObservableCollection<HelpdeskPreview>(queryResult.Result);
+        }
+
+        private async Task<ReactiveObservableCollection<HelpdeskState>> LoadStatesImpl()
+        {
+            var queryResult = await this._queryExecutor.ExecuteAsync(new HelpdeskStatesQuery(onlyActive: true));
+            return new ReactiveObservableCollection<HelpdeskState>(queryResult.Result);
+        }
+
+        private Task ChangeStateImpl()
+        {
+            return Task.CompletedTask;
         }
     }
 }

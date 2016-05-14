@@ -103,6 +103,7 @@
     </Compile>
     <Compile Include="ApplicationModes\LoggedInApplicationMode.cs" />
     <Compile Include="ApplicationModes\LoggedOutApplicationMode.cs" />
+    <Compile Include="Behaviors\ContextMenuTriggerBehavior.cs" />
     <Compile Include="Common\SymbolEx.cs" />
     <Compile Include="Converters\StringToOneLineConverter.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
@@ -117,6 +118,7 @@
       <DependentUpon>HelpdeskListItemView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HelpdeskList\HelpdeskListItemViewModel.cs" />
+    <Compile Include="Extensions\ReactiveScreenExtensions.cs" />
     <Compile Include="Views\Login\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>

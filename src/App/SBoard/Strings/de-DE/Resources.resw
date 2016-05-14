@@ -234,4 +234,7 @@
   <data name="WebServiceAddressTextBox.Header" xml:space="preserve">
     <value>Web-Service Adresse</value>
   </data>
+  <data name="Loading.ChangingTicketState" xml:space="preserve">
+    <value>Ändere Ticket Status...</value>
+  </data>
 </root>

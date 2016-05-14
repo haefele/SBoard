@@ -129,4 +129,7 @@
   <data name="TicketStatesComboBox.PlaceholderText" xml:space="preserve">
     <value>Select a state</value>
   </data>
+  <data name="Loading.ChangingTicketState" xml:space="preserve">
+    <value>Changing ticket status...</value>
+  </data>
 </root>

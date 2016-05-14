@@ -11,6 +11,7 @@ using SBoard.Core.Queries;
 using SBoard.Core.Queries.Customers;
 using SBoard.Core.Queries.Helpdesks;
 using SBoard.Core.Services.HelpdeskGroups;
+using SBoard.Extensions;
 using SBoard.Strings;
 using SBoard.Views.HelpdeskList;
 using UwCore.Common;
@@ -103,18 +104,18 @@ namespace SBoard.Views.NewHelpdeskGroup
             this.DisplayName = SBoardResources.Get("ViewModel.NewHelpdeskGroup");
 
             this.LoadHelpdeskTypes = ReactiveCommand.CreateAsyncTask(_ => this.LoadHelpdeskTypesImpl());
-            this.LoadHelpdeskTypes.ToProperty(this, f => f.HelpdeskTypes, out this._helpdeskTypesHelper);
+            this.LoadHelpdeskTypes.ToLoadedProperty(this, f => f.HelpdeskTypes, out this._helpdeskTypesHelper);
             this.LoadHelpdeskTypes.AttachExceptionHandler();
             this.LoadHelpdeskTypes.AttachLoadingService(SBoardResources.Get("Loading.TicketTypes"));
 
             this.LoadHelpdeskStates = ReactiveCommand.CreateAsyncTask(_ => this.LoadHelpdeskStatesImpl());
-            this.LoadHelpdeskStates.ToProperty(this, f => f.HelpdeskStates, out this._helpdeskStatesHelper);
+            this.LoadHelpdeskStates.ToLoadedProperty(this, f => f.HelpdeskStates, out this._helpdeskStatesHelper);
             this.LoadHelpdeskStates.AttachExceptionHandler();
             this.LoadHelpdeskStates.AttachLoadingService(SBoardResources.Get("Loading.TicketStates"));
 
             this.SearchCustomers = ReactiveCommand.CreateAsyncTask(_ => this.SearchCustomersImpl());
-            this.SearchCustomers.ToProperty(this, f => f.Customers, out this._customersHelper);
-            this.SearchCustomers.IsExecuting.ToProperty(this, f => f.IsSearchingCustomers, out this._isSearchingCustomersHelper);
+            this.SearchCustomers.ToLoadedProperty(this, f => f.Customers, out this._customersHelper);
+            this.SearchCustomers.IsExecuting.ToLoadedProperty(this, f => f.IsSearchingCustomers, out this._isSearchingCustomersHelper);
             this.SearchCustomers.AttachExceptionHandler();
             
             this.WhenAnyValue(f => f.CustomerSearchText)

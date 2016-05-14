@@ -39,31 +39,31 @@ namespace SBoard.Views.HelpdeskList
         {
             this.WhenAnyValue(f => f.Helpdesk)
                 .Select(f => f?.Number ?? 0)
-                .ToProperty(this, f => f.Number, out this._numberHelper);
+                .ToLoadedProperty(this, f => f.Number, out this._numberHelper);
             
             this.WhenAnyValue(f => f.Helpdesk)
                 .Select(f => f?.ShortDescription ?? string.Empty)
                 .Select(f => f.MakeOneLiner())
-                .ToProperty(this, f => f.ShortDescription, out this._shortDescriptionHelper);
+                .ToLoadedProperty(this, f => f.ShortDescription, out this._shortDescriptionHelper);
 
             this.WhenAnyValue(f => f.Helpdesk)
                 .Select(f => f?.Description ?? string.Empty)
                 .Select(f => f.MakeOneLiner())
-                .ToProperty(this, f => f.Description, out this._descriptionHelper);
+                .ToLoadedProperty(this, f => f.Description, out this._descriptionHelper);
 
             this.WhenAnyValue(f => f.Helpdesk)
                 .Select(f => f?.PriorityCaption ?? string.Empty)
                 .Select(f => f.MakeOneLiner())
-                .ToProperty(this, f => f.Priority, out this._priorityHelper);
+                .ToLoadedProperty(this, f => f.Priority, out this._priorityHelper);
 
             this.WhenAnyValue(f => f.Helpdesk)
                 .Select(f => f?.StatusCaption ?? string.Empty)
                 .Select(f => f.MakeOneLiner())
-                .ToProperty(this, f => f.Status, out this._stateHelper);
+                .ToLoadedProperty(this, f => f.Status, out this._stateHelper);
 
             this.WhenAnyValue(f => f.Helpdesk)
-                .Select(f => f.PlannedDuration)
-                .ToProperty(this, f => f.PlannedDuration, out this._plannedDurationHelper);
+                .Select(f => f?.PlannedDuration ?? TimeSpan.Zero)
+                .ToLoadedProperty(this, f => f.PlannedDuration, out this._plannedDurationHelper);
         }
     }
 }
