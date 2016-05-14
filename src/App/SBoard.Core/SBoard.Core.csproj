@@ -113,6 +113,11 @@
     <PRIResource Include="Strings\en-US\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Events\CommandExecuted.cs" />
+    <Compile Include="Commands\Helpdesks\ChangeHelpdeskStateCommand.cs" />
+    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\ICommandQueue.cs" />
+    <Compile Include="Commands\ICommandHandler.cs" />
     <Compile Include="Data\Customers\CustomerPreview.cs" />
     <Compile Include="Exceptions\InvalidTicketException.cs" />
     <Compile Include="Exceptions\SBoardException.cs" />
@@ -145,9 +150,7 @@
     <Compile Include="Strings\SBoardCoreResources.cs" />
     <EmbeddedResource Include="Properties\SBoard.Core.rd.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Commands\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <XliffResource Include="MultilingualResources\SBoard.Core.en-US.xlf" />
   </ItemGroup>

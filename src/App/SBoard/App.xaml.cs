@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reactive;
 using Windows.Foundation;
 using Windows.UI.ViewManagement;
 using Caliburn.Micro;
 using SBoard.ApplicationModes;
+using SBoard.Core.Commands;
+using SBoard.Core.Commands.Helpdesks;
 using SBoard.Core.Data.Customers;
 using SBoard.Core.Data.Helpdesks;
 using SBoard.Core.Exceptions;
@@ -56,13 +59,17 @@ namespace SBoard
                 .Singleton<ICentronService, CentronService>()
                 .Singleton<IHelpdeskGroupsService, HelpdeskGroupsService>()
                 .Singleton<IQueryExecutor, QueryExecutor>()
-                .Singleton<IQueryCache, QueryCache>();
+                .Singleton<IQueryCache, QueryCache>()
+                .Singleton<ICommandQueue, CommandQueue>();
             
             container
                 .PerRequest<IQueryHandler<HelpdeskGroupQuery, IList<HelpdeskPreview>>, HelpdeskGroupQueryHandler>()
                 .PerRequest<IQueryHandler<SearchCustomersQuery, IList<CustomerPreview>>, SearchCustomersQueryHandler>()
                 .PerRequest<IQueryHandler<HelpdeskTypesQuery, IList<HelpdeskType>>, HelpdeskTypesQueryHandler>()
                 .PerRequest<IQueryHandler<HelpdeskStatesQuery, IList<HelpdeskState>>, HelpdeskStatesQueryHandler>();
+
+            container
+                .PerRequest<ICommandHandler<ChangeHelpdeskStateCommand, Unit>, ChangeHelpdeskStateCommandHandler>();
         }
 
         public override string GetErrorTitle() => SBoardResources.Get("Errors.Title");
