@@ -166,6 +166,10 @@
           <source>Ändere Ticket Status...</source>
           <target state="translated">Changing ticket status...</target>
         </trans-unit>
+        <trans-unit id="Menu.ChangeStatus" translate="yes" xml:space="preserve">
+          <source>Status ändern</source>
+          <target state="translated">Change status</target>
+        </trans-unit>
       </group>
     </body>
   </file>

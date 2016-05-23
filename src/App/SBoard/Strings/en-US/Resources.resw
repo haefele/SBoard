@@ -132,4 +132,7 @@
   <data name="Loading.ChangingTicketState" xml:space="preserve">
     <value>Changing ticket status...</value>
   </data>
+  <data name="Menu.ChangeStatus" xml:space="preserve">
+    <value>Change status</value>
+  </data>
 </root>

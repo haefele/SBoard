@@ -1,4 +1,5 @@
 ﻿using Windows.UI.Xaml.Controls;
+using SBoard.Strings;
 using UwCore.Behaviors;
 
 namespace SBoard.Views.HelpdeskList
@@ -17,7 +18,7 @@ namespace SBoard.Views.HelpdeskList
             e.Menu = new MenuFlyout();
             var changeStateItem = new MenuFlyoutSubItem
             {
-                Text = "Status ändern",
+                Text = SBoardResources.Get("Menu.ChangeStatus"),
             };
             e.Menu.Items.Add(changeStateItem);
 

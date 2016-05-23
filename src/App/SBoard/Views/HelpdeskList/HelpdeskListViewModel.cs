@@ -139,9 +139,10 @@ namespace SBoard.Views.HelpdeskList
             return new ReactiveObservableCollection<HelpdeskState>(queryResult.Result);
         }
 
-        private Task ChangeStateImpl()
+        private async Task ChangeStateImpl()
         {
-            return Task.CompletedTask;
+            var command = new ChangeHelpdeskStateCommand(this.SelectedHelpdesk.Helpdesk.I3D, this.SelectedState.I3D);
+            await this._commandQueue.EnqueueAsync(command);
         }
     }
 }
