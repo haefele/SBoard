@@ -16,6 +16,7 @@ using SBoard.Core.Queries.Helpdesks;
 using SBoard.Core.Services.ApplicationState;
 using SBoard.Core.Services.Centron;
 using SBoard.Core.Services.HelpdeskGroups;
+using SBoard.Core.Services.Scripts;
 using SBoard.Strings;
 using SBoard.Views.Dashboard;
 using SBoard.Views.HelpdeskList;
@@ -60,7 +61,8 @@ namespace SBoard
                 .Singleton<IHelpdeskGroupsService, HelpdeskGroupsService>()
                 .Singleton<IQueryExecutor, QueryExecutor>()
                 .Singleton<IQueryCache, QueryCache>()
-                .Singleton<ICommandQueue, CommandQueue>();
+                .Singleton<ICommandQueue, CommandQueue>()
+                .Singleton<IScriptEngine, ScriptEngine>();
             
             container
                 .PerRequest<IQueryHandler<HelpdeskGroupQuery, IList<HelpdeskPreview>>, HelpdeskGroupQueryHandler>()
@@ -70,6 +72,9 @@ namespace SBoard
 
             container
                 .PerRequest<ICommandHandler<ChangeHelpdeskStateCommand, Unit>, ChangeHelpdeskStateCommandHandler>();
+
+            var scriptEngine = container.GetInstance<IScriptEngine>();
+            scriptEngine.AddGlobalMethod("contains", (Func<string, string, bool>)((s1, s2) => (s1 ?? string.Empty).IndexOf(s2, StringComparison.OrdinalIgnoreCase) >= 0));
         }
 
         public override string GetErrorTitle() => SBoardResources.Get("Errors.Title");

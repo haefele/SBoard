@@ -240,4 +240,7 @@
   <data name="Menu.ChangeStatus" xml:space="preserve">
     <value>Status ändern</value>
   </data>
+  <data name="ScriptTextBlock.Header" xml:space="preserve">
+    <value>Script</value>
+  </data>
 </root>

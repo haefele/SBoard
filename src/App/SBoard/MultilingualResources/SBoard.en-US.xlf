@@ -170,6 +170,10 @@
           <source>Status ändern</source>
           <target state="translated">Change status</target>
         </trans-unit>
+        <trans-unit id="ScriptTextBlock.Header" translate="yes" xml:space="preserve">
+          <source>Script</source>
+          <target state="translated">Script</target>
+        </trans-unit>
       </group>
     </body>
   </file>

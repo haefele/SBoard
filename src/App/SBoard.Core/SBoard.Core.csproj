@@ -119,6 +119,7 @@
     <Compile Include="Commands\ICommandQueue.cs" />
     <Compile Include="Commands\ICommandHandler.cs" />
     <Compile Include="Data\Customers\CustomerPreview.cs" />
+    <Compile Include="Exceptions\InvalidScriptException.cs" />
     <Compile Include="Exceptions\InvalidTicketException.cs" />
     <Compile Include="Exceptions\SBoardException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -147,6 +148,10 @@
     <Compile Include="Services\HelpdeskGroups\Events\HelpdeskGroupDeleted.cs" />
     <Compile Include="Services\HelpdeskGroups\HelpdeskGroupsService.cs" />
     <Compile Include="Services\HelpdeskGroups\IHelpdeskGroupsService.cs" />
+    <Compile Include="Services\Scripts\IScriptEngine.cs" />
+    <Compile Include="Services\Scripts\Script.cs" />
+    <Compile Include="Services\Scripts\ScriptEngine.cs" />
+    <Compile Include="Services\Scripts\ScriptResult.cs" />
     <Compile Include="Strings\SBoardCoreResources.cs" />
     <EmbeddedResource Include="Properties\SBoard.Core.rd.xml" />
   </ItemGroup>

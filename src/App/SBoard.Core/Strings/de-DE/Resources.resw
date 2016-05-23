@@ -117,10 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Exception.InvalidScript" xml:space="preserve">
+    <value>Fehlerhafter Script.</value>
+  </data>
   <data name="Exception.InvalidTicket" xml:space="preserve">
     <value>Authentifizierung ist abgelaufen.</value>
-  </data>
-  <data name="Hehe" xml:space="preserve">
-    <value>Hoi</value>
   </data>
 </root>

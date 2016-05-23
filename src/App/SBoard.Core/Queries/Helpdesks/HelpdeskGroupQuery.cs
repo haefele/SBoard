@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SBoard.Core.Data.Helpdesks;
+using SBoard.Core.Exceptions;
 using SBoard.Core.Services.Centron;
 using SBoard.Core.Services.HelpdeskGroups;
+using SBoard.Core.Services.Scripts;
 
 namespace SBoard.Core.Queries.Helpdesks
 {
@@ -54,11 +56,13 @@ namespace SBoard.Core.Queries.Helpdesks
     {
         private readonly ICentronService _centronService;
         private readonly IHelpdeskGroupsService _helpdeskGroupsService;
+        private readonly IScriptEngine _scriptEngine;
 
-        public HelpdeskGroupQueryHandler(ICentronService centronService, IHelpdeskGroupsService helpdeskGroupsService)
+        public HelpdeskGroupQueryHandler(ICentronService centronService, IHelpdeskGroupsService helpdeskGroupsService, IScriptEngine scriptEngine)
         {
             this._centronService = centronService;
             this._helpdeskGroupsService = helpdeskGroupsService;
+            this._scriptEngine = scriptEngine;
         }
 
         public async Task<IList<HelpdeskPreview>> ExecuteAsync(HelpdeskGroupQuery query)
@@ -78,6 +82,33 @@ namespace SBoard.Core.Queries.Helpdesks
                     .ToList();
             }
 
+            if (string.IsNullOrWhiteSpace(helpdeskList.FilterScript) == false)
+            {
+                var script = this._scriptEngine.CreateFor("return " + helpdeskList.FilterScript);
+
+                helpdesks = helpdesks
+                    .Where(f =>
+                    {
+                        script.AddData("nummer", f.Number);
+                        script.AddData("kategorie", f.CategoryCaption);
+                        script.AddData("unterkategorie1", f.SubCategory1Caption);
+                        script.AddData("unterkategorie2", f.SubCategory2Caption);
+                        script.AddData("status", f.StatusCaption);
+                        script.AddData("priorität", f.PriorityCaption);
+                        script.AddData("typ", f.TypeCaption);
+
+                        try
+                        {
+                            return script.Execute().AsBoolean();
+                        }
+                        catch (InvalidScriptException)
+                        {
+                            return true;
+                        }
+                    })
+                    .ToList();
+            }
+            
             return helpdesks;
         }
     }

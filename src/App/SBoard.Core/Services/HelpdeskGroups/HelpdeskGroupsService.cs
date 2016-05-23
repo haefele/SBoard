@@ -28,7 +28,7 @@ namespace SBoard.Core.Services.HelpdeskGroups
             return Task.FromResult((IList<HelpdeskGroup>)helpdeskLists ?? new List<HelpdeskGroup>());
         }
 
-        public async Task<HelpdeskGroup> AddHelpdeskGroupAsync(string name, int? customerI3D, bool onlyOwn, int? helpdeskTypeI3D, int? helpdeskStateI3D)
+        public async Task<HelpdeskGroup> AddHelpdeskGroupAsync(string name, int? customerI3D, bool onlyOwn, int? helpdeskTypeI3D, int? helpdeskStateI3D, string filterScript)
         {
             var item = new HelpdeskGroup
             {
@@ -37,7 +37,8 @@ namespace SBoard.Core.Services.HelpdeskGroups
                 CustomerI3D = customerI3D,
                 OnlyOwn = onlyOwn,
                 HelpdeskTypeI3D = helpdeskTypeI3D,
-                HelpdeskStateI3D = helpdeskStateI3D
+                HelpdeskStateI3D = helpdeskStateI3D,
+                FilterScript = filterScript
             };
             var helpdeskLists = await this.GetHelpdeskGroupsAsync();
             helpdeskLists.Add(item);

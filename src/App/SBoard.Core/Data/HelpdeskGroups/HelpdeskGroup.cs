@@ -10,5 +10,7 @@
         public bool OnlyOwn { get; set; }
         public int? HelpdeskTypeI3D { get; set; }
         public int? HelpdeskStateI3D { get; set; }
+
+        public string FilterScript { get; set; }
     }
 }

@@ -5,13 +5,11 @@ using System.Threading.Tasks;
 using Caliburn.Micro.ReactiveUI;
 using ReactiveUI;
 using SBoard.Core.Data.Customers;
-using SBoard.Core.Data.HelpdeskGroups;
 using SBoard.Core.Data.Helpdesks;
 using SBoard.Core.Queries;
 using SBoard.Core.Queries.Customers;
 using SBoard.Core.Queries.Helpdesks;
 using SBoard.Core.Services.HelpdeskGroups;
-using SBoard.Extensions;
 using SBoard.Strings;
 using SBoard.Views.HelpdeskList;
 using UwCore.Common;
@@ -36,6 +34,8 @@ namespace SBoard.Views.NewHelpdeskGroup
         private HelpdeskType _selectedHelpdeskType;
         private readonly ObservableAsPropertyHelper<ReactiveObservableCollection<HelpdeskState>> _helpdeskStatesHelper;
         private HelpdeskState _selectedHelpdeskState;
+        private string _filterScript;
+
 
         public string Name
         {
@@ -82,6 +82,11 @@ namespace SBoard.Views.NewHelpdeskGroup
         {
             get { return this._selectedHelpdeskState; }
             set { this.RaiseAndSetIfChanged(ref this._selectedHelpdeskState, value); }
+        }
+        public string FilterScript
+        {
+            get { return this._filterScript; }
+            set { this.RaiseAndSetIfChanged(ref this._filterScript, value); }
         }
 
 
@@ -165,7 +170,8 @@ namespace SBoard.Views.NewHelpdeskGroup
                 this.SelectedCustomer?.I3D,
                 this.OnlyOwnTickets,
                 this.SelectedHelpdeskType?.I3D,
-                this.SelectedHelpdeskState?.I3D);
+                this.SelectedHelpdeskState?.I3D,
+                this.FilterScript);
             
             this._navigationService.For<HelpdeskListViewModel>()
                 .WithParam(f => f.HelpdeskGroupId, group.Id)

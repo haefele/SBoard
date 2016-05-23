@@ -6,13 +6,13 @@
     </header>
     <body>
       <group id="SBOARD.CORE/STRINGS/DE-DE/RESOURCES.RESW" datatype="resx">
-        <trans-unit id="Hehe" translate="yes" xml:space="preserve">
-          <source>Hoi</source>
-          <target state="new">Hoi</target>
-        </trans-unit>
         <trans-unit id="Exception.InvalidTicket" translate="yes" xml:space="preserve">
           <source>Authentifizierung ist abgelaufen.</source>
-          <target state="new">Authentifizierung ist abgelaufen.</target>
+          <target state="translated" state-qualifier="mt-suggestion">Authentication has expired.</target>
+        </trans-unit>
+        <trans-unit id="Exception.InvalidScript" translate="yes" xml:space="preserve">
+          <source>Fehlerhafter Script.</source>
+          <target state="translated" state-qualifier="mt-suggestion">Incorrect script.</target>
         </trans-unit>
       </group>
     </body>
