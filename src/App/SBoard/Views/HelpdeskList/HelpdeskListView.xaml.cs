@@ -1,44 +1,25 @@
-﻿using System;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using ReactiveUI;
-using SBoard.Behaviors;
-using System.Reactive.Linq;
-using Caliburn.Micro;
+﻿using Windows.UI.Xaml.Controls;
+using UwCore.Behaviors;
 
 namespace SBoard.Views.HelpdeskList
 {
     public sealed partial class HelpdeskListView : Page
     {
-        private MenuFlyout _menu;
-
         public HelpdeskListViewModel ViewModel => this.DataContext as HelpdeskListViewModel;
 
         public HelpdeskListView()
         {
             this.InitializeComponent();
         }
-
-        public void ShowContextMenu(object sender, ContextMenuTriggerBehaviorData data)
-        {
-            if (this._menu == null)
-                this._menu = this.CreateMenu();
-
-            if (data.Data is HelpdeskListItemViewModel && this._menu != null)
-            {
-                this.ViewModel.SelectedHelpdesk = (HelpdeskListItemViewModel)data.Data;
-                this._menu.ShowAt(data.Control, data.Position);
-            }
-        }
         
-        private MenuFlyout CreateMenu()
+        private void MenuFlyoutBehavior_OnCreateMenu(object sender, CreateMenuEventArgs e)
         {
-            var menu = new MenuFlyout();
+            e.Menu = new MenuFlyout();
             var changeStateItem = new MenuFlyoutSubItem
             {
                 Text = "Status ändern",
             };
-            menu.Items.Add(changeStateItem);
+            e.Menu.Items.Add(changeStateItem);
 
             foreach (var state in this.ViewModel.States)
             {
@@ -54,8 +35,14 @@ namespace SBoard.Views.HelpdeskList
                     this.ViewModel.ChangeState.ExecuteAsyncTask();
                 };
             }
+        }
 
-            return menu;
+        private void MenuFlyoutBehavior_OnMenuShowing(object sender, MenuShowingEventArgs e)
+        {
+            if (e.Data is HelpdeskListItemViewModel)
+            {
+                this.ViewModel.SelectedHelpdesk = (HelpdeskListItemViewModel) e.Data;
+            }
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿{
   "dependencies": {
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
-    "UwCore": "0.1.18"
+    "UwCore": "0.1.22"
   },
   "frameworks": {
     "uap10.0": {}

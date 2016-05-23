@@ -4,6 +4,7 @@ using Caliburn.Micro.ReactiveUI;
 using ReactiveUI;
 using SBoard.Core.Data.Helpdesks;
 using SBoard.Extensions;
+using UwCore.Extensions;
 
 namespace SBoard.Views.HelpdeskList
 {

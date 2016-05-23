@@ -7,7 +7,7 @@
     xmlns:helpdeskList="using:SBoard.Views.HelpdeskList"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:interactions="using:Microsoft.Xaml.Interactions.Core"
-    xmlns:behaviors="using:SBoard.Behaviors"
+    xmlns:behaviors="using:UwCore.Behaviors"
 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -39,9 +39,9 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
             <interactivity:Interaction.Behaviors>
-                <behaviors:ContextMenuTriggerBehavior DataType="helpdeskList:HelpdeskListItemViewModel">
-                    <interactions:CallMethodAction MethodName="ShowContextMenu" TargetObject="{Binding ElementName=PageRoot}" />
-                </behaviors:ContextMenuTriggerBehavior>
+                <behaviors:MenuFlyoutBehavior DataType="helpdeskList:HelpdeskListItemViewModel" 
+                                              CreateMenu="MenuFlyoutBehavior_OnCreateMenu"
+                                              MenuShowing="MenuFlyoutBehavior_OnMenuShowing" />
             </interactivity:Interaction.Behaviors>
         </ListView>
         
