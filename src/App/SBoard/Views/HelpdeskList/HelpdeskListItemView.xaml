@@ -23,6 +23,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <TextBlock x:Uid="NumberTextBlock" 
@@ -74,11 +75,45 @@
         <TextBlock x:Uid="PlannedDurationTextBlock"
                    Grid.Column="3" 
                    Grid.Row="0"
-                   Grid.RowSpan="3"
+                   Grid.RowSpan="4"
                    FontSize="20"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    Text="{Binding PlannedDuration.TotalHours}" />
+        
+        <Grid Grid.Row="3"
+              Grid.Column="0"
+              Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0"
+                       x:Uid="CategoryTextBlock"
+                       FontWeight="Light" 
+                       FontSize="12" 
+                       ToolTipService.ToolTip="~Hauptkategorie"
+                       Text="{Binding Category}" 
+                       TextTrimming="CharacterEllipsis"/>
+
+            <TextBlock Grid.Column="1"
+                       x:Uid="SubCategory1TextBlock"
+                       FontWeight="Light" 
+                       FontSize="12" 
+                       ToolTipService.ToolTip="~Unterkategorie 1"
+                       Text="{Binding SubCategory1}" 
+                       TextTrimming="CharacterEllipsis"/>
+
+            <TextBlock Grid.Column="2"
+                       x:Uid="SubCategory2TextBlock"
+                       FontWeight="Light" 
+                       FontSize="12" 
+                       ToolTipService.ToolTip="~Unterkategorie 2"
+                       Text="{Binding SubCategory2}" 
+                       TextTrimming="CharacterEllipsis"/>
+        </Grid>
         
     </Grid>
 </UserControl>

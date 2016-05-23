@@ -243,4 +243,13 @@
   <data name="ScriptTextBlock.Header" xml:space="preserve">
     <value>Script</value>
   </data>
+  <data name="CategoryTextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Hauptkategorie</value>
+  </data>
+  <data name="SubCategory1TextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Unterkategorie 1</value>
+  </data>
+  <data name="SubCategory2TextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Unterkategorie 2</value>
+  </data>
 </root>
