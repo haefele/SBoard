@@ -54,6 +54,15 @@
                           Label="~Aktualisieren"
                           x:Uid="RefreshAppBarButton"
                           Command="{x:Bind ViewModel.RefreshHelpdesks}" />
+            <AppBarButton Icon="Sort" Label="~Sortieren">
+                <AppBarButton.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="Nummer" Click="SortByNumber" />
+                        <MenuFlyoutItem Text="Status" Click="SortByStatus" />
+                        <MenuFlyoutItem Text="Priorität" Click="SortByPriority" />
+                    </MenuFlyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
         </CommandBar>
     </Grid>
 </Page>

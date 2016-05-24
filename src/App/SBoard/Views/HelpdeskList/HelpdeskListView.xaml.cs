@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using SBoard.Strings;
 using UwCore.Behaviors;
 
@@ -44,6 +45,21 @@ namespace SBoard.Views.HelpdeskList
             {
                 this.ViewModel.SelectedHelpdesk = (HelpdeskListItemViewModel) e.Data;
             }
+        }
+
+        private void SortByNumber(object sender, RoutedEventArgs e)
+        {
+            this.ViewModel.SelectedSortOrder = HelpdeskListSortOrder.Number;
+        }
+
+        private void SortByStatus(object sender, RoutedEventArgs e)
+        {
+            this.ViewModel.SelectedSortOrder = HelpdeskListSortOrder.Status;
+        }
+
+        private void SortByPriority(object sender, RoutedEventArgs e)
+        {
+            this.ViewModel.SelectedSortOrder = HelpdeskListSortOrder.Priority;
         }
     }
 }

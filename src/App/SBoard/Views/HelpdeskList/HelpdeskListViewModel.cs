@@ -32,6 +32,7 @@ namespace SBoard.Views.HelpdeskList
         private HelpdeskListItemViewModel _selectedHelpdesk;
         private readonly ObservableAsPropertyHelper<ReactiveObservableCollection<HelpdeskState>> _statesHelper;
         private HelpdeskState _selectedState;
+        private HelpdeskListSortOrder _selectedSortOrder;
         
         private string _helpdeskGroupId;
 
@@ -55,6 +56,11 @@ namespace SBoard.Views.HelpdeskList
             set { this.RaiseAndSetIfChanged(ref this._selectedState, value); }
         }
 
+        public HelpdeskListSortOrder SelectedSortOrder
+        {
+            get { return this._selectedSortOrder; }
+            set { this.RaiseAndSetIfChanged(ref this._selectedSortOrder, value); }
+        }
 
         public ReactiveCommand<Unit> Delete { get; }
         public ReactiveCommand<ReactiveObservableCollection<HelpdeskPreview>> RefreshHelpdesks { get; }
@@ -110,6 +116,9 @@ namespace SBoard.Views.HelpdeskList
             this.ChangeState = ReactiveCommand.CreateAsyncTask(canChangeState, _ => this.ChangeStateImpl());
             this.ChangeState.AttachExceptionHandler();
             this.ChangeState.AttachLoadingService(SBoardResources.Get("Loading.ChangingTicketState"));
+
+            this.WhenAnyValue(f => f.SelectedSortOrder)
+                .InvokeCommand(this, f => f.RefreshHelpdesks);
         }
 
         protected override async void OnActivate()
@@ -130,7 +139,7 @@ namespace SBoard.Views.HelpdeskList
         private async Task<ReactiveObservableCollection<HelpdeskPreview>> RefreshHelpdesksImpl()
         {
             var queryResult = await this._queryExecutor.ExecuteAsync(new HelpdeskGroupQuery(this.HelpdeskGroupId));
-            return new ReactiveObservableCollection<HelpdeskPreview>(queryResult.Result);
+            return new ReactiveObservableCollection<HelpdeskPreview>(queryResult.Result.OrderBy(this.ApplyOrder));
         }
 
         private async Task<ReactiveObservableCollection<HelpdeskState>> LoadStatesImpl()
@@ -144,5 +153,27 @@ namespace SBoard.Views.HelpdeskList
             var command = new ChangeHelpdeskStateCommand(this.SelectedHelpdesk.Helpdesk.I3D, this.SelectedState.I3D);
             await this._commandQueue.EnqueueAsync(command);
         }
+        
+        private object ApplyOrder(HelpdeskPreview helpdesk)
+        {
+            switch (this.SelectedSortOrder)
+            {
+                case HelpdeskListSortOrder.Number:
+                    return helpdesk.Number;
+                case HelpdeskListSortOrder.Status:
+                    return helpdesk.StatusCaption;
+                case HelpdeskListSortOrder.Priority:
+                    return helpdesk.PriorityCaption;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+    }
+
+    public enum HelpdeskListSortOrder
+    {
+        Number,
+        Status,
+        Priority
     }
 }
