@@ -240,8 +240,8 @@
   <data name="Menu.ChangeStatus" xml:space="preserve">
     <value>Status ändern</value>
   </data>
-  <data name="ScriptTextBlock.Header" xml:space="preserve">
-    <value>Script</value>
+  <data name="FilterScriptTextBlock.Header" xml:space="preserve">
+    <value>Filter Script</value>
   </data>
   <data name="CategoryTextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Hauptkategorie</value>
@@ -251,5 +251,14 @@
   </data>
   <data name="SubCategory2TextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Unterkategorie 2</value>
+  </data>
+  <data name="ClearSelectionMenuFlyoutItem.Text" xml:space="preserve">
+    <value>Auswahl aufheben</value>
+  </data>
+  <data name="FilterTextBlock.Text" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="GeneralTextBlock.Text" xml:space="preserve">
+    <value>Allgemeines</value>
   </data>
 </root>

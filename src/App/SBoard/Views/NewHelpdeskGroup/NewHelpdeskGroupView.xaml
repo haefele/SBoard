@@ -7,6 +7,8 @@
     xmlns:customers="using:SBoard.Core.Data.Customers"
     xmlns:uwCoreConverter="using:UwCore.Converter"
     xmlns:converter="using:SBoard.Converters"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:behaviors="using:UwCore.Behaviors"
     
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -33,103 +35,124 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        
-        <Grid Grid.Row="0"
-              Margin="5">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="5" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="5" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="5" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="5" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="5" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="5" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="5" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="5" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="5" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" 
-                       Style="{StaticResource TitleTextBlockStyle}" 
-                       Text="Allgemeines" />
-            
-            <TextBox Grid.Row="2"
-                     x:Uid="NameTextBox"
-                     Header="~Name"
-                     Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <ScrollViewer Grid.Row="0">
+            <Grid Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="4" 
-                       Style="{StaticResource TitleTextBlockStyle}" 
-                       Text="Filter" />
-            
-            <TextBox Grid.Row="6"
-                     x:Uid="SearchCustomerTextBox"
-                     Header="~Kunde"
-                     PlaceholderText="~Suchtext"
-                     Text="{Binding CustomerSearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Grid.Row="0" 
+                           x:Uid="GeneralTextBlock"
+                           Style="{StaticResource TitleTextBlockStyle}" 
+                           Text="~Allgemeines" />
 
-            <ComboBox Grid.Row="8"
-                      x:Uid="SelectCustomerComboBox"
-                      PlaceholderText="~Wählen Sie einen Kunden aus"
-                      HorizontalAlignment="Stretch"
-                      ItemsSource="{x:Bind ViewModel.Customers, Mode=OneWay}"
-                      SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate x:DataType="customers:CustomerPreview">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{x:Bind I3D}" />
-                            <TextBlock>
+                <TextBox Grid.Row="2"
+                         x:Uid="NameTextBox"
+                         Header="~Name"
+                         Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock Grid.Row="4" 
+                           x:Uid="FilterTextBlock"
+                           Style="{StaticResource TitleTextBlockStyle}" 
+                           Text="~Filter" />
+
+                <TextBox Grid.Row="6"
+                         x:Uid="SearchCustomerTextBox"
+                         Header="~Kunde"
+                         PlaceholderText="~Suchtext"
+                         Text="{Binding CustomerSearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                <ComboBox Grid.Row="8"
+                          x:Uid="SelectCustomerComboBox"
+                          PlaceholderText="~Wählen Sie einen Kunden aus"
+                          HorizontalAlignment="Stretch"
+                          ItemsSource="{x:Bind ViewModel.Customers, Mode=OneWay}"
+                          SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate x:DataType="customers:CustomerPreview">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{x:Bind I3D}" />
+                                <TextBlock>
                                 <Run>&#160;</Run>
-                            </TextBlock>
-                            <TextBlock Text="{x:Bind Name, Converter={StaticResource StringToOneLineConverter}}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+                                </TextBlock>
+                                <TextBlock Text="{x:Bind Name, Converter={StaticResource StringToOneLineConverter}}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
 
-            <ProgressBar Grid.Row="9"
-                         IsIndeterminate="True"
-                         Visibility="{x:Bind ViewModel.IsSearchingCustomers, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"  />
-            
-            <ToggleSwitch x:Uid="OnlyOwnTicketsToggleSwitch"
-                          Header="~Nur eigene Tickets" 
-                          Grid.Row="10"
-                          IsOn="{x:Bind ViewModel.OnlyOwnTickets, Mode=TwoWay}" />
+                <ProgressBar Grid.Row="9"
+                             IsIndeterminate="True"
+                             Visibility="{x:Bind ViewModel.IsSearchingCustomers, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"  />
 
-            <ComboBox Grid.Row="12"
-                      HorizontalAlignment="Stretch"
-                      Header="~Typ"
-                      x:Uid="TicketTypesComboBox"
-                      PlaceholderText="~Wählen Sie einen Typ aus"
-                      ItemsSource="{x:Bind ViewModel.HelpdeskTypes, Mode=OneWay}"
-                      SelectedItem="{Binding SelectedHelpdeskType, Mode=TwoWay}"
-                      DisplayMemberPath="Name" />
-            
-            <ComboBox Grid.Row="14"
-                      HorizontalAlignment="Stretch"
-                      Header="~Status"
-                      x:Uid="TicketStatesComboBox"
-                      PlaceholderText="~Wählen Sie einen Status aus"
-                      ItemsSource="{x:Bind ViewModel.HelpdeskStates, Mode=OneWay}"
-                      SelectedItem="{Binding SelectedHelpdeskState, Mode=TwoWay}"
-                      DisplayMemberPath="Name"
-                      />
-            
-            <TextBox Grid.Row="16"
-                     Text="{x:Bind ViewModel.FilterScript, Mode=TwoWay}"
-                     Header="~Script"
-                     x:Uid="ScriptTextBlock"
-                     />
-        </Grid>
+                <ToggleSwitch x:Uid="OnlyOwnTicketsToggleSwitch"
+                              Header="~Nur eigene Tickets" 
+                              Grid.Row="10"
+                              IsOn="{x:Bind ViewModel.OnlyOwnTickets, Mode=TwoWay}" />
+
+                <ComboBox Grid.Row="12"
+                          HorizontalAlignment="Stretch"
+                          Header="~Typ"
+                          x:Uid="TicketTypesComboBox"
+                          PlaceholderText="~Wählen Sie einen Typ aus"
+                          ItemsSource="{x:Bind ViewModel.HelpdeskTypes, Mode=OneWay}"
+                          SelectedItem="{Binding SelectedHelpdeskType, Mode=TwoWay}"
+                          DisplayMemberPath="Name">
+                    <interactivity:Interaction.Behaviors>
+                        <behaviors:MenuFlyoutBehavior>
+                            <MenuFlyout>
+                                <MenuFlyoutItem x:Uid="ClearSelectionMenuFlyoutItem"
+                                                Text="~Auswahl aufheben" 
+                                                Click="ClearSelectedHelpdeskType" />
+                            </MenuFlyout>
+                        </behaviors:MenuFlyoutBehavior>
+                    </interactivity:Interaction.Behaviors>
+                </ComboBox>
+
+                <ComboBox Grid.Row="14"
+                          HorizontalAlignment="Stretch"
+                          Header="~Status"
+                          x:Uid="TicketStatesComboBox"
+                          PlaceholderText="~Wählen Sie einen Status aus"
+                          ItemsSource="{x:Bind ViewModel.HelpdeskStates, Mode=OneWay}"
+                          SelectedItem="{Binding SelectedHelpdeskState, Mode=TwoWay}"
+                          DisplayMemberPath="Name">
+                    <interactivity:Interaction.Behaviors>
+                        <behaviors:MenuFlyoutBehavior>
+                            <MenuFlyout>
+                                <MenuFlyoutItem x:Uid="ClearSelectionMenuFlyoutItem"
+                                                Text="~Auswahl aufheben" 
+                                                Click="ClearSelectedHelpdeskState" />
+                            </MenuFlyout>
+                        </behaviors:MenuFlyoutBehavior>
+                    </interactivity:Interaction.Behaviors>
+                </ComboBox>
+
+                <TextBox Grid.Row="16"
+                         Text="{x:Bind ViewModel.FilterScript, Mode=TwoWay}"
+                         Header="~Filter Script"
+                         x:Uid="FilterScriptTextBlock" />
+            </Grid>
+        </ScrollViewer>
         
         <CommandBar Grid.Row="1">
             <AppBarButton x:Uid="SaveAppBarButton" Label="~Speichern" Icon="Save" Command="{x:Bind ViewModel.Save}" />

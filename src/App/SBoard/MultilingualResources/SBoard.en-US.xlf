@@ -170,10 +170,6 @@
           <source>Status ändern</source>
           <target state="translated">Change status</target>
         </trans-unit>
-        <trans-unit id="ScriptTextBlock.Header" translate="yes" xml:space="preserve">
-          <source>Script</source>
-          <target state="translated">Script</target>
-        </trans-unit>
         <trans-unit id="CategoryTextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
           <source>Hauptkategorie</source>
           <target state="translated">Maincategory</target>
@@ -185,6 +181,22 @@
         <trans-unit id="SubCategory2TextBlock.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
           <source>Unterkategorie 2</source>
           <target state="translated" state-qualifier="mt-suggestion">Subcategory 2</target>
+        </trans-unit>
+        <trans-unit id="FilterScriptTextBlock.Header" translate="yes" xml:space="preserve">
+          <source>Filter Script</source>
+          <target state="translated">Filter Script</target>
+        </trans-unit>
+        <trans-unit id="GeneralTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>Allgemeines</source>
+          <target state="translated" state-qualifier="tm-suggestion">General</target>
+        </trans-unit>
+        <trans-unit id="FilterTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>Filter</source>
+          <target state="translated">Filter</target>
+        </trans-unit>
+        <trans-unit id="ClearSelectionMenuFlyoutItem.Text" translate="yes" xml:space="preserve">
+          <source>Auswahl aufheben</source>
+          <target state="translated">Remove selection</target>
         </trans-unit>
       </group>
     </body>
